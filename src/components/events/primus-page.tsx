@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowDown, ArrowUpRight, Binary, BriefcaseBusiness, CalendarDays, ChartNoAxesCombined, Cpu, Layers3, MapPin, Users } from "lucide-react";
 import { SiteHeader } from "@/components/shared/site-header";
 import { SiteFooter } from "@/components/shared/site-footer";
@@ -40,16 +40,16 @@ const tracks = [
 ];
 
 export function PrimusPage() {
-  const [selectedTrack, setSelectedTrack] = useState<string | null>(null);
-  const activeTrack = tracks.find((track) => track.number === selectedTrack);
+  const pageRef = useRef<HTMLElement>(null);\n  const [selectedTrack, setSelectedTrack] = useState<string | null>(null);
+  const activeTrack = tracks.find((track) => track.number === selectedTrack);\n\n  useEffect(() => {\n    const root = pageRef.current;\n    if (!root || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;\n    const items = Array.from(root.querySelectorAll<HTMLElement>("[data-event-reveal]"));\n    const observer = new IntersectionObserver((entries) => {\n      entries.forEach((entry) => entry.target.classList.toggle("is-visible", entry.isIntersecting));\n    }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });\n    items.forEach((item) => observer.observe(item));\n    return () => observer.disconnect();\n  }, []);
 
   return (
     <div className="flex min-h-screen flex-col overflow-hidden bg-[#020503] text-[#efffed] selection:bg-[#a3ff12] selection:text-black">
       <SiteHeader />
-      <main id="main-content" className="flex-grow">
+      <main id="main-content" ref={pageRef} className="flex-grow">
         <PrimusHero />
 
-        <section id="signal" className="relative border-b border-[#a3ff12]/10 bg-[#050a06]">
+        <section id="signal" data-event-reveal className="relative border-b border-[#a3ff12]/10 bg-[#050a06]">
           <div className="mx-auto grid max-w-7xl gap-12 px-6 py-20 sm:px-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24 lg:px-16 lg:py-28">
             <div>
               <p className="mb-5 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.25em] text-[#a3ff12]"><Binary className="h-4 w-4" /> 01 / About the event</p>
@@ -68,7 +68,7 @@ export function PrimusPage() {
           </div>
         </section>
 
-        <section aria-labelledby="primus-details-title" className="border-y border-[#a3ff12]/10 bg-[#030704]">
+        <section aria-labelledby="primus-details-title" data-event-reveal className="border-y border-[#a3ff12]/10 bg-[#030704]">
           <div className="mx-auto max-w-7xl px-6 py-16 sm:px-10 lg:px-16 lg:py-20">
             <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
               <div>
@@ -93,7 +93,7 @@ export function PrimusPage() {
           </div>
         </section>
 
-        <section id="tracks" className="relative bg-[#030604] py-20 sm:py-28">
+        <section id="tracks" data-event-reveal className="relative bg-[#030604] py-20 sm:py-28">
           <div aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-[0.12] [background-image:linear-gradient(rgba(163,255,18,0.13)_1px,transparent_1px),linear-gradient(90deg,rgba(163,255,18,0.13)_1px,transparent_1px)] [background-size:72px_72px] [mask-image:linear-gradient(to_bottom,transparent,black_20%,black_80%,transparent)]" />
           <div className="relative mx-auto max-w-7xl px-6 sm:px-10 lg:px-16">
             <div className="mb-12 flex flex-col gap-6 border-b border-white/10 pb-8 sm:mb-16 sm:flex-row sm:items-end sm:justify-between">
@@ -115,7 +115,7 @@ export function PrimusPage() {
                     aria-expanded={isSelected}
                     aria-controls="primus-track-details"
                     onClick={() => setSelectedTrack(isSelected ? null : track.number)}
-                    className={`group relative flex min-h-[300px] w-full flex-col overflow-hidden border p-7 text-left transition-all duration-300 sm:p-8 ${isSelected ? "border-[#a3ff12]/70 bg-[#0a160c]" : "border-[#a3ff12]/15 bg-[#071009]/85 hover:-translate-y-1 hover:border-[#a3ff12]/50 hover:bg-[#0a160c]"}`}
+                    data-event-reveal\n                    className={`tvc-event-track group relative flex min-h-[300px] w-full flex-col overflow-hidden border p-7 text-left transition-all duration-300 sm:p-8 ${isSelected ? "border-[#a3ff12]/70 bg-[#0a160c]" : "border-[#a3ff12]/15 bg-[#071009]/85 hover:-translate-y-1 hover:border-[#a3ff12]/50 hover:bg-[#0a160c]"}`}
                   >
                     <div aria-hidden="true" className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${track.accent} to-transparent transition-opacity duration-300 ${isSelected ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`} />
                     <div className="relative flex w-full items-start justify-between">
@@ -156,7 +156,7 @@ export function PrimusPage() {
           </div>
         </section>
 
-        <section className="border-y border-[#a3ff12]/15 bg-[#071009]">
+        <section data-event-reveal className="border-y border-[#a3ff12]/15 bg-[#071009]">
           <div className="mx-auto max-w-7xl px-6 py-16 sm:px-10 lg:px-16 lg:py-20">
             <p className="mb-4 font-mono text-[10px] uppercase tracking-[0.24em] text-[#a3ff12]">04 / More than a competition</p>
             <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
