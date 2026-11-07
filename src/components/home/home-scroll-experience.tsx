@@ -18,7 +18,7 @@ export function HomeScrollExperience({ children }: HomeScrollExperienceProps) {
     gsap.registerPlugin(ScrollTrigger);
 
     const context = gsap.context(() => {
-      const beats = gsap.utils.toArray<HTMLElement>("[data-home-beat], #team-preview, #contact");
+      const beats = gsap.utils.toArray<HTMLElement>("[data-home-beat], #initiatives, #archive, #team-preview, #contact");
 
       beats.forEach((beat) => {
         gsap.fromTo(
