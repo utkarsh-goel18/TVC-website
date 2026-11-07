@@ -28,6 +28,7 @@ export function HomeScrollExperience({ children }: HomeScrollExperienceProps) {
             y: 64,
             scale: 0.99,
             clipPath: "inset(0 0 10% 0)",
+            immediateRender: false,
           },
           {
             autoAlpha: 1,
