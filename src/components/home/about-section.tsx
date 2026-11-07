@@ -346,7 +346,7 @@ export function AboutSection() {
               <div className="lg:col-span-6">
                 <EditorialPhotoFrame
                   label="PHOTO 04 // E-SUMMIT AUDITORIUM"
-                  imageSrc="/images/about/what-we-do-01.jpg"
+                  imageSrc="/images/about/what-we-do-01.JPG"
                   location="AUDITORIUM COMPLEX"
                   caption="Reserved for official E-Summit photography: Mainstage keynotes, panel discussions, and packed auditorium crowds."
                   aspectRatio="aspect-[16/11]"
@@ -438,7 +438,7 @@ export function AboutSection() {
                     <span>Inter-Institutional</span>
                   </div>
                   <h4 className="text-3xl sm:text-4xl font-medium tracking-tight text-[#f4f3ef] mb-4">
-                    PRISM'26 &amp; High-Stakes Competitions
+                    PRIMUS'26 &amp; High-Stakes Competitions
                   </h4>
                   <p className="text-base text-[#a5a49f] leading-relaxed mb-4">
                     Organising landmark annual competitions and national-level collaborations,
