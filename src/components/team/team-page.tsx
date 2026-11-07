@@ -58,9 +58,9 @@ export function TeamPage() {
                   <span className="h-px w-8 bg-[#f5ed00]" /> The people behind TVC
                 </p>
                 <h1 id="team-hero-heading" className="text-[clamp(3.5rem,8vw,7.5rem)] font-semibold leading-[0.88] tracking-[-0.075em] text-[#f4f3ef]">
-                  Built by people.
+                  The people behind
                   <br />
-                  <span className="text-white/35">Driven by ideas.</span>
+                  <span className="text-white/35">every big idea.</span>
                 </h1>
                 <p className="mt-8 max-w-2xl text-base leading-7 text-white/55 sm:text-lg">
                   Meet the people building connections, creating opportunities and moving the entrepreneurial ecosystem at Thapar Institute forward.
@@ -98,7 +98,7 @@ export function TeamPage() {
               </div>
               <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/35">{String(boardMembers.length).padStart(2, "0")} members · 2026—27</span>
             </div>
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <div className="grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
               {boardMembers.map((member, index) => (
                 <MemberCard key={member.id} member={member} index={index + 3} />
               ))}
