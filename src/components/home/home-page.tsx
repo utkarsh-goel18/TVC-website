@@ -5,6 +5,8 @@ import { AboutSection } from "@/components/home/about-section";
 import { TeamPreview } from "@/components/home/team-preview";
 import { ContactSection } from "@/components/home/contact-section";
 import { HomeScrollExperience } from "@/components/home/home-scroll-experience";
+import { InitiativesPreview } from "@/components/home/initiatives-preview";
+import { HomeArchive } from "@/components/home/home-archive";
 
 export function HomePage() {
   return (
@@ -14,6 +16,8 @@ export function HomePage() {
         <HomeScrollExperience>
           <HeroReveal />
           <AboutSection />
+          <InitiativesPreview />
+          <HomeArchive />
           <TeamPreview />
           <ContactSection />
         </HomeScrollExperience>
