@@ -38,10 +38,10 @@ export function HomeArchive() {
                 alt={item.label}
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover transition-transform duration-1000 ease-out group-hover:scale-[1.045]"
+                className="z-0 object-cover transition-transform duration-1000 ease-out group-hover:scale-[1.045]"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-black/10" />
-              <figcaption className="absolute bottom-4 left-4 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.18em] text-white/85 sm:bottom-5 sm:left-5">
+              <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/65 via-transparent to-black/10" />
+              <figcaption className="absolute bottom-4 z-20 left-4 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.18em] text-white/85 sm:bottom-5 sm:left-5">
                 <span className="text-[#f5ed00]">0{index + 1}</span>
                 {item.label}
               </figcaption>
