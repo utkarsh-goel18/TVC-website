@@ -27,116 +27,102 @@ export function TeamPage() {
     "ruhan-garg",
     "vishesh-nagpure",
   ];
-  const orderedMembers = memberOrder.flatMap((id) => {
+  const members = memberOrder.flatMap((id) => {
     const member = allMembers.find((item) => item.id === id);
     return member ? [member] : [];
   });
-  const remainingMembers = allMembers.filter(
-    (member) => !memberOrder.includes(member.id),
+  const leadership = members.filter((member) =>
+    ["sanchit-sehgal", "shashank-jain", "devyansh-arya"].includes(member.id),
   );
-  const members = [...orderedMembers, ...remainingMembers];
+  const boardMembers = members.filter(
+    (member) => !leadership.some((leader) => leader.id === member.id),
+  );
 
   return (
     <div className="min-h-screen bg-[#000000] text-[#f4f3ef] flex flex-col selection:bg-[#f5ed00] selection:text-black">
       <SiteHeader />
-
       <main id="main-content" className="flex-grow">
         <TeamPhotoSequence />
 
-        <section
-          aria-labelledby="team-hero-heading"
-          className="pt-32 pb-16 sm:pt-40 sm:pb-20 border-b border-white/[0.08] relative overflow-hidden"
-        >
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_30%,rgba(245,237,0,0.03),transparent_70%)]"
-          />
-
-          <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
-            <div className="mb-8">
-              <Link
-                href="/"
-                className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#a5a49f] hover:text-[#f5ed00] transition-colors focus-visible:outline-none focus-visible:underline"
-              >
-                <ArrowLeft className="w-3.5 h-3.5" />
-                <span>Return to Home</span>
+        <section aria-labelledby="team-hero-heading" className="relative overflow-hidden border-b border-white/[0.08] py-24 sm:py-32">
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_55%_at_50%_25%,rgba(245,237,0,0.055),transparent_70%)]" />
+          <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
+            <div className="mb-10">
+              <Link href="/" className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-[#a5a49f] transition-colors hover:text-[#f5ed00]">
+                <ArrowLeft className="h-3.5 w-3.5" /> Return to Home
               </Link>
             </div>
-
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
-              <div className="max-w-3xl">
-                <div className="inline-flex items-center gap-2.5 font-mono text-xs uppercase tracking-[0.25em] text-[#a5a49f] mb-4 bg-white/[0.04] border border-white/[0.08] px-3.5 py-1.5 rounded-full">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#f5ed00]" />
-                  <span>THE PEOPLE BEHIND TVC</span>
-                </div>
-
-                <h1
-                  id="team-hero-heading"
-                  className="text-4xl sm:text-5xl lg:text-6xl font-medium tracking-tight text-[#f4f3ef] leading-[1.1] mb-5"
-                >
-                  Meet the Executive Board.
+            <div className="flex flex-col justify-between gap-10 md:flex-row md:items-end">
+              <div className="max-w-4xl">
+                <p className="mb-5 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.28em] text-[#f5ed00]">
+                  <span className="h-px w-8 bg-[#f5ed00]" /> The people behind TVC
+                </p>
+                <h1 id="team-hero-heading" className="text-[clamp(3.5rem,8vw,7.5rem)] font-semibold leading-[0.88] tracking-[-0.075em] text-[#f4f3ef]">
+                  Built by people.
+                  <br />
+                  <span className="text-white/35">Driven by ideas.</span>
                 </h1>
-
-                <p className="text-base sm:text-lg text-[#a5a49f] leading-relaxed max-w-2xl">
-                  The people driving ideas, building connections and strengthening the
-                  entrepreneurial ecosystem at Thapar Institute.
+                <p className="mt-8 max-w-2xl text-base leading-7 text-white/55 sm:text-lg">
+                  Meet the people building connections, creating opportunities and moving the entrepreneurial ecosystem at Thapar Institute forward.
                 </p>
               </div>
-
-              <div className="flex-shrink-0 flex flex-col items-start md:items-end gap-2 border-t md:border-t-0 border-white/[0.08] pt-4 md:pt-0">
-                <span className="font-mono text-xs uppercase tracking-widest text-[#a5a49f]">
-                  Executive Term
-                </span>
-                <span className="font-mono text-sm sm:text-base font-semibold text-[#f5ed00] bg-white/[0.04] border border-white/[0.08] px-3.5 py-1.5 rounded-sm">
-                  2026 — 2027
-                </span>
+              <div className="flex shrink-0 items-end justify-between gap-8 border-t border-white/15 pt-5 md:min-w-48 md:flex-col md:items-end md:border-l md:border-t-0 md:pb-1 md:pl-8 md:pt-0">
+                <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-white/35">Executive term</span>
+                <span className="font-mono text-sm tracking-wider text-[#f5ed00]">2026 — 2027</span>
               </div>
             </div>
           </div>
         </section>
 
-        <section
-          aria-labelledby="executive-board-heading"
-          className="max-w-7xl mx-auto w-full px-6 sm:px-8 lg:px-12 py-16 sm:py-24"
-        >
-          <div className="flex items-end justify-between gap-4 mb-10 sm:mb-14">
-            <h2
-              id="executive-board-heading"
-              className="text-2xl sm:text-3xl lg:text-4xl font-medium tracking-tight text-[#f4f3ef]"
-            >
-              Executive Board
-            </h2>
-            <span className="font-mono text-xs text-[#a5a49f]">2026 — 2027</span>
+        <section aria-labelledby="leadership-heading" className="mx-auto w-full max-w-7xl px-6 py-20 sm:px-8 sm:py-28 lg:px-12">
+          <div className="mb-10 flex items-end justify-between gap-6 sm:mb-14">
+            <div>
+              <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.25em] text-[#f5ed00]">01 / Leadership</p>
+              <h2 id="leadership-heading" className="text-3xl font-medium tracking-[-0.055em] sm:text-5xl">The General Secretaries<span className="text-[#f5ed00]">.</span></h2>
+            </div>
+            <span className="hidden font-mono text-[10px] uppercase tracking-[0.18em] text-white/30 sm:block">Setting the direction</span>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {members.map((member) => (
-              <MemberCard key={member.id} member={member} />
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-3 md:gap-6">
+            {leadership.map((member, index) => (
+              <MemberCard key={member.id} member={member} isProminent index={index} />
             ))}
           </div>
+        </section>
 
-          <div className="mt-20 p-8 sm:p-12 bg-[#141413] border border-white/[0.08] rounded-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-            <div>
-              <h3 className="text-xl sm:text-2xl font-medium tracking-tight text-[#f4f3ef] mb-2">
-                Interested in being part of TVC?
-              </h3>
-              <p className="text-sm text-[#a5a49f] max-w-xl">
-                Reach out to us to learn more about the club, upcoming opportunities and ways to get involved.
-              </p>
+        <section aria-labelledby="board-heading" className="border-y border-white/[0.08] bg-[#080808]">
+          <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 sm:py-28 lg:px-12">
+            <div className="mb-10 flex flex-col justify-between gap-5 sm:mb-14 sm:flex-row sm:items-end">
+              <div>
+                <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.25em] text-[#f5ed00]">02 / The wider board</p>
+                <h2 id="board-heading" className="text-3xl font-medium tracking-[-0.055em] sm:text-5xl">The people who make it happen<span className="text-[#f5ed00]">.</span></h2>
+              </div>
+              <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/35">{String(boardMembers.length).padStart(2, "0")} members · 2026—27</span>
             </div>
-            <a
-              href="https://mail.google.com/mail/?view=cm&to=edc%40thapar.edu"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-shrink-0 inline-flex items-center gap-2 bg-[#f5ed00] hover:bg-[#fff957] text-black font-semibold text-xs font-mono uppercase tracking-widest px-6 py-3.5 rounded-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
-            >
-              <span>Get In Touch</span>
-              <ArrowUpRight className="w-4 h-4" />
-            </a>
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {boardMembers.map((member, index) => (
+                <MemberCard key={member.id} member={member} index={index + 3} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="mx-auto w-full max-w-7xl px-6 py-20 sm:px-8 sm:py-28 lg:px-12">
+          <div className="relative overflow-hidden border border-white/10 bg-[#11110f] p-8 sm:p-12 lg:p-16">
+            <div aria-hidden="true" className="absolute -right-16 -top-24 h-72 w-72 rounded-full border border-[#f5ed00]/10" />
+            <div aria-hidden="true" className="absolute -right-5 -top-12 h-52 w-52 rounded-full border border-white/[0.06]" />
+            <div className="relative flex flex-col items-start justify-between gap-8 sm:flex-row sm:items-end">
+              <div>
+                <p className="mb-4 font-mono text-[10px] uppercase tracking-[0.25em] text-[#f5ed00]">Your story could start here</p>
+                <h3 className="max-w-2xl text-3xl font-medium leading-[1.02] tracking-[-0.055em] sm:text-5xl">Good things happen when ambitious people meet.</h3>
+                <p className="mt-5 max-w-xl text-sm leading-6 text-white/50">Reach out to learn more about TVC, upcoming opportunities and ways to get involved.</p>
+              </div>
+              <a href="https://mail.google.com/mail/?view=cm&to=edc%40thapar.edu" target="_blank" rel="noopener noreferrer" className="inline-flex shrink-0 items-center gap-3 bg-[#f5ed00] px-6 py-4 font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-black transition-colors hover:bg-white">
+                Get in touch <ArrowUpRight className="h-4 w-4" />
+              </a>
+            </div>
           </div>
         </section>
       </main>
-
       <SiteFooter />
     </div>
   );
