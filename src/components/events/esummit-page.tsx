@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { useEffect, useRef } from "react";\nimport Link from "next/link";
 import { ArrowLeft, ArrowUpRight, CalendarDays, Play, VolumeX } from "lucide-react";
 import { SiteHeader } from "@/components/shared/site-header";
 import { SiteFooter } from "@/components/shared/site-footer";
@@ -20,7 +20,7 @@ export function ESummitPage() {
   return (
     <div className="min-h-screen bg-[#080807] text-[#f4f3ef] selection:bg-[#f5ed00] selection:text-black">
       <SiteHeader />
-      <main id="main-content">
+      <main id="main-content" ref={pageRef}>
         {/* Upload the official aftermovie to public/videos/esummit-aftermovie.mp4.
             Optional still fallback: public/events/esummit-2025-poster.jpg */}
         <section className="relative isolate min-h-[100svh] overflow-hidden bg-[#080807]">
@@ -71,7 +71,7 @@ export function ESummitPage() {
           </div>
         </section>
 
-        <section id="experience" className="border-b border-white/10 bg-[#0b0b09]">
+        <section id="experience" data-event-reveal className="border-b border-white/10 bg-[#0b0b09]">
           <div className="mx-auto grid max-w-7xl gap-12 px-6 py-20 sm:px-8 sm:py-28 lg:grid-cols-[0.85fr_1.15fr] lg:gap-24 lg:px-12">
             <div>
               <p className="mb-5 font-mono text-[10px] uppercase tracking-[0.25em] text-[#f5ed00]">01 / The summit</p>
@@ -93,7 +93,7 @@ export function ESummitPage() {
           </div>
         </section>
 
-        <section id="event-lineup" className="mx-auto max-w-7xl px-6 py-20 sm:px-8 sm:py-28 lg:px-12">
+        <section id="event-lineup" data-event-reveal className="mx-auto max-w-7xl px-6 py-20 sm:px-8 sm:py-28 lg:px-12">
           <div className="mb-12 flex flex-col gap-5 border-b border-white/10 pb-8 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.25em] text-[#f5ed00]">02 / The programme</p>
@@ -104,7 +104,7 @@ export function ESummitPage() {
           <div className="-mx-6 overflow-x-auto px-6 pb-5 sm:-mx-8 sm:px-8 lg:-mx-12 lg:px-12 [scrollbar-width:thin] [scrollbar-color:rgba(245,237,0,0.45)_transparent]">
             <div className="flex w-max snap-x snap-mandatory gap-5">
               {summitEvents.map((event, index) => (
-                <article key={event.name} className="w-[82vw] max-w-[430px] shrink-0 snap-start border border-white/10 bg-[#10100e] sm:w-[430px]">
+                <article key={event.name} data-event-reveal className="tvc-esummit-event-card "w-[82vw] max-w-[430px] shrink-0 snap-start border border-white/10 bg-[#10100e] sm:w-[430px]">
                   <div className="relative aspect-[16/10] overflow-hidden bg-[#171717]">
                     <img src={event.image} alt={`${event.name} at E-Summit 2026`} loading="lazy" className="absolute inset-0 z-10 h-full w-full object-cover transition-transform duration-700 hover:scale-[1.03]" onError={(event) => { event.currentTarget.style.display = "none"; }} />
                     <div className="absolute inset-0 -z-0 flex flex-col items-center justify-center bg-[radial-gradient(ellipse_at_50%_45%,rgba(100,130,255,0.12),transparent_65%)]">
@@ -128,7 +128,7 @@ export function ESummitPage() {
           <p className="mt-5 font-mono text-[9px] uppercase tracking-[0.16em] text-white/35">Scroll horizontally to explore all six events <span className="text-[#f5ed00]">→</span></p>
         </section>
 
-        <section className="border-y border-white/10 bg-[#050505] py-20 sm:py-28">
+        <section data-event-reveal className="border-y border-white/10 bg-[#050505] py-20 sm:py-28">
           <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
             <div className="mb-10 grid gap-5 sm:grid-cols-[1fr_auto] sm:items-end">
               <div>
@@ -141,7 +141,7 @@ export function ESummitPage() {
           </div>
         </section>
 
-        <section className="border-y border-white/10 bg-[#0b0b09] py-20 sm:py-28">
+        <section data-event-reveal className="border-y border-white/10 bg-[#0b0b09] py-20 sm:py-28">
           <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
             <div className="mb-9 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
               <div>
@@ -164,7 +164,7 @@ export function ESummitPage() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-7xl px-6 py-16 sm:px-8 sm:py-20 lg:px-12">
+        <section data-event-reveal className="mx-auto max-w-7xl px-6 py-16 sm:px-8 sm:py-20 lg:px-12">
           <div className="flex flex-col gap-6 border-t border-white/10 pt-7 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.22em] text-[#f5ed00]">TVC · Ideate, Ascend, Lead</p>
