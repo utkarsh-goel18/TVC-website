@@ -71,13 +71,18 @@ export function HomeScrollStory() {
           },
         });
 
-        timeline.to(track, { x: () => -distance(), ease: "none" }, 0);
+        // Keep the horizontal travel and every chapter animation on the same
+        // three-beat timeline. Previously the final image animation extended
+        // the timeline beyond the track movement, leaving the last panel parked
+        // on screen for too long.
+        const storyDuration = panels.length;
+        timeline.to(track, { x: () => -distance(), duration: storyDuration, ease: "none" }, 0);
         media.forEach((item, index) => {
           const image = item.querySelector("img");
-          if (image) timeline.fromTo(image, { scale: 1.12 }, { scale: 1, ease: "none" }, index);
+          if (image) timeline.fromTo(image, { scale: 1.12 }, { scale: 1, duration: 1, ease: "none" }, index);
         });
         copy.forEach((item, index) => {
-          timeline.fromTo(item, { y: 48, autoAlpha: 0.35 }, { y: 0, autoAlpha: 1, ease: "none" }, index + 0.08);
+          timeline.fromTo(item, { y: 48, autoAlpha: 0.35 }, { y: 0, autoAlpha: 1, duration: 0.72, ease: "none" }, index + 0.08);
         });
         return () => timeline.scrollTrigger?.kill();
       });
@@ -104,12 +109,14 @@ export function HomeScrollStory() {
 
   return (
     <section ref={sectionRef} id="story" className="relative overflow-hidden bg-[#050505] text-[#f4f3ef]">
-      <div className="relative z-20 flex items-end justify-between gap-6 border-y border-white/10 px-6 py-8 sm:px-10 lg:px-16">
-        <div>
-          <p className="font-mono text-[9px] uppercase tracking-[0.3em] text-[#f5ed00]">TVC / A philosophy in motion</p>
-          <h2 className="mt-3 max-w-2xl text-3xl font-medium leading-[0.98] tracking-[-0.06em] sm:text-5xl">The journey from idea to impact.</h2>
+      <div className="relative z-20 flex min-h-[190px] flex-col items-start justify-center gap-5 border-y border-white/10 bg-[#080808] px-6 py-9 sm:min-h-[210px] sm:px-10 lg:min-h-[230px] lg:flex-row lg:items-end lg:justify-between lg:gap-10 lg:px-16 lg:py-11">
+        <div className="max-w-5xl">
+          <p className="mb-4 font-mono text-[10px] font-semibold uppercase tracking-[0.28em] text-[#f5ed00] sm:text-xs">TVC / A philosophy in motion</p>
+          <h2 className="max-w-5xl text-[clamp(2.35rem,5vw,5.25rem)] font-semibold leading-[0.94] tracking-[-0.065em] text-[#f4f3ef]">
+            The journey from idea to impact<span className="text-[#f5ed00]">.</span>
+          </h2>
         </div>
-        <div className="hidden items-center gap-3 pb-1 font-mono text-[9px] uppercase tracking-[0.2em] text-white/35 md:flex">
+        <div className="flex shrink-0 items-center gap-3 pb-1 font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-white/65 sm:text-[11px] lg:mb-1">
           <ArrowDown className="h-4 w-4 text-[#f5ed00]" /> Scroll to move through
         </div>
       </div>
