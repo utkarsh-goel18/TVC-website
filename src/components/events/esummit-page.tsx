@@ -18,6 +18,26 @@ const summitEvents = [
 ];
 
 export function ESummitPage() {
+  const pageRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const root = pageRef.current;
+    if (!root || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const items = Array.from(root.querySelectorAll<HTMLElement>("[data-event-reveal]"));
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          entry.target.classList.toggle("is-visible", entry.isIntersecting);
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+    );
+
+    items.forEach((item) => observer.observe(item));
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className="min-h-screen bg-[#080807] text-[#f4f3ef] selection:bg-[#f5ed00] selection:text-black">
       <SiteHeader />
