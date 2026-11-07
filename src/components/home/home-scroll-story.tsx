@@ -81,8 +81,8 @@ export function HomeScrollStory() {
           const image = item.querySelector("img");
           if (image) timeline.fromTo(image, { scale: 1.12 }, { scale: 1, duration: 1, ease: "none" }, index);
         });
-        copy.forEach((item, index) => {
-          timeline.fromTo(item, { y: 48, autoAlpha: 0.35 }, { y: 0, autoAlpha: 1, duration: 0.72, ease: "none" }, index + 0.08);
+        copy.forEach((item) => {
+          gsap.set(item, { y: 0, autoAlpha: 1 });
         });
         return () => timeline.scrollTrigger?.kill();
       });
@@ -123,14 +123,14 @@ export function HomeScrollStory() {
 
       <div ref={trackRef} className="tvc-story-track">
         {chapters.map((chapter, index) => (
-          <article key={chapter.number} className="tvc-story-panel relative isolate flex min-h-[780px] flex-col items-center justify-center overflow-hidden border-b border-white/10 px-6 py-12 sm:px-10 lg:h-[calc(100vh-90px)] lg:min-h-[680px] lg:w-screen lg:flex-none lg:px-10 lg:py-8">
-            <div className="tvc-story-copy relative z-20 order-2 mx-auto mt-7 w-full max-w-4xl text-center lg:mt-6 lg:py-0">
+          <article key={chapter.number} className="tvc-story-panel relative isolate flex min-h-[760px] flex-col items-center justify-center overflow-hidden border-b border-white/10 px-5 py-10 sm:px-10 lg:h-[calc(100vh-90px)] lg:min-h-[680px] lg:w-screen lg:flex-none lg:px-10 lg:py-6">
+            <div className="tvc-story-copy relative z-20 order-2 mx-auto mt-5 w-full max-w-4xl shrink-0 text-center lg:mt-4 lg:py-0">
               <p className="mb-3 flex items-center justify-center gap-3 font-mono text-[10px] uppercase tracking-[0.26em] text-[#f5ed00]">
                 <span className="h-px w-8 bg-[#f5ed00]" /> {chapter.eyebrow} <span className="h-px w-8 bg-[#f5ed00]" />
               </p>
               <span className="block font-mono text-[11px] tracking-[0.2em] text-white/30">{chapter.number} / 03</span>
               <h3 className="mt-2 text-[clamp(2rem,3.5vw,3.8rem)] font-medium leading-[0.96] tracking-[-0.065em]">{chapter.title}</h3>
-              <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-white/60 sm:text-base">{chapter.copy}</p>
+              <p className="mx-auto mt-3 max-w-2xl text-sm font-medium leading-6 text-white/80 sm:text-base">{chapter.copy}</p>
               <div className="mt-5 flex items-center justify-center gap-4">
                 <span className="font-mono text-[10px] tracking-[0.24em] text-[#f5ed00]">{chapter.note}</span>
                 <span className="h-px w-16 bg-white/20" />
@@ -143,7 +143,7 @@ export function HomeScrollStory() {
               )}
             </div>
 
-            <div className="tvc-story-media relative order-1 h-[42vh] min-h-[290px] w-full max-w-5xl overflow-hidden bg-[#141413] shadow-[0_30px_100px_rgba(0,0,0,0.45)] lg:order-1 lg:h-[58vh] lg:w-[min(72vw,1100px)] lg:max-w-none">
+            <div className="tvc-story-media relative order-1 h-[38vh] min-h-[260px] max-h-[430px] w-full max-w-5xl shrink-0 overflow-hidden bg-[#141413] shadow-[0_30px_100px_rgba(0,0,0,0.45)] lg:order-1 lg:h-[46vh] lg:min-h-[300px] lg:max-h-[460px] lg:w-[min(70vw,1040px)] lg:max-w-none">
               <Image src={chapter.image} alt={chapter.imageAlt} fill priority={index === 0} sizes="(max-width: 900px) 100vw, 55vw" className="object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-black/10" />
               <span className="absolute bottom-5 left-5 font-mono text-[9px] uppercase tracking-[0.22em] text-white/75">TVC / {chapter.note}</span>
