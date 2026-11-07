@@ -45,7 +45,7 @@ export const siteConfig = {
   initiatives: [
     {
       id: "tvc-x-sat",
-      title: "TVC x SAT & High-Stakes Competitions",
+      title: "PRIMUS'26",
       edition: "Annual Competition",
       dateStatus: "Dates TBC",
       badge: "High-Stakes Competitions",
