@@ -305,12 +305,19 @@ a {
 @keyframes tvc-speaker-marquee { to { transform: translateX(-50%); } }
 .tvc-speaker-card {
   opacity: 0;
-  transform: translateY(34px);
-  transition: opacity .8s ease, transform .8s cubic-bezier(.16,1,.3,1);
+  transform: translate3d(0, 58px, 0) scale(.94);
+  transform-origin: center bottom;
+  transition:
+    opacity .75s ease,
+    transform .95s cubic-bezier(.16, 1, .3, 1);
+  will-change: opacity, transform;
 }
-.tvc-speaker-card.is-visible { opacity: 1; transform: translateY(0); }
-.tvc-speaker-card:nth-child(3n + 2) { transition-delay: 90ms; }
-.tvc-speaker-card:nth-child(3n) { transition-delay: 160ms; }
+.tvc-speaker-card.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+.tvc-speaker-card:nth-child(3n + 2) { transition-delay: 110ms; }
+.tvc-speaker-card:nth-child(3n) { transition-delay: 210ms; }
 .tvc-speaker-image { isolation: isolate; }
 .tvc-speaker-portrait {
   filter: grayscale(1) contrast(1.05);
