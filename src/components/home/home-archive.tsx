@@ -11,6 +11,8 @@ const archive = [
   { src: "/images/about/TVC-03.jpeg", label: "The conversations" },
   { src: "/images/esummit/team/team-03.jpeg", label: "The summit" },
   { src: "/images/about/TVC-05.JPG", label: "The moments" },
+  { src: "/images/about/TVC-06.jpeg", label: "The energy" },
+  { src: "/images/about/TVC-07.jpeg", label: "The journey" },
 ];
 
 export function HomeArchive() {
@@ -47,7 +49,7 @@ export function HomeArchive() {
 
         <div className="grid auto-rows-[190px] grid-cols-1 gap-3 sm:grid-cols-2 md:auto-rows-[220px] md:grid-cols-12">
           {archive.map((item, index) => {
-            const spans = ["md:col-span-5 md:row-span-2", "md:col-span-3", "md:col-span-4", "md:col-span-4", "md:col-span-4"];
+            const spans = ["md:col-span-5 md:row-span-2", "md:col-span-3", "md:col-span-4", "md:col-span-4", "md:col-span-4", "md:col-span-4", "md:col-span-4"];
             return (
               <button key={item.src} type="button" onClick={() => setActiveIndex(index)} aria-label={`Open photo: ${item.label}`} className={`tvc-archive-tile group relative isolate overflow-hidden bg-[#151513] text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f5ed00] ${spans[index]}`}>
                 <Image src={item.src} alt="" fill sizes="(max-width: 768px) 100vw, 50vw" className="z-0 object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-110" />
@@ -72,7 +74,7 @@ export function HomeArchive() {
               <Image key={active.src} src={active.src} alt={active.label} fill sizes="100vw" className="object-contain" />
             </div>
             <div className="flex items-center justify-between gap-4 pt-4">
-              <div><p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#f5ed00]">TVC / Archive</p><p className="mt-1 text-sm text-white">{active.label} <span className="ml-2 font-mono text-xs text-white/35">{String(activeIndex + 1).padStart(2, "0")} / 05</span></p></div>
+              <div><p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#f5ed00]">TVC / Archive</p><p className="mt-1 text-sm text-white">{active.label} <span className="ml-2 font-mono text-xs text-white/35">{String(activeIndex + 1).padStart(2, "0")} / 07</span></p></div>
               <div className="flex items-center gap-2">
                 <button type="button" onClick={() => setActiveIndex((activeIndex - 1 + archive.length) % archive.length)} aria-label="Previous photo" className="flex h-10 w-10 items-center justify-center border border-white/20 text-white hover:border-[#f5ed00] hover:text-[#f5ed00]"><ArrowLeft className="h-4 w-4" /></button>
                 <button type="button" onClick={() => setActiveIndex((activeIndex + 1) % archive.length)} aria-label="Next photo" className="flex h-10 w-10 items-center justify-center border border-white/20 text-white hover:border-[#f5ed00] hover:text-[#f5ed00]"><ArrowRight className="h-4 w-4" /></button>
