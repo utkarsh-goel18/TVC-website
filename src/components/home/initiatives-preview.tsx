@@ -73,16 +73,16 @@ export function InitiativesPreview() {
 
       {active && (
         <div className="fixed inset-0 z-[90] flex items-center justify-center bg-black/85 p-4 backdrop-blur-md sm:p-8" onMouseDown={(event) => { if (event.target === event.currentTarget) setActiveId(null); }}>
-          <section role="dialog" aria-modal="true" aria-labelledby="initiative-dialog-title" className="tvc-modal-enter relative grid max-h-[88vh] w-full max-w-5xl overflow-hidden border border-white/15 bg-[#10100e] shadow-2xl md:grid-cols-2">
-            <div className="relative min-h-[220px] md:min-h-[540px]">
+          <section role="dialog" aria-modal="true" aria-labelledby="initiative-dialog-title" className="tvc-modal-enter relative grid h-[88vh] max-h-[760px] min-h-0 w-full max-w-5xl grid-rows-[minmax(180px,30vh)_minmax(0,1fr)] overflow-hidden border border-white/15 bg-[#10100e] shadow-2xl md:h-[min(78vh,700px)] md:grid-cols-[0.92fr_1.08fr] md:grid-rows-1">
+            <div className="relative min-h-0 overflow-hidden">
               <Image src={initiativeImages[active.id]} alt="" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent md:bg-gradient-to-r" />
               <span className="absolute bottom-5 left-5 font-mono text-[10px] uppercase tracking-[0.22em] text-[#f5ed00]">TVC / {active.badge}</span>
             </div>
-            <div className="relative flex flex-col justify-center p-7 sm:p-10 lg:p-14">
+            <div className="relative flex min-h-0 flex-col justify-center overflow-y-auto p-6 sm:p-8 lg:p-12">
               <button type="button" onClick={() => setActiveId(null)} aria-label="Close quick view" className="absolute right-5 top-5 flex h-10 w-10 items-center justify-center border border-white/15 text-white/70 transition-colors hover:border-[#f5ed00] hover:text-[#f5ed00] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f5ed00]"><X className="h-5 w-5" /></button>
               <p className="mb-4 font-mono text-[10px] uppercase tracking-[0.24em] text-[#f5ed00]">{active.edition}</p>
-              <h3 id="initiative-dialog-title" className="max-w-md text-4xl font-semibold leading-[0.95] tracking-[-0.06em] text-white sm:text-6xl">{active.title}</h3>
+              <h3 id="initiative-dialog-title" className="max-w-md pr-10 text-[clamp(2.5rem,5vw,4.5rem)] font-semibold leading-[0.94] tracking-[-0.06em] text-white">{active.title}</h3>
               <p className="mt-6 max-w-md text-sm leading-7 text-white/60 sm:text-base">{active.descriptor}</p>
               <p className="mt-8 border-t border-white/10 pt-5 font-mono text-[10px] uppercase tracking-[0.18em] text-white/40">{active.dateStatus}</p>
               <Link href={active.href} onClick={() => setActiveId(null)} className="mt-8 inline-flex w-fit items-center gap-3 bg-[#f5ed00] px-5 py-3.5 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-black transition-colors hover:bg-white">
