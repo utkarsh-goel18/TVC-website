@@ -47,7 +47,7 @@ export const siteConfig = {
       id: "tvc-x-sat",
       title: "PRIMUS'26",
       edition: "Annual Competition",
-      dateStatus: "Dates TBC",
+      dateStatus: "20 November 2026",
       badge: "High-Stakes Competitions",
       descriptor:
         "Organising landmark annual competitions and national-level collaborations with institutions such as IIT Roorkee and Masters' Union, featuring case competitions, business planning challenges and B-Hackathons.",
