@@ -3,12 +3,20 @@
 import { useEffect, useState } from "react";
 import { ArrowLeft, ArrowRight, Camera } from "lucide-react";
 
-const slides = Array.from({ length: 7 }, (_, index) => ({
-  src: `/images/about/tvc-${String(index + 1).padStart(2, "0")}.${index === 0 ? "png" : index === 4 ? "jpg" : "jpeg"}`,
+const slides = [
+  "/images/about/TVC-01.png",
+  "/images/about/TVC-02.jpeg",
+  "/images/about/TVC-03.jpeg",
+  "/images/about/TVC-04.jpeg",
+  "/images/about/TVC-05.JPG",
+  "/images/about/TVC-06.jpeg",
+  "/images/about/TVC-07.jpeg",
+].map((src, index) => ({
+  src,
   number: String(index + 1).padStart(2, "0"),
 }));
 
-const AUTOPLAY_INTERVAL = 5000;
+const AUTOPLAY_INTERVAL = 2000;
 
 export function AboutPhotoCarousel() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -50,7 +58,7 @@ export function AboutPhotoCarousel() {
       aria-roledescription="carousel"
       aria-label="Thapar Venture Club photo archive"
     >
-      {/* A consistent stage keeps the layout steady; object-contain preserves each photo's full aspect ratio. */}
+      {/* Full-bleed photo stage: every image fills the frame edge to edge. */}
       <div className="relative flex aspect-[21/9] min-h-[220px] w-full items-center justify-center overflow-hidden bg-[#090909] sm:min-h-[300px]">
         {slides.map((slide, index) =>
           !failedImages.includes(slide.src) ? (
@@ -65,7 +73,7 @@ export function AboutPhotoCarousel() {
               aria-hidden={index !== activeIndex}
               loading="eager"
               decoding="async"
-              className={`absolute inset-0 h-full w-full object-contain transition-[opacity,transform] duration-1000 ease-in-out motion-reduce:transition-none ${
+              className={`absolute inset-0 h-full w-full object-cover transition-[opacity,transform] duration-500 ease-in-out motion-reduce:transition-none ${
                 index === activeIndex
                   ? "z-[1] scale-100 opacity-100"
                   : "z-0 scale-[1.015] opacity-0"
@@ -90,21 +98,7 @@ export function AboutPhotoCarousel() {
           </div>
         ) : null}
 
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-black/20" />
-        <div className="absolute left-4 top-4 font-mono text-[10px] uppercase tracking-[0.2em] text-white/75 sm:left-6 sm:top-6">
-          TVC / Campus & Community
-        </div>
-        <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between sm:bottom-6 sm:left-6 sm:right-6">
-          <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#f5ed00]">
-              Moments that move us
-            </p>
-            <p className="mt-1 text-sm text-white/80">Thapar Venture Club · TIET Patiala</p>
-          </div>
-          <p className="font-mono text-xs tabular-nums text-white/80" aria-live="polite">
-            {activeSlide.number}<span className="text-white/35"> / 07</span>
-          </p>
-        </div>
+
       </div>
 
       <div className="flex items-center justify-between gap-4 border-t border-white/[0.08] px-4 py-3 sm:px-6">
@@ -122,7 +116,7 @@ export function AboutPhotoCarousel() {
         </div>
         <div className="flex items-center gap-2">
           <span className="mr-1 hidden font-mono text-[9px] uppercase tracking-[0.15em] text-white/35 sm:inline">
-            Auto · 5 sec
+            Auto · 2 sec
           </span>
           <button
             type="button"
