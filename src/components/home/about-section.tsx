@@ -155,7 +155,7 @@ export function AboutSection() {
         {/* ========================================================================= */}
         {/* CHAPTER 1: ABOUT THAPAR VENTURE CLUB                                     */}
         {/* ========================================================================= */}
-        <div className="mb-28 sm:mb-36">
+        <div data-home-beat className="mb-28 sm:mb-36">
           <div className="inline-flex items-center gap-2.5 font-mono text-xs uppercase tracking-[0.25em] text-[#a5a49f] mb-6 bg-white/[0.04] border border-white/[0.08] px-3.5 py-1.5 rounded-full">
             <span className="w-1.5 h-1.5 rounded-full bg-[#f5ed00]" />
             <span>01 // About The Organisation</span>
@@ -196,7 +196,7 @@ export function AboutSection() {
         {/* ========================================================================= */}
         {/* CHAPTER 2: WHAT WE STAND FOR (THE 4 PILLARS)                             */}
         {/* ========================================================================= */}
-        <div className="mb-28 sm:mb-36 pt-16 border-t border-white/[0.08]">
+        <div data-home-beat className="mb-28 sm:mb-36 pt-16 border-t border-white/[0.08]">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 sm:mb-20">
             <div>
               <p className="font-mono text-xs uppercase tracking-[0.25em] text-[#a5a49f] mb-3">
@@ -250,7 +250,7 @@ export function AboutSection() {
         {/* ========================================================================= */}
         {/* CHAPTER 3: OUR VISION (DEDICATED TYPOGRAPHIC MOMENT)                      */}
         {/* ========================================================================= */}
-        <div className="my-28 sm:my-36 -mx-6 sm:-mx-8 lg:-mx-12 px-6 sm:px-8 lg:px-12 py-20 sm:py-28 bg-[#000000] border-y border-white/[0.12] relative overflow-hidden">
+        <div data-home-beat className="my-28 sm:my-36 -mx-6 sm:-mx-8 lg:-mx-12 px-6 sm:px-8 lg:px-12 py-20 sm:py-28 bg-[#000000] border-y border-white/[0.12] relative overflow-hidden">
           {/* Subtle golden ambient glow behind vision */}
           <div
             aria-hidden="true"
@@ -277,7 +277,7 @@ export function AboutSection() {
         {/* ========================================================================= */}
         {/* CHAPTER 4: WHAT DOES TVC DO? (4 INITIATIVE FEATURES + EXTENSIVE PHOTOS)   */}
         {/* ========================================================================= */}
-        <div className="pt-8">
+        <div data-home-beat className="pt-8">
           <div className="max-w-3xl mb-16 sm:mb-24">
             <div className="inline-flex items-center gap-2.5 font-mono text-xs uppercase tracking-[0.25em] text-[#a5a49f] mb-4 bg-white/[0.04] border border-white/[0.08] px-3.5 py-1.5 rounded-full">
               <span className="w-1.5 h-1.5 rounded-full bg-[#f5ed00]" />
