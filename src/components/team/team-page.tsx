@@ -74,35 +74,19 @@ export function TeamPage() {
           </div>
         </section>
 
-        <section aria-labelledby="leadership-heading" className="mx-auto w-full max-w-7xl px-6 py-20 sm:px-8 sm:py-28 lg:px-12">
-          <div className="mb-10 flex items-end justify-between gap-6 sm:mb-14">
+        <section aria-labelledby="team-collective-heading" className="mx-auto w-full max-w-7xl px-6 py-20 sm:px-8 sm:py-28 lg:px-12">
+          <div className="mb-10 flex flex-col justify-between gap-5 sm:mb-14 sm:flex-row sm:items-end">
             <div>
-              <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.25em] text-[#f5ed00]">01 / Leadership</p>
-              <h2 id="leadership-heading" className="text-3xl font-medium tracking-[-0.055em] sm:text-5xl">The General Secretaries<span className="text-[#f5ed00]">.</span></h2>
+              <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.25em] text-[#f5ed00]">The 2026 — 2027 collective</p>
+              <h2 id="team-collective-heading" className="text-3xl font-medium tracking-[-0.055em] sm:text-5xl">One team. Many perspectives<span className="text-[#f5ed00]">.</span></h2>
+              <p className="mt-4 max-w-xl text-sm leading-6 text-white/50">Different strengths, shared ambition. Meet everyone who makes the TVC community what it is.</p>
             </div>
-            <span className="hidden font-mono text-[10px] uppercase tracking-[0.18em] text-white/30 sm:block">Setting the direction</span>
+            <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/35">{String(members.length).padStart(2, "0")} people · one community</span>
           </div>
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-3 md:gap-6">
-            {leadership.map((member, index) => (
-              <MemberCard key={member.id} member={member} isProminent index={index} />
+          <div className="grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+            {members.map((member, index) => (
+              <MemberCard key={member.id} member={member} index={index} />
             ))}
-          </div>
-        </section>
-
-        <section aria-labelledby="board-heading" className="border-y border-white/[0.08] bg-[#080808]">
-          <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 sm:py-28 lg:px-12">
-            <div className="mb-10 flex flex-col justify-between gap-5 sm:mb-14 sm:flex-row sm:items-end">
-              <div>
-                <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.25em] text-[#f5ed00]">02 / The wider board</p>
-                <h2 id="board-heading" className="text-3xl font-medium tracking-[-0.055em] sm:text-5xl">The people who make it happen<span className="text-[#f5ed00]">.</span></h2>
-              </div>
-              <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/35">{String(boardMembers.length).padStart(2, "0")} members · 2026—27</span>
-            </div>
-            <div className="grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
-              {boardMembers.map((member, index) => (
-                <MemberCard key={member.id} member={member} index={index + 3} />
-              ))}
-            </div>
           </div>
         </section>
 
