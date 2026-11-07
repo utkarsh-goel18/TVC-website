@@ -127,7 +127,6 @@ export function PrimusPage() {
                     aria-expanded={isSelected}
                     aria-controls="primus-track-details"
                     onClick={() => setSelectedTrack(isSelected ? null : track.number)}
-                    data-event-reveal
                     className={`tvc-event-track group relative flex min-h-[300px] w-full flex-col overflow-hidden border p-7 text-left transition-all duration-300 sm:p-8 ${isSelected ? "border-[#a3ff12]/70 bg-[#0a160c]" : "border-[#a3ff12]/15 bg-[#071009]/85 hover:-translate-y-1 hover:border-[#a3ff12]/50 hover:bg-[#0a160c]"}`}
                   >
                     <div aria-hidden="true" className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${track.accent} to-transparent transition-opacity duration-300 ${isSelected ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`} />
