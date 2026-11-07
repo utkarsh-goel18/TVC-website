@@ -40,8 +40,20 @@ const tracks = [
 ];
 
 export function PrimusPage() {
-  const pageRef = useRef<HTMLElement>(null);\n  const [selectedTrack, setSelectedTrack] = useState<string | null>(null);
-  const activeTrack = tracks.find((track) => track.number === selectedTrack);\n\n  useEffect(() => {\n    const root = pageRef.current;\n    if (!root || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;\n    const items = Array.from(root.querySelectorAll<HTMLElement>("[data-event-reveal]"));\n    const observer = new IntersectionObserver((entries) => {\n      entries.forEach((entry) => entry.target.classList.toggle("is-visible", entry.isIntersecting));\n    }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });\n    items.forEach((item) => observer.observe(item));\n    return () => observer.disconnect();\n  }, []);
+  const pageRef = useRef<HTMLElement>(null);
+  const [selectedTrack, setSelectedTrack] = useState<string | null>(null);
+  const activeTrack = tracks.find((track) => track.number === selectedTrack);
+
+  useEffect(() => {
+    const root = pageRef.current;
+    if (!root || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const items = Array.from(root.querySelectorAll<HTMLElement>("[data-event-reveal]"));
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => entry.target.classList.toggle("is-visible", entry.isIntersecting));
+    }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+    items.forEach((item) => observer.observe(item));
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div className="flex min-h-screen flex-col overflow-hidden bg-[#020503] text-[#efffed] selection:bg-[#a3ff12] selection:text-black">
@@ -115,7 +127,8 @@ export function PrimusPage() {
                     aria-expanded={isSelected}
                     aria-controls="primus-track-details"
                     onClick={() => setSelectedTrack(isSelected ? null : track.number)}
-                    data-event-reveal\n                    className={`tvc-event-track group relative flex min-h-[300px] w-full flex-col overflow-hidden border p-7 text-left transition-all duration-300 sm:p-8 ${isSelected ? "border-[#a3ff12]/70 bg-[#0a160c]" : "border-[#a3ff12]/15 bg-[#071009]/85 hover:-translate-y-1 hover:border-[#a3ff12]/50 hover:bg-[#0a160c]"}`}
+                    data-event-reveal
+                    className={`tvc-event-track group relative flex min-h-[300px] w-full flex-col overflow-hidden border p-7 text-left transition-all duration-300 sm:p-8 ${isSelected ? "border-[#a3ff12]/70 bg-[#0a160c]" : "border-[#a3ff12]/15 bg-[#071009]/85 hover:-translate-y-1 hover:border-[#a3ff12]/50 hover:bg-[#0a160c]"}`}
                   >
                     <div aria-hidden="true" className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${track.accent} to-transparent transition-opacity duration-300 ${isSelected ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`} />
                     <div className="relative flex w-full items-start justify-between">
