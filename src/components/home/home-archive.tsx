@@ -1,8 +1,6 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowDownRight, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
 const archive = [
   { src: "/images/about/TVC-01.png", label: "The community", size: "md:col-span-5 md:row-span-2" },
