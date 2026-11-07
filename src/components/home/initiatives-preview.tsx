@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import Link from "next/link";
 import { siteConfig } from "@/lib/site";
@@ -71,8 +72,8 @@ export function InitiativesPreview() {
         </div>
       </div>
 
-      {active && (
-        <div className="fixed inset-0 z-[90] flex items-center justify-center bg-black/85 p-4 backdrop-blur-md sm:p-8" onMouseDown={(event) => { if (event.target === event.currentTarget) setActiveId(null); }}>
+      {active && createPortal(
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/85 p-4 backdrop-blur-md sm:p-8" onMouseDown={(event) => { if (event.target === event.currentTarget) setActiveId(null); }}>
           <section role="dialog" aria-modal="true" aria-labelledby="initiative-dialog-title" className="tvc-modal-enter relative grid h-[88vh] max-h-[760px] min-h-0 w-full max-w-5xl grid-rows-[minmax(180px,30vh)_minmax(0,1fr)] overflow-hidden border border-white/15 bg-[#10100e] shadow-2xl md:h-[min(78vh,700px)] md:grid-cols-[0.92fr_1.08fr] md:grid-rows-1">
             <div className="relative min-h-0 overflow-hidden">
               <Image src={initiativeImages[active.id]} alt="" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
@@ -90,7 +91,8 @@ export function InitiativesPreview() {
               </Link>
             </div>
           </section>
-        </div>
+        </div>,
+        document.body,
       )}
     </section>
   );
