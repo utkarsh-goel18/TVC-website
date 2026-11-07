@@ -13,33 +13,22 @@ export function SiteHeader() {
   const pathname = usePathname();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 40);
-    };
-
+    const handleScroll = () => setIsScrolled(window.scrollY > 40);
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Lock body scroll when mobile menu is open
   useEffect(() => {
-    if (mobileMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
+    document.body.style.overflow = mobileMenuOpen ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
   }, [mobileMenuOpen]);
 
-  // Close menu on ESC key
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && mobileMenuOpen) {
-        setMobileMenuOpen(false);
-      }
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape" && mobileMenuOpen) setMobileMenuOpen(false);
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
@@ -47,133 +36,148 @@ export function SiteHeader() {
 
   return (
     <>
-      {/* Accessible skip link */}
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-[#f5ed00] focus:text-black focus:font-semibold focus:text-sm focus:rounded-sm focus:shadow-lg"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-sm focus:bg-[#f5ed00] focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-black"
       >
         Skip to main content
       </a>
 
       <header
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+        className={`fixed top-0 right-0 left-0 z-40 transition-all duration-300 ${
           isScrolled
-            ? "bg-black/85 backdrop-blur-md border-b border-white/[0.08] py-3.5 shadow-2xl"
-            : "bg-transparent border-b border-transparent py-5 sm:py-6"
+            ? "border-b border-white/[0.06] bg-[#0d0d0d]/95 shadow-[0_1px_0_rgba(255,255,255,0.04)] backdrop-blur-md"
+            : "border-b border-white/[0.04] bg-[#0d0d0d]/80 backdrop-blur-sm"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 flex items-center justify-between">
-          {/* Brand Lockup */}
+        <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-8 px-6 sm:h-16 sm:px-10 lg:px-16">
           <Link
             href="/"
-            className="group flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f5ed00] rounded-sm py-1"
+            className="group flex flex-shrink-0 items-center gap-2.5 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f5ed00]"
             aria-label="Thapar Venture Club — Home"
           >
-            <div className="relative w-7 h-7 sm:w-8 sm:h-8 flex-shrink-0 transition-transform duration-300 group-hover:scale-105">
+            <div className="relative h-6 w-6 flex-shrink-0 transition-transform duration-300 group-hover:scale-105 sm:h-7 sm:w-7">
               <Image
                 src="/brand/tvc-rocket-emblem.png"
-                alt="TVC Emblem"
+                alt="TVC"
                 fill
-                sizes="32px"
+                sizes="28px"
                 className="object-contain"
                 priority
               />
             </div>
-            <div className="flex flex-col">
-              <span className="font-semibold text-sm sm:text-base tracking-tight text-[#f4f3ef] transition-colors group-hover:text-white">
-                Thapar Venture Club
-              </span>
-              <span className="hidden sm:inline-block font-mono text-[10px] uppercase tracking-wider text-[#a5a49f]">
-                TIET Patiala
-              </span>
-            </div>
+            <span className="text-sm font-medium tracking-tight text-[#e8e7e3] transition-colors duration-200 group-hover:text-white sm:text-[15px]">
+              Thapar Venture Club
+            </span>
           </Link>
 
-          {/* Desktop Navigation */}
           <nav
             aria-label="Main navigation"
-            className="hidden md:flex items-center gap-1 sm:gap-2 bg-black/40 border border-white/[0.08] rounded-full px-3 py-1.5 backdrop-blur-sm"
+            className="ml-auto hidden items-center gap-1 md:flex"
           >
             {siteConfig.navigation.map((item) => {
               const isActive = pathname === item.href;
+              const bracketClass = isActive
+                ? "opacity-100"
+                : "nav-item-bracket opacity-0 transition-opacity duration-150 group-hover/navitem:opacity-100";
+
               return (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`relative px-4 py-1.5 text-xs uppercase tracking-widest font-mono rounded-full transition-all duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#f5ed00] ${
-                    isActive
-                      ? "text-black bg-[#f5ed00] font-semibold shadow-sm"
-                      : "text-[#a5a49f] hover:text-[#f4f3ef] hover:bg-white/[0.05]"
-                  }`}
                   aria-current={isActive ? "page" : undefined}
+                  className={`nav-item group/navitem relative rounded-sm px-5 py-2 text-[13px] font-normal tracking-wide transition-colors duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#f5ed00] ${
+                    isActive
+                      ? "text-[#f5ed00]"
+                      : "text-[#9e9d99] hover:text-[#e8e7e3]"
+                  }`}
                 >
+                  <span
+                    className={`pointer-events-none absolute top-0.5 left-1 h-2 w-2 border-t border-l border-[#f5ed00] ${bracketClass}`}
+                  />
+                  <span
+                    className={`pointer-events-none absolute top-0.5 right-1 h-2 w-2 border-t border-r border-[#f5ed00] ${bracketClass}`}
+                  />
+                  <span
+                    className={`pointer-events-none absolute bottom-0.5 left-1 h-2 w-2 border-b border-l border-[#f5ed00] ${bracketClass}`}
+                  />
+                  <span
+                    className={`pointer-events-none absolute right-1 bottom-0.5 h-2 w-2 border-r border-b border-[#f5ed00] ${bracketClass}`}
+                  />
                   {item.label}
                 </Link>
               );
             })}
           </nav>
 
-          {/* Right Header Status / Campus Pill */}
-          <div className="hidden lg:flex items-center gap-4">
-            <div className="flex items-center gap-2 text-xs font-mono text-[#a5a49f] bg-white/[0.03] border border-white/[0.08] px-3 py-1.5 rounded-full">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#f5ed00] animate-pulse" />
-              <span>Campus Chapter Active</span>
-            </div>
-          </div>
+          <button
+            type="button"
+            className="hidden flex-shrink-0 rounded-md border border-[#f5ed00] bg-[#f5ed00] px-4 py-2 text-xs font-semibold text-black transition-colors hover:bg-[#ded700] hover:border-[#ded700] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white sm:px-5 sm:text-sm md:inline-flex"
+          >
+            RESERVE SPOT
+          </button>
 
-          {/* Mobile Menu Button */}
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 text-[#f4f3ef] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f5ed00] rounded-sm transition-colors"
+            className="rounded-sm p-2 text-[#9e9d99] transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f5ed00] md:hidden"
             aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileMenuOpen}
             aria-controls="mobile-navigation"
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileMenuOpen ? (
+              <X className="h-5 w-5" />
+            ) : (
+              <Menu className="h-5 w-5" />
+            )}
           </button>
         </div>
       </header>
 
-      {/* Mobile Drawer Navigation */}
       {mobileMenuOpen && (
         <div
           id="mobile-navigation"
           role="dialog"
           aria-modal="true"
           aria-label="Mobile navigation"
-          className="fixed inset-0 z-50 md:hidden bg-black/95 backdrop-blur-xl flex flex-col justify-between p-6 pt-24 animate-in fade-in duration-200"
+          className="fixed inset-0 z-50 flex flex-col justify-between bg-[#0a0a0a]/98 p-6 pt-20 backdrop-blur-xl md:hidden"
         >
-          {/* Close button top right */}
-          <div className="absolute top-5 right-6">
+          <div className="absolute top-4 right-5">
             <button
               type="button"
               onClick={() => setMobileMenuOpen(false)}
-              className="p-2 text-[#f4f3ef] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f5ed00] rounded-sm"
+              className="rounded-sm p-2 text-[#9e9d99] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f5ed00]"
               aria-label="Close navigation"
             >
-              <X className="w-7 h-7" />
+              <X className="h-6 w-6" />
             </button>
           </div>
 
           <div className="flex flex-col gap-6">
-            <div className="flex items-center gap-3 pb-6 border-b border-white/[0.08]">
-              <div className="relative w-8 h-8 flex-shrink-0">
+            <div className="flex items-center gap-3 border-b border-white/[0.07] pb-5">
+              <div className="relative h-7 w-7 flex-shrink-0">
                 <Image
                   src="/brand/tvc-rocket-emblem.png"
-                  alt="TVC Emblem"
+                  alt="TVC"
                   fill
-                  sizes="32px"
+                  sizes="28px"
                   className="object-contain"
                 />
               </div>
               <div>
-                <p className="font-semibold text-base text-[#f4f3ef]">Thapar Venture Club</p>
-                <p className="font-mono text-xs text-[#a5a49f]">Ideate. Ascend. Lead.</p>
+                <p className="text-sm font-medium text-[#e8e7e3]">
+                  Thapar Venture Club
+                </p>
+                <p className="mt-0.5 font-mono text-[10px] tracking-widest text-[#6b6a66] uppercase">
+                  Ideate. Ascend. Lead.
+                </p>
               </div>
             </div>
 
-            <nav className="flex flex-col gap-2" aria-label="Mobile navigation links">
+            <nav
+              className="flex flex-col"
+              aria-label="Mobile navigation links"
+            >
               {siteConfig.navigation.map((item) => {
                 const isActive = pathname === item.href;
                 return (
@@ -181,25 +185,33 @@ export function SiteHeader() {
                     key={item.href}
                     href={item.href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`flex items-center justify-between text-2xl font-medium tracking-tight py-3 px-3 rounded-md transition-colors ${
+                    aria-current={isActive ? "page" : undefined}
+                    className={`flex items-center justify-between border-b border-white/[0.05] py-4 text-xl font-medium tracking-tight transition-colors ${
                       isActive
-                        ? "text-[#f5ed00] bg-white/[0.05]"
-                        : "text-[#f4f3ef] hover:text-[#f5ed00] hover:bg-white/[0.03]"
+                        ? "text-[#f5ed00]"
+                        : "text-[#e8e7e3] hover:text-[#f5ed00]"
                     }`}
                   >
                     <span>{item.label}</span>
-                    <ArrowUpRight className="w-5 h-5 text-[#a5a49f]" />
+                    <ArrowUpRight className="h-4 w-4 text-[#6b6a66]" />
                   </Link>
                 );
               })}
             </nav>
+
+            <button
+              type="button"
+              className="inline-flex w-fit items-center justify-center rounded-md border border-[#f5ed00] bg-[#f5ed00] px-5 py-3 text-sm font-semibold text-black transition-colors hover:border-[#ded700] hover:bg-[#ded700] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+            >
+              RESERVE SPOT
+            </button>
           </div>
 
-          <div className="pt-6 border-t border-white/[0.08] flex flex-col gap-3 text-xs font-mono text-[#a5a49f]">
-            <p>Thapar Institute of Engineering & Technology</p>
+          <div className="flex flex-col gap-2 pt-5 font-mono text-xs text-[#6b6a66]">
+            <p>Thapar Institute of Engineering &amp; Technology</p>
             <a
               href={`mailto:${siteConfig.contactEmail}`}
-              className="text-[#f4f3ef] hover:text-[#f5ed00] transition-colors"
+              className="text-[#9e9d99] transition-colors hover:text-[#f5ed00]"
             >
               {siteConfig.contactEmail}
             </a>

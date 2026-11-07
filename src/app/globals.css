@@ -113,3 +113,12 @@ a {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
 }
+
+@keyframes bracket-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+.nav-item:hover .nav-item-bracket {
+  animation: bracket-blink 0.6s ease-in-out;
+}
