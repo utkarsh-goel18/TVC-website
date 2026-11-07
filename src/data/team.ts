@@ -61,7 +61,7 @@ export const executiveBoardGroups: TeamGroup[] = [
         id: "lakshya-goyal",
         name: "Lakshya Goyal",
         position: "Joint Secretary",
-        image: "/images/eb/lakshya.jpg",
+        image: "/images/eb/lakshay.jpg",
         linkedin: "https://www.linkedin.com/in/lakshya-goyal-070308229/",
       },
       {
@@ -110,7 +110,7 @@ export const executiveBoardGroups: TeamGroup[] = [
         id: "liya",
         name: "Liya",
         position: "Head of Operations",
-        image: "/images/eb/liya.jpg",
+        image: "/images/eb/liya.JPG",
         linkedin: "https://www.linkedin.com/in/liyamittal/",
       },
 
