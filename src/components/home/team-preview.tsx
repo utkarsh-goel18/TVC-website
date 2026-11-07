@@ -47,7 +47,7 @@ export function TeamPreview() {
           {generalSecretaries.map((member, idx) => (
             <div
               key={member.id}
-              className="group relative bg-[#141413] border border-white/[0.08] hover:border-[#f5ed00]/40 rounded-sm overflow-hidden flex flex-col transition-all duration-300"
+              className="tvc-member-card group relative bg-[#141413] border border-white/[0.08] hover:border-[#f5ed00]/40 rounded-sm overflow-hidden flex flex-col transition-all duration-300"
             >
               {/* Corner crosshairs */}
               <div className="absolute top-2 left-2 text-[10px] font-mono text-white/20 z-10">+</div>
@@ -61,7 +61,7 @@ export function TeamPreview() {
                     alt={member.name}
                     fill
                     sizes="(max-width: 768px) 100vw, 33vw"
-                    className="object-cover object-top grayscale contrast-105 transition-transform duration-500 group-hover:scale-[1.02]"
+                    className="tvc-member-photo object-cover object-top"
                   />
                 ) : (
                   <div className="flex h-full flex-col items-center justify-center p-6 text-center">
