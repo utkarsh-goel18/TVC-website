@@ -31,7 +31,7 @@ const chapters = [
     eyebrow: "THE IMPACT",
     title: "Until possibility becomes momentum.",
     copy: "A community built to connect ambitious minds and move ideas towards meaningful action.",
-    image: "/images/team/tvc-team-02.png",
+    image: "/images/about/TVC-04.jpeg",
     imageAlt: "Thapar Venture Club team",
     note: "LEAD",
   },
