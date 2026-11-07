@@ -163,7 +163,7 @@ export const executiveBoardGroups: TeamGroup[] = [
         id: "ruhan-garg",
         name: "Ruhan Garg",
         position: "Co-Convener",
-        image: "",
+        image: "/images/eb/ruhan.jpeg",
         linkedin: "https://www.linkedin.com/in/ruhangarg/",
       },
       {
