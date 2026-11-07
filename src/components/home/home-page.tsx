@@ -4,16 +4,19 @@ import { HeroReveal } from "@/components/home/hero-reveal";
 import { AboutSection } from "@/components/home/about-section";
 import { TeamPreview } from "@/components/home/team-preview";
 import { ContactSection } from "@/components/home/contact-section";
+import { HomeScrollExperience } from "@/components/home/home-scroll-experience";
 
 export function HomePage() {
   return (
     <div className="min-h-screen bg-[#000000] text-[#f4f3ef] flex flex-col selection:bg-[#f5ed00] selection:text-black">
       <SiteHeader />
       <main id="main-content" className="flex-grow">
-        <HeroReveal />
-        <AboutSection />
-        <TeamPreview />
-        <ContactSection />
+        <HomeScrollExperience>
+          <HeroReveal />
+          <AboutSection />
+          <TeamPreview />
+          <ContactSection />
+        </HomeScrollExperience>
       </main>
       <SiteFooter />
     </div>
