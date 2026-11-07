@@ -1,170 +1,163 @@
+"use client";
+
+import { useEffect, useRef } from "react";
 import Link from "next/link";
-import { ArrowLeft, ArrowUpRight, Mic2 } from "lucide-react";
+import Image from "next/image";
+import { ArrowDownRight, ArrowLeft, ArrowUpRight } from "lucide-react";
 import { SiteHeader } from "@/components/shared/site-header";
 import { SiteFooter } from "@/components/shared/site-footer";
 import { previousSpeakers } from "@/data/speakers";
 
 export function SpeakersPage() {
+  const pageRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const root = pageRef.current;
+    if (!root || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const cards = Array.from(root.querySelectorAll<HTMLElement>("[data-speaker-card]"));
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -35px 0px" }
+    );
+
+    cards.forEach((card) => observer.observe(card));
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className="min-h-screen bg-[#000000] text-[#f4f3ef] flex flex-col selection:bg-[#f5ed00] selection:text-black">
+    <div className="min-h-screen overflow-hidden bg-[#050504] text-[#f4f3ef] selection:bg-[#f5ed00] selection:text-black">
       <SiteHeader />
 
-      <main id="main-content" className="flex-grow">
-        <section
-          aria-labelledby="speakers-heading"
-          className="relative overflow-hidden border-b border-white/[0.08] pt-32 pb-16 sm:pt-40 sm:pb-24"
-        >
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_55%_at_50%_25%,rgba(245,237,0,0.055),transparent_70%)]"
-          />
-          <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
-            <Link
-              href="/"
-              className="mb-10 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-[#a5a49f] transition-colors hover:text-[#f5ed00] focus-visible:outline-none focus-visible:underline"
-            >
-              <ArrowLeft className="h-3.5 w-3.5" />
-              <span>Return to Home</span>
+      <main id="main-content" ref={pageRef}>
+        <section className="tvc-speakers-hero relative flex min-h-[88svh] flex-col justify-end overflow-hidden border-b border-white/10 px-6 pb-12 pt-32 sm:px-10 sm:pb-16 lg:min-h-[92svh] lg:px-16 lg:pb-20">
+          <div aria-hidden="true" className="tvc-speakers-grid pointer-events-none absolute inset-0 opacity-40" />
+          <div aria-hidden="true" className="tvc-speakers-orbit pointer-events-none absolute right-[-18%] top-[4%] aspect-square w-[75vw] max-w-[1050px] rounded-full border border-[#f5ed00]/10" />
+          <div aria-hidden="true" className="tvc-speakers-orbit tvc-speakers-orbit-two pointer-events-none absolute right-[-7%] top-[15%] aspect-square w-[55vw] max-w-[760px] rounded-full border border-white/[0.07]" />
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_72%_36%,rgba(245,237,0,0.09),transparent_38%),linear-gradient(90deg,#050504_5%,rgba(5,5,4,.88)_42%,rgba(5,5,4,.15)_100%)]" />
+
+          <div className="relative z-10 mx-auto w-full max-w-[1500px]">
+            <Link href="/" className="mb-16 inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-white/45 transition-colors hover:text-[#f5ed00]">
+              <ArrowLeft className="h-3.5 w-3.5" /> Back to TVC
             </Link>
 
-            <div className="grid gap-10 lg:grid-cols-[1fr_auto] lg:items-end">
-              <div className="max-w-4xl">
-                <div className="mb-5 inline-flex items-center gap-2.5 rounded-full border border-white/[0.08] bg-white/[0.04] px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.25em] text-[#a5a49f]">
-                  <span className="h-1.5 w-1.5 rounded-full bg-[#f5ed00]" />
-                  <span>The people who inspired us</span>
-                </div>
-                <h1
-                  id="speakers-heading"
-                  className="mb-6 text-5xl font-medium leading-[0.98] tracking-[-0.055em] sm:text-6xl lg:text-7xl"
-                >
-                  Perspectives that inspire.
-                  <br />
-                  <span className="text-[#77766f]">Experiences that shape.</span>
+            <div className="flex flex-col justify-between gap-12 lg:flex-row lg:items-end">
+              <div className="max-w-5xl">
+                <p className="mb-7 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.32em] text-[#f5ed00]">
+                  <span className="h-px w-9 bg-[#f5ed00]" /> The people behind the perspectives
+                </p>
+                <h1 className="tvc-speakers-title text-[clamp(4.4rem,13.8vw,13rem)] font-semibold leading-[0.76] tracking-[-0.095em]">
+                  <span className="block">VOICES</span>
+                  <span className="mt-3 block text-white/20">THAT</span>
+                  <span className="mt-3 block">MOVE<span className="text-[#f5ed00]">.</span></span>
                 </h1>
-                <p className="max-w-2xl text-base leading-relaxed text-[#a5a49f] sm:text-lg">
-                  From entrepreneurship and business to public service, technology,
-                  entertainment and personal growth, explore the voices that have
-                  shared their journeys with the TVC community.
+                <p className="mt-10 max-w-lg text-sm leading-7 text-white/55 sm:text-base">
+                  Big ideas rarely come from one place. They come from people who
+                  challenge the obvious, build the unexpected and leave you seeing
+                  the world a little differently.
                 </p>
               </div>
 
-              <div className="flex items-center gap-4 border-t border-white/[0.1] pt-5 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full border border-[#f5ed00]/30 bg-[#f5ed00]/[0.06]">
-                  <Mic2 className="h-5 w-5 text-[#f5ed00]" />
-                </div>
+              <div className="flex shrink-0 items-end justify-between gap-10 border-t border-white/15 pt-5 lg:min-w-[230px] lg:border-l lg:border-t-0 lg:pb-2 lg:pl-8">
                 <div>
-                  <p className="font-mono text-3xl tabular-nums text-[#f4f3ef]">
-                    {String(previousSpeakers.length).padStart(2, "0")}
-                  </p>
-                  <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#a5a49f]">
-                    Featured speakers
-                  </p>
+                  <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/35">The archive</p>
+                  <p className="mt-2 text-6xl font-light leading-none tracking-[-0.08em]">{String(previousSpeakers.length).padStart(2, "0")}</p>
+                  <p className="mt-3 font-mono text-[9px] uppercase tracking-[0.2em] text-[#f5ed00]">Voices & perspectives</p>
                 </div>
+                <ArrowDownRight className="mb-1 h-8 w-8 text-[#f5ed00]/70" />
               </div>
             </div>
           </div>
+
+          <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#f5ed00]/50 to-transparent" />
         </section>
 
-        <section
-          aria-labelledby="archive-heading"
-          className="mx-auto w-full max-w-7xl px-6 py-16 sm:px-8 sm:py-24 lg:px-12"
-        >
-          <div className="mb-9 flex items-end justify-between gap-4 sm:mb-12">
+        <div aria-hidden="true" className="tvc-speakers-marquee overflow-hidden border-b border-white/10 py-4">
+          <div className="tvc-speakers-marquee-track flex w-max items-center gap-8 whitespace-nowrap">
+            {Array.from({ length: 4 }).map((_, index) => (
+              <span key={index} className="flex items-center gap-8 font-mono text-[10px] uppercase tracking-[0.28em] text-white/35">
+                Ideas change everything <span className="text-[#f5ed00]">✳</span> Think beyond the obvious <span className="text-[#f5ed00]">✳</span> Learn from every voice <span className="text-[#f5ed00]">✳</span>
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <section aria-labelledby="speaker-archive-heading" className="mx-auto max-w-[1500px] px-6 py-20 sm:px-10 sm:py-28 lg:px-16 lg:py-32">
+          <div className="mb-12 flex flex-col justify-between gap-6 sm:mb-16 sm:flex-row sm:items-end">
             <div>
-              <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.25em] text-[#a5a49f]">
-                Ideas worth sharing
-              </p>
-              <h2 id="archive-heading" className="text-2xl font-medium tracking-tight sm:text-3xl">
-                The speaker archive
-              </h2>
+              <p className="mb-4 font-mono text-[10px] uppercase tracking-[0.28em] text-[#f5ed00]">A collection of perspectives</p>
+              <h2 id="speaker-archive-heading" className="text-4xl font-medium tracking-[-0.06em] sm:text-6xl">Meet the voices<span className="text-white/25">.</span></h2>
             </div>
-            <span className="hidden font-mono text-[10px] tracking-[0.18em] text-white/35 sm:block">
-              THAPAR VENTURE CLUB / 01—12
-            </span>
+            <p className="max-w-xs text-sm leading-6 text-white/40 sm:text-right">
+              Different worlds. Different journeys. One shared belief in the power of ideas.
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-x-5 gap-y-12 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-16 lg:grid-cols-3 lg:gap-x-8 lg:gap-y-20">
             {previousSpeakers.map((speaker, index) => {
-              const initials = speaker.name
-                .split(/\s+/)
-                .map((part) => part[0])
-                .join("")
-                .slice(0, 2)
-                .toUpperCase();
-
+              const initials = speaker.name.split(/\s+/).map((part) => part[0]).join("").slice(0, 2).toUpperCase();
               return (
-                <article
-                  key={speaker.id}
-                  className="group relative min-w-0 overflow-hidden border border-white/[0.09] bg-[#10100f] transition-colors duration-300 hover:border-[#f5ed00]/40"
-                >
-                  <div className="relative flex aspect-[5/4] items-center justify-center overflow-hidden border-b border-white/[0.07] bg-[#171715]">
-                    <div
-                      aria-hidden="true"
-                      className="absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,rgba(245,237,0,0.09),transparent_58%)] transition-opacity duration-500 group-hover:opacity-70"
-                    />
+                <article key={speaker.id} data-speaker-card className="tvc-speaker-card group relative">
+                  <div className="tvc-speaker-image relative aspect-[4/4.8] overflow-hidden bg-[#151513]">
+                    <div aria-hidden="true" className="absolute inset-0 z-[1] bg-[radial-gradient(circle_at_50%_35%,rgba(245,237,0,.1),transparent_58%)]" />
                     {speaker.image ? (
-                      // Portraits can be added to public/speakers and referenced in src/data/speakers.ts.
-                      <img
+                      <Image
                         src={speaker.image}
                         alt={speaker.name}
-                        className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.035]"
-                        loading="lazy"
+                        fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        className="tvc-speaker-portrait object-cover object-top"
                       />
                     ) : (
-                      <span
-                        aria-hidden="true"
-                        className="relative select-none text-7xl font-semibold tracking-[-0.08em] text-white/[0.12] transition-colors duration-300 group-hover:text-[#f5ed00]/25 sm:text-8xl"
-                      >
-                        {initials}
-                      </span>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <span className="text-8xl font-semibold tracking-[-0.1em] text-white/15">{initials}</span>
+                      </div>
                     )}
-                    <span className="absolute left-4 top-4 font-mono text-[10px] tracking-[0.2em] text-white/40">
-                      {String(index + 1).padStart(2, "0")} / {String(previousSpeakers.length).padStart(2, "0")}
+                    <div aria-hidden="true" className="absolute inset-0 z-[2] bg-gradient-to-t from-black/90 via-black/5 to-black/15 opacity-80 transition-opacity duration-500 group-hover:opacity-100" />
+                    <span className="absolute left-5 top-5 z-[3] font-mono text-[10px] tracking-[0.2em] text-white/70">
+                      NO. {String(index + 1).padStart(2, "0")}
                     </span>
-                    <span className="absolute bottom-4 right-4 font-mono text-[9px] uppercase tracking-[0.18em] text-white/35">
-                      TVC · Speaker archive
+                    <span className="absolute right-5 top-5 z-[3] flex h-9 w-9 items-center justify-center rounded-full border border-white/35 text-white/75 transition-all duration-500 group-hover:rotate-45 group-hover:border-[#f5ed00] group-hover:bg-[#f5ed00] group-hover:text-black">
+                      <ArrowUpRight className="h-4 w-4" />
                     </span>
-                  </div>
-
-                  <div className="flex min-h-[124px] items-end justify-between gap-4 p-5 sm:p-6">
-                    <div className="min-w-0">
-                      <p className="mb-2 font-mono text-[9px] uppercase tracking-[0.2em] text-[#f5ed00]">
-                        {speaker.field}
-                      </p>
-                      <h3 className="text-xl font-medium tracking-tight text-[#f4f3ef] transition-colors group-hover:text-white sm:text-2xl">
-                        {speaker.name}
-                      </h3>
+                    <div className="absolute bottom-0 left-0 right-0 z-[3] p-5 sm:p-7">
+                      <p className="mb-3 font-mono text-[9px] uppercase tracking-[0.22em] text-[#f5ed00]">{speaker.field}</p>
+                      <h3 className="text-2xl font-medium leading-[1.05] tracking-[-0.045em] text-white sm:text-3xl">{speaker.name}</h3>
                     </div>
-                    <ArrowUpRight className="mb-1 h-4 w-4 flex-shrink-0 text-white/25 transition-all duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-[#f5ed00]" />
+                    <div aria-hidden="true" className="absolute bottom-0 left-0 z-[4] h-[3px] w-0 bg-[#f5ed00] transition-all duration-700 group-hover:w-full" />
+                  </div>
+                  <div className="mt-4 flex items-center justify-between border-t border-white/10 pt-3 font-mono text-[9px] uppercase tracking-[0.18em] text-white/30 transition-colors duration-300 group-hover:border-[#f5ed00]/35 group-hover:text-white/55">
+                    <span>Thapar Venture Club</span>
+                    <span>Perspective {String(index + 1).padStart(2, "0")}</span>
                   </div>
                 </article>
               );
             })}
           </div>
-          <p className="mt-7 font-mono text-[10px] uppercase tracking-[0.16em] text-white/35">
-            Portraits can be added as official images become available.
-          </p>
         </section>
 
-        <section className="border-t border-white/[0.08] bg-[#0b0b0a]">
-          <div className="mx-auto flex max-w-7xl flex-col gap-6 px-6 py-16 sm:px-8 sm:py-20 lg:flex-row lg:items-end lg:justify-between lg:px-12">
-            <div className="max-w-2xl">
-              <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.25em] text-[#f5ed00]">
-                Ideate · Ascend · Lead
-              </p>
-              <h2 className="mb-4 text-3xl font-medium tracking-tight sm:text-4xl">
-                Every conversation starts something.
+        <section className="relative overflow-hidden border-y border-white/10 bg-[#0b0b0a] px-6 py-20 sm:px-10 sm:py-28 lg:px-16">
+          <div aria-hidden="true" className="pointer-events-none absolute -right-20 -top-40 h-[500px] w-[500px] rounded-full border border-[#f5ed00]/10" />
+          <div aria-hidden="true" className="pointer-events-none absolute -right-4 -top-24 h-[350px] w-[350px] rounded-full border border-white/[0.06]" />
+          <div className="relative mx-auto flex max-w-[1500px] flex-col justify-between gap-10 lg:flex-row lg:items-end">
+            <div className="max-w-4xl">
+              <p className="mb-5 font-mono text-[10px] uppercase tracking-[0.28em] text-[#f5ed00]">The conversation continues</p>
+              <h2 className="text-5xl font-medium leading-[0.95] tracking-[-0.07em] sm:text-7xl">
+                Stay curious.
+                <br />
+                <span className="text-white/25">Keep questioning.</span>
               </h2>
-              <p className="text-sm leading-relaxed text-[#a5a49f] sm:text-base">
-                At Thapar Venture Club, we believe the right perspective can change
-                the way you think, build and lead.
-              </p>
             </div>
-            <Link
-              href="/"
-              className="inline-flex w-fit items-center gap-2 border border-white/15 px-5 py-3 font-mono text-[10px] uppercase tracking-[0.18em] text-[#f4f3ef] transition-colors hover:border-[#f5ed00]/50 hover:text-[#f5ed00] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f5ed00]"
-            >
-              Explore TVC <ArrowUpRight className="h-4 w-4" />
+            <Link href="/" className="group inline-flex w-fit items-center gap-4 border-b border-white/25 pb-3 font-mono text-[10px] uppercase tracking-[0.2em] text-white/75 transition-colors hover:border-[#f5ed00] hover:text-[#f5ed00]">
+              Discover Thapar Venture Club
+              <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" />
             </Link>
           </div>
         </section>
