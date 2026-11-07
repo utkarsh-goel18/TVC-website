@@ -84,7 +84,7 @@ export function SiteFooter() {
                   href="/events/tvc-x-sat"
                   className="hover:text-[#f4f3ef] transition-colors flex items-center gap-1.5 focus-visible:outline-none focus-visible:underline"
                 >
-                  <span>PRISM'26</span>
+                  <span>PRIMUS'26</span>
                 </Link>
               </li>
               <li>
