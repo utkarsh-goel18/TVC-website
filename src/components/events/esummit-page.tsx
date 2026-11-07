@@ -125,7 +125,7 @@ export function ESummitPage() {
           <div className="-mx-6 overflow-x-auto px-6 pb-5 sm:-mx-8 sm:px-8 lg:-mx-12 lg:px-12 [scrollbar-width:thin] [scrollbar-color:rgba(245,237,0,0.45)_transparent]">
             <div className="flex w-max snap-x snap-mandatory gap-5">
               {summitEvents.map((event, index) => (
-                <article key={event.name} data-event-reveal className="tvc-esummit-event-card w-[82vw] max-w-[430px] shrink-0 snap-start border border-white/10 bg-[#10100e] sm:w-[430px]">
+                <article key={event.name} className="tvc-esummit-event-card w-[82vw] max-w-[430px] shrink-0 snap-start border border-white/10 bg-[#10100e] sm:w-[430px]">
                   <div className="relative aspect-[16/10] overflow-hidden bg-[#171717]">
                     <img src={event.image} alt={`${event.name} at E-Summit 2026`} loading="lazy" className="absolute inset-0 z-10 h-full w-full object-cover transition-transform duration-700 hover:scale-[1.03]" onError={(event) => { event.currentTarget.style.display = "none"; }} />
                     <div className="absolute inset-0 -z-0 flex flex-col items-center justify-center bg-[radial-gradient(ellipse_at_50%_45%,rgba(100,130,255,0.12),transparent_65%)]">
