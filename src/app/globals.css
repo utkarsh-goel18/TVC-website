@@ -285,3 +285,48 @@ a {
   .tvc-member-card { animation: none !important; }
   .tvc-member-photo { transition: none !important; }
 }
+
+
+/* Cinematic speaker archive */
+.tvc-speakers-grid {
+  background-image: linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+  background-size: 84px 84px;
+  mask-image: linear-gradient(to bottom, black, transparent 88%);
+}
+.tvc-speakers-orbit { animation: tvc-speaker-orbit 42s linear infinite; }
+.tvc-speakers-orbit-two { animation-duration: 58s; animation-direction: reverse; }
+@keyframes tvc-speaker-orbit { to { transform: rotate(360deg); } }
+.tvc-speakers-title { animation: tvc-speaker-title-in 1s cubic-bezier(.16,1,.3,1) both; }
+@keyframes tvc-speaker-title-in {
+  from { opacity: 0; transform: translateY(42px); letter-spacing: -.12em; }
+  to { opacity: 1; transform: translateY(0); letter-spacing: -.095em; }
+}
+.tvc-speakers-marquee-track { animation: tvc-speaker-marquee 36s linear infinite; }
+@keyframes tvc-speaker-marquee { to { transform: translateX(-50%); } }
+.tvc-speaker-card {
+  opacity: 0;
+  transform: translateY(34px);
+  transition: opacity .8s ease, transform .8s cubic-bezier(.16,1,.3,1);
+}
+.tvc-speaker-card.is-visible { opacity: 1; transform: translateY(0); }
+.tvc-speaker-card:nth-child(3n + 2) { transition-delay: 90ms; }
+.tvc-speaker-card:nth-child(3n) { transition-delay: 160ms; }
+.tvc-speaker-image { isolation: isolate; }
+.tvc-speaker-portrait {
+  filter: grayscale(1) contrast(1.05);
+  transform: scale(1.001);
+  transition: filter .8s ease, transform 1.1s cubic-bezier(.2,.8,.2,1);
+}
+.tvc-speaker-card:hover .tvc-speaker-portrait,
+.tvc-speaker-card:focus-within .tvc-speaker-portrait {
+  filter: grayscale(0) saturate(1.08) contrast(1.04);
+  transform: scale(1.045);
+}
+@media (hover: none) {
+  .tvc-speaker-portrait { filter: grayscale(0) saturate(1.04) contrast(1.04); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tvc-speakers-orbit, .tvc-speakers-title, .tvc-speakers-marquee-track { animation: none !important; }
+  .tvc-speaker-card { opacity: 1; transform: none; transition: none; }
+  .tvc-speaker-portrait { filter: none; transition: none; }
+}
