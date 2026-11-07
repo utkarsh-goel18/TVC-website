@@ -225,3 +225,16 @@ a {
   .tvc-modal-enter { animation: none !important; }
   .tvc-feature-card::after { transition: none !important; }
 }
+
+
+/* Full-screen horizontal storytelling sequence */
+.tvc-story-track { display: flex; flex-direction: column; }
+.tvc-story-panel { isolation: isolate; }
+.tvc-story-media { transform-origin: center; }
+@media (min-width: 900px) {
+  .tvc-story-track { flex-direction: row; width: max-content; will-change: transform; }
+  .tvc-story-panel { min-height: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tvc-story-track { transform: none !important; }
+}
