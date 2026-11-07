@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowDownRight, ArrowLeft, ArrowUpRight } from "lucide-react";
+import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { SiteHeader } from "@/components/shared/site-header";
 import { SiteFooter } from "@/components/shared/site-footer";
 import { previousSpeakers } from "@/data/speakers";
@@ -65,14 +65,6 @@ export function SpeakersPage() {
                 </p>
               </div>
 
-              <div className="flex shrink-0 items-end justify-between gap-10 border-t border-white/15 pt-5 lg:min-w-[230px] lg:border-l lg:border-t-0 lg:pb-2 lg:pl-8">
-                <div>
-                  <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/35">The archive</p>
-                  <p className="mt-2 text-6xl font-light leading-none tracking-[-0.08em]">{String(previousSpeakers.length).padStart(2, "0")}</p>
-                  <p className="mt-3 font-mono text-[9px] uppercase tracking-[0.2em] text-[#f5ed00]">Voices & perspectives</p>
-                </div>
-                <ArrowDownRight className="mb-1 h-8 w-8 text-[#f5ed00]/70" />
-              </div>
             </div>
           </div>
 
