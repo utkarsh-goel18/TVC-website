@@ -49,7 +49,15 @@ export function HomeArchive() {
 
         <div className="grid auto-rows-[190px] grid-cols-1 gap-3 sm:grid-cols-2 md:auto-rows-[220px] md:grid-cols-12">
           {archive.map((item, index) => {
-            const spans = ["md:col-span-5 md:row-span-2", "md:col-span-3", "md:col-span-4", "md:col-span-4", "md:col-span-4", "md:col-span-4", "md:col-span-4"];
+            const spans = [
+              "md:col-span-5 md:row-span-2",
+              "md:col-span-3",
+              "md:col-span-4",
+              "md:col-span-3",
+              "md:col-span-4",
+              "md:col-span-6",
+              "md:col-span-6",
+            ];
             return (
               <button key={item.src} type="button" onClick={() => setActiveIndex(index)} aria-label={`Open photo: ${item.label}`} className={`tvc-archive-tile group relative isolate overflow-hidden bg-[#151513] text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f5ed00] ${spans[index]}`}>
                 <Image src={item.src} alt="" fill sizes="(max-width: 768px) 100vw, 50vw" className="z-0 object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-110" />
