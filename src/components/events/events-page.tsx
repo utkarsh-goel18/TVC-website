@@ -1,7 +1,8 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import Link from "next/link";
-import { ArrowUpRight, ArrowRight, CalendarDays, Sparkles, Binary, Layers3, BriefcaseBusiness, ChartNoAxesCombined } from "lucide-react";
+import { ArrowDown, ArrowRight, ArrowUpRight, CalendarDays, Sparkles, Layers3, BriefcaseBusiness, ChartNoAxesCombined } from "lucide-react";
 import { SiteHeader } from "@/components/shared/site-header";
 import { SiteFooter } from "@/components/shared/site-footer";
 
@@ -25,6 +26,7 @@ const events = [
       { label: "FINANCE", icon: ChartNoAxesCombined },
     ],
     action: "Enter the Matrix",
+    descriptor: "THE NEXT MOVE IS YOURS",
   },
   {
     id: "e-summit",
@@ -45,68 +47,112 @@ const events = [
       { label: "POSSIBILITIES", icon: ArrowUpRight },
     ],
     action: "Explore the summit",
+    descriptor: "FIVE DAYS. COUNTLESS POSSIBILITIES.",
   },
 ];
 
 export function EventsPage() {
+  const pageRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const root = pageRef.current;
+    if (!root || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const reveals = Array.from(root.querySelectorAll<HTMLElement>("[data-event-reveal]"));
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          entry.target.classList.toggle("is-visible", entry.isIntersecting);
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+    );
+    reveals.forEach((item) => observer.observe(item));
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className="flex min-h-screen flex-col bg-[#050505] text-[#f4f3ef] selection:bg-[#f5ed00] selection:text-black">
+    <div className="min-h-screen overflow-hidden bg-[#050504] text-[#f4f3ef] selection:bg-[#f5ed00] selection:text-black">
       <SiteHeader />
-      <main id="main-content" className="flex-grow">
-        <section className="relative isolate overflow-hidden border-b border-white/[0.08]">
-          <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_55%_55%_at_50%_0%,rgba(245,237,0,0.07),transparent_72%)]" />
-          <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 opacity-[0.16] [background-image:linear-gradient(rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.045)_1px,transparent_1px)] [background-size:64px_64px] [mask-image:linear-gradient(to_bottom,black,transparent_85%)]" />
-          <div className="mx-auto max-w-7xl px-6 pb-16 pt-36 sm:px-8 sm:pb-20 sm:pt-44 lg:px-12 lg:pb-24">
-            <p className="mb-6 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.28em] text-[#f5ed00]">
-              <span className="h-px w-8 bg-[#f5ed00]" /> TVC / The experiences
+      <main id="main-content" ref={pageRef}>
+        <section className="tvc-events-hero relative flex min-h-[88svh] flex-col justify-end overflow-hidden border-b border-white/10 px-6 pb-12 pt-32 sm:px-10 sm:pb-16 lg:min-h-[92svh] lg:px-16 lg:pb-20">
+          <div aria-hidden="true" className="tvc-events-grid pointer-events-none absolute inset-0" />
+          <div aria-hidden="true" className="tvc-events-orbit pointer-events-none absolute -right-[18%] top-[3%] aspect-square w-[76vw] max-w-[1100px] rounded-full border border-[#f5ed00]/10" />
+          <div aria-hidden="true" className="tvc-events-orbit tvc-events-orbit-two pointer-events-none absolute -right-[7%] top-[14%] aspect-square w-[56vw] max-w-[800px] rounded-full border border-white/[0.07]" />
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_72%_35%,rgba(245,237,0,.085),transparent_38%),linear-gradient(90deg,#050504_5%,rgba(5,5,4,.88)_44%,rgba(5,5,4,.16)_100%)]" />
+
+          <div className="relative z-10 mx-auto w-full max-w-[1500px]">
+            <p className="mb-8 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.32em] text-[#f5ed00]">
+              <span className="h-px w-9 bg-[#f5ed00]" /> Thapar Venture Club / Experiences
             </p>
-            <div className="grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
-              <h1 className="max-w-4xl text-[clamp(3.8rem,9vw,8rem)] font-semibold leading-[0.86] tracking-[-0.085em]">
-                Ideas become
-                <br /><span className="text-white/35">experiences.</span>
-              </h1>
-              <div className="max-w-lg lg:justify-self-end">
-                <p className="text-base leading-relaxed text-white/55 sm:text-lg">
-                  From high-stakes business challenges to our flagship entrepreneurship summit, discover the events that bring ambitious minds together.
+            <div className="flex flex-col justify-between gap-12 lg:flex-row lg:items-end">
+              <div className="max-w-5xl">
+                <h1 className="tvc-events-title text-[clamp(4.2rem,13.5vw,12.5rem)] font-semibold leading-[0.77] tracking-[-0.095em]">
+                  <span className="block">WHERE</span>
+                  <span className="mt-3 block text-white/20">IDEAS</span>
+                  <span className="mt-3 block">HAPPEN<span className="text-[#f5ed00]">.</span></span>
+                </h1>
+                <p className="mt-10 max-w-xl text-sm leading-7 text-white/55 sm:text-base">
+                  We create spaces where ambition meets opportunity — from high-stakes
+                  challenges to the conversations that shape what comes next.
                 </p>
-                <div className="mt-7 flex items-center gap-4 border-t border-white/10 pt-5">
-                  <span className="font-mono text-3xl text-white">02</span>
-                  <span className="font-mono text-[9px] uppercase leading-relaxed tracking-[0.2em] text-white/35">Flagship experiences<br />One community · Endless possibilities</span>
-                </div>
               </div>
+              <a href="#event-lineup" className="group flex w-fit items-center gap-4 border-b border-white/20 pb-4 font-mono text-[9px] uppercase tracking-[0.2em] text-white/50 transition-colors hover:border-[#f5ed00] hover:text-[#f5ed00]">
+                Explore the experiences
+                <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 transition-all duration-300 group-hover:translate-y-1 group-hover:border-[#f5ed00] group-hover:bg-[#f5ed00] group-hover:text-black">
+                  <ArrowDown className="h-4 w-4" />
+                </span>
+              </a>
             </div>
           </div>
+          <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#f5ed00]/50 to-transparent" />
         </section>
 
-        <section aria-label="Featured events" className="mx-auto max-w-7xl px-6 py-14 sm:px-8 sm:py-20 lg:px-12 lg:py-24">
-          <div className="mb-9 flex items-end justify-between border-b border-white/10 pb-5">
+        <div aria-hidden="true" className="tvc-events-marquee overflow-hidden border-b border-white/10 py-4">
+          <div className="tvc-events-marquee-track flex w-max items-center gap-8 whitespace-nowrap">
+            {Array.from({ length: 4 }).map((_, index) => (
+              <span key={index} className="flex items-center gap-8 font-mono text-[10px] uppercase tracking-[0.28em] text-white/35">
+                Think bigger <span className="text-[#f5ed00]">✳</span> Build what matters <span className="text-[#f5ed00]">✳</span> Make your move <span className="text-[#f5ed00]">✳</span>
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <section id="event-lineup" aria-labelledby="events-heading" className="mx-auto max-w-[1500px] px-6 py-20 sm:px-10 sm:py-28 lg:px-16 lg:py-32">
+          <div className="mb-12 flex flex-col justify-between gap-6 sm:mb-16 sm:flex-row sm:items-end">
             <div>
-              <p className="mb-2 font-mono text-[9px] uppercase tracking-[0.24em] text-white/35">The TVC calendar</p>
-              <h2 className="text-2xl font-semibold tracking-[-0.05em] sm:text-3xl">Explore our events</h2>
+              <p className="mb-4 font-mono text-[10px] uppercase tracking-[0.28em] text-[#f5ed00]">The TVC calendar</p>
+              <h2 id="events-heading" className="text-4xl font-medium tracking-[-0.06em] sm:text-6xl">Made to make an impact<span className="text-white/25">.</span></h2>
             </div>
-            <span className="hidden font-mono text-[9px] uppercase tracking-[0.18em] text-white/30 sm:block">Select an experience ↗</span>
+            <p className="max-w-xs text-sm leading-6 text-white/40 sm:text-right">
+              Two flagship experiences. Different arenas. One community that refuses to think small.
+            </p>
           </div>
 
-          <div className="grid gap-5 lg:grid-cols-2 lg:gap-6">
-            {events.map((event) => {
+          <div className="grid gap-8 lg:grid-cols-2 lg:gap-10">
+            {events.map((event, index) => {
               const isMatrix = event.theme === "matrix";
               const accent = isMatrix ? "#a3ff12" : "#f5ed00";
               return (
                 <Link
                   key={event.id}
                   href={event.href}
-                  className={`group relative isolate flex min-h-[610px] flex-col overflow-hidden border p-6 transition-all duration-500 focus-visible:outline-none focus-visible:ring-2 sm:p-9 lg:min-h-[660px] ${isMatrix ? "border-[#a3ff12]/25 bg-[#050b06] hover:border-[#a3ff12]/65 focus-visible:ring-[#a3ff12]" : "border-white/[0.13] bg-[#10100e] hover:border-[#f5ed00]/55 focus-visible:ring-[#f5ed00]"}`}
+                  data-event-reveal
+                  className={`tvc-event-card group relative isolate flex min-h-[680px] flex-col overflow-hidden border px-6 pb-7 pt-6 transition-colors duration-500 sm:min-h-[760px] sm:px-9 sm:pb-9 sm:pt-8 ${isMatrix ? "border-[#a3ff12]/25 bg-[#050b06] hover:border-[#a3ff12]/65" : "border-white/[0.13] bg-[#10100e] hover:border-[#f5ed00]/55"}`}
+                  style={{ "--event-accent": accent } as React.CSSProperties}
                 >
                   {isMatrix ? (
                     <>
-                      <div aria-hidden="true" className="absolute inset-0 -z-10 opacity-50 [background-image:linear-gradient(rgba(163,255,18,0.075)_1px,transparent_1px),linear-gradient(90deg,rgba(163,255,18,0.075)_1px,transparent_1px)] [background-size:38px_38px] [mask-image:linear-gradient(to_bottom,black,transparent_85%)]" />
-                      <div aria-hidden="true" className="absolute -right-5 top-20 -z-10 font-mono text-[clamp(12rem,22vw,19rem)] font-black leading-none tracking-[-0.12em] text-[#a3ff12]/[0.055] transition-transform duration-700 group-hover:translate-x-[-12px]">01</div>
+                      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_50%_45%,rgba(163,255,18,.1),transparent_58%)]" />
+                      <div aria-hidden="true" className="absolute inset-0 -z-10 opacity-50 [background-image:linear-gradient(rgba(163,255,18,.075)_1px,transparent_1px),linear-gradient(90deg,rgba(163,255,18,.075)_1px,transparent_1px)] [background-size:38px_38px] [mask-image:linear-gradient(to_bottom,black,transparent_90%)]" />
+                      <div aria-hidden="true" className="tvc-event-symbol tvc-matrix-symbol absolute -right-10 top-[17%] -z-10 select-none font-mono text-[clamp(15rem,28vw,25rem)] font-black leading-none tracking-[-.14em] text-[#a3ff12]/[.07]">01</div>
                       <div aria-hidden="true" className="absolute inset-x-0 top-0 -z-10 h-px bg-gradient-to-r from-transparent via-[#a3ff12]/70 to-transparent" />
                     </>
                   ) : (
                     <>
-                      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_80%_12%,rgba(245,237,0,0.12),transparent_52%)]" />
-                      <div aria-hidden="true" className="absolute -right-5 top-20 -z-10 font-mono text-[clamp(12rem,22vw,19rem)] font-black leading-none tracking-[-0.12em] text-[#f5ed00]/[0.045] transition-transform duration-700 group-hover:translate-x-[-12px]">02</div>
+                      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_78%_18%,rgba(245,237,0,.13),transparent_52%)]" />
+                      <div aria-hidden="true" className="tvc-event-symbol absolute -right-10 top-[17%] -z-10 select-none font-mono text-[clamp(15rem,28vw,25rem)] font-black leading-none tracking-[-.14em] text-[#f5ed00]/[.055]">02</div>
+                      <div aria-hidden="true" className="absolute bottom-[27%] left-[-12%] -z-10 h-[360px] w-[360px] rounded-full border border-[#f5ed00]/[.08]" />
                     </>
                   )}
 
@@ -116,13 +162,14 @@ export function EventsPage() {
                   </div>
 
                   <div className="relative mt-auto">
-                    <p className={`mb-5 font-mono text-[10px] uppercase tracking-[0.2em] ${isMatrix ? "text-[#a3ff12]/70" : "text-white/40"}`}>{event.subtitle}</p>
-                    <h3 className={`text-[clamp(3.4rem,7vw,6rem)] font-semibold leading-[0.86] tracking-[-0.085em] transition-transform duration-500 group-hover:-translate-y-1 ${isMatrix ? "text-[#e9ffe0]" : "text-[#f4f3ef]"}`}>
+                    <p className={`mb-5 font-mono text-[9px] uppercase tracking-[0.22em] ${isMatrix ? "text-[#a3ff12]/70" : "text-white/40"}`}>{event.descriptor}</p>
+                    <h3 className={`text-[clamp(3.4rem,7.2vw,6.5rem)] font-semibold leading-[0.84] tracking-[-0.09em] transition-transform duration-500 group-hover:-translate-y-1 ${isMatrix ? "text-[#e9ffe0]" : "text-[#f4f3ef]"}`}>
                       {event.title}<span style={{ color: accent }}>{event.edition}</span>
                     </h3>
-                    <p className="mt-7 max-w-lg text-sm leading-relaxed text-white/60 sm:text-base">{event.description}</p>
+                    <p className={`mt-5 font-mono text-[10px] uppercase tracking-[0.18em] ${isMatrix ? "text-[#a3ff12]/70" : "text-white/45"}`}>{event.subtitle}</p>
+                    <p className="mt-6 max-w-lg text-sm leading-7 text-white/55 sm:text-base">{event.description}</p>
 
-                    <div className="mt-8 flex flex-wrap gap-2">
+                    <div className="mt-7 flex flex-wrap gap-2">
                       {event.details.map((detail) => {
                         const DetailIcon = detail.icon;
                         return (
@@ -133,10 +180,10 @@ export function EventsPage() {
                       })}
                     </div>
 
-                    <div className="mt-9 grid gap-3 border-t border-white/10 pt-5 sm:grid-cols-[1fr_auto] sm:items-end">
+                    <div className="mt-8 grid gap-4 border-t border-white/10 pt-5 sm:grid-cols-[1fr_auto] sm:items-end">
                       <div>
-                        <p className={`flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.15em] ${isMatrix ? "text-[#a3ff12]" : "text-[#f5ed00]"}`}>
-                          <CalendarDays className="h-3.5 w-3.5" /> {event.date}
+                        <p className={`flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.13em] ${isMatrix ? "text-[#a3ff12]" : "text-[#f5ed00]"}`}>
+                          <CalendarDays className="h-3.5 w-3.5 shrink-0" /> {event.date}
                         </p>
                         <p className="mt-2 font-mono text-[9px] uppercase tracking-[0.15em] text-white/35">{event.location}</p>
                       </div>
@@ -154,14 +201,20 @@ export function EventsPage() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-7xl px-6 pb-16 sm:px-8 sm:pb-20 lg:px-12">
-          <div className="flex flex-col gap-3 border-t border-white/[0.08] pt-6 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex items-center gap-2 text-white/40">
-              <Sparkles className="h-4 w-4 text-[#f5ed00]" />
-              <p className="text-xs">More TVC experiences will be added here as they unfold.</p>
+        <section className="relative overflow-hidden border-y border-white/10 bg-[#0b0b0a] px-6 py-20 sm:px-10 sm:py-28 lg:px-16">
+          <div aria-hidden="true" className="pointer-events-none absolute -right-20 -top-40 h-[500px] w-[500px] rounded-full border border-[#f5ed00]/10" />
+          <div className="relative mx-auto flex max-w-[1500px] flex-col justify-between gap-10 lg:flex-row lg:items-end">
+            <div className="max-w-4xl">
+              <p className="mb-5 font-mono text-[10px] uppercase tracking-[0.28em] text-[#f5ed00]">The next chapter starts here</p>
+              <h2 className="text-5xl font-medium leading-[0.95] tracking-[-0.07em] sm:text-7xl">
+                Don’t just watch.
+                <br />
+                <span className="text-white/25">Be part of it.</span>
+              </h2>
             </div>
-            <Link href="/" className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-white/60 transition-colors hover:text-[#f5ed00]">
-              Back to TVC <ArrowRight className="h-3.5 w-3.5" />
+            <Link href="/" className="group inline-flex w-fit items-center gap-4 border-b border-white/25 pb-3 font-mono text-[10px] uppercase tracking-[0.2em] text-white/75 transition-colors hover:border-[#f5ed00] hover:text-[#f5ed00]">
+              Discover Thapar Venture Club
+              <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" />
             </Link>
           </div>
         </section>
