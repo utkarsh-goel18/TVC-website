@@ -57,7 +57,7 @@ export const siteConfig = {
       id: "e-summit",
       title: "Flagship E-Summit",
       edition: "Flagship Edition",
-      dateStatus: "Annual Flagship // TBC",
+      dateStatus: "18–22 February 2026",
       badge: "Institutional Flagship",
       descriptor:
         "TIET's flagship entrepreneurship festival, featuring inspiring speaker sessions, interactive Q&A sessions, internship fairs, workshops and networking opportunities.",
