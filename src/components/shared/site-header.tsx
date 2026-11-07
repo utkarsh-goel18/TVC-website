@@ -111,7 +111,7 @@ export function SiteHeader() {
           </nav>
 
           <a
-            href={`mailto:${siteConfig.contactEmail}?subject=Thapar%20Venture%20Club%20Enquiry`}
+            href="/#contact"
             className="tvc-header-cta hidden flex-shrink-0 items-center gap-2 border border-[#f5ed00]/60 px-4 py-2 font-mono text-[10px] font-semibold tracking-[0.16em] text-[#f5ed00] transition-all duration-300 hover:border-[#f5ed00] hover:bg-[#f5ed00] hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white sm:px-5 sm:text-xs md:inline-flex"
           >
             LET'S CONNECT <ArrowUpRight className="h-3.5 w-3.5" />
@@ -200,7 +200,7 @@ export function SiteHeader() {
             </nav>
 
             <a
-              href={`mailto:${siteConfig.contactEmail}?subject=Thapar%20Venture%20Club%20Enquiry`}
+              href="/#contact"
               onClick={() => setMobileMenuOpen(false)}
               className="inline-flex w-fit items-center gap-3 border border-[#f5ed00] bg-[#f5ed00] px-5 py-3 font-mono text-xs font-semibold tracking-[0.14em] text-black transition-colors hover:bg-[#ded700] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
             >
