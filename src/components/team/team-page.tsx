@@ -31,13 +31,6 @@ export function TeamPage() {
     const member = allMembers.find((item) => item.id === id);
     return member ? [member] : [];
   });
-  const leadership = members.filter((member) =>
-    ["sanchit-sehgal", "shashank-jain", "devyansh-arya"].includes(member.id),
-  );
-  const boardMembers = members.filter(
-    (member) => !leadership.some((leader) => leader.id === member.id),
-  );
-
   return (
     <div className="min-h-screen bg-[#000000] text-[#f4f3ef] flex flex-col selection:bg-[#f5ed00] selection:text-black">
       <SiteHeader />
