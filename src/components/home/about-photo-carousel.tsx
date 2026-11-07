@@ -8,7 +8,7 @@ const slides = Array.from({ length: 7 }, (_, index) => ({
   number: String(index + 1).padStart(2, "0"),
 }));
 
-const AUTOPLAY_INTERVAL = 2000;
+const AUTOPLAY_INTERVAL = 5000;
 
 export function AboutPhotoCarousel() {
   const [activeIndex, setActiveIndex] = useState(0);
