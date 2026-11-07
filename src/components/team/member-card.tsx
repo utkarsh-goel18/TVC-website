@@ -1,10 +1,13 @@
+"use client";
+
 import Image from "next/image";
 import { TeamMember } from "@/data/team";
-import { Linkedin, User } from "lucide-react";
+import { Linkedin, ArrowUpRight, User } from "lucide-react";
 
 interface MemberCardProps {
   member: TeamMember;
   isProminent?: boolean;
+  index?: number;
 }
 
 function getInitials(name: string): string {
@@ -13,90 +16,53 @@ function getInitials(name: string): string {
   return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
 }
 
-export function MemberCard({ member, isProminent = false }: MemberCardProps) {
+export function MemberCard({ member, isProminent = false, index = 0 }: MemberCardProps) {
   const initials = getInitials(member.name);
-  const hasLinkedIn = Boolean(member.linkedin && member.linkedin.trim().length > 0);
+  const hasLinkedIn = Boolean(member.linkedin?.trim());
 
   return (
     <article
-      className={`group relative bg-[#141413] border rounded-sm overflow-hidden flex flex-col transition-all duration-300 ${
-        isProminent
-          ? "border-white/[0.14] hover:border-[#f5ed00]/60 shadow-[0_4px_24px_rgba(0,0,0,0.5)]"
-          : "border-white/[0.08] hover:border-[#f5ed00]/40"
-      }`}
+      className={`tvc-member-card group relative isolate overflow-hidden border border-white/10 bg-[#11110f] ${isProminent ? "md:col-span-1" : ""}`}
+      style={{ animationDelay: `${Math.min(index, 12) * 65}ms` }}
     >
-      {/* Corner crosshairs */}
-      <div className="absolute top-2 left-2 text-[10px] font-mono text-white/20 select-none z-10">
-        +
-      </div>
-      <div className="absolute top-2 right-2 text-[10px] font-mono text-white/20 select-none z-10">
-        +
-      </div>
-
-      {/* Portrait Container — Strict 3:4 Aspect Ratio */}
-      <div className="relative aspect-[3/4] w-full bg-gradient-to-b from-[#1b1b19] to-[#0e0e0d] border-b border-white/[0.06] overflow-hidden flex flex-col items-center justify-center p-6 text-center select-none">
+      <div className={`relative overflow-hidden bg-[#171715] ${isProminent ? "aspect-[4/4.5]" : "aspect-[4/4.8]"}`}>
         {member.image ? (
           <Image
             src={member.image}
             alt={member.name}
             fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className="object-cover object-top filter grayscale contrast-105 group-hover:scale-[1.02] transition-transform duration-500 ease-out"
+            sizes={isProminent ? "(max-width: 768px) 100vw, 33vw" : "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"}
+            className="tvc-member-photo object-cover object-top"
           />
         ) : (
-          /* Neutral Editorial Placeholder */
-          <div className="flex flex-col items-center justify-center gap-4 my-auto">
-            <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full border border-white/10 bg-white/[0.02] flex items-center justify-center text-white/30 group-hover:text-[#f5ed00]/70 group-hover:border-[#f5ed00]/30 transition-all duration-300">
-              <User className="w-10 h-10 sm:w-12 sm:h-12 stroke-[1.25]" />
-              {/* Initials badge overlay */}
-              <span className="absolute -bottom-1 -right-1 font-mono text-[10px] font-semibold text-black bg-[#f5ed00] px-1.5 py-0.5 rounded-xs tracking-wider">
-                {initials}
-              </span>
-            </div>
-
-            <div className="mt-1">
-              <span className="font-mono text-[10px] uppercase tracking-widest text-[#a5a49f] bg-black/60 border border-white/[0.08] px-2.5 py-1 rounded-xs">
-                Official Portrait TBC
-              </span>
-            </div>
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-[radial-gradient(circle_at_50%_35%,rgba(245,237,0,0.09),transparent_45%)] text-white/30">
+            <User className="h-14 w-14 stroke-[1]" />
+            <span className="font-mono text-xs tracking-[0.2em]">{initials}</span>
           </div>
         )}
-      </div>
-
-      {/* Member Details */}
-      <div className="p-5 sm:p-6 flex flex-col justify-between flex-grow">
-        <div className="flex items-start justify-between gap-3">
-          <div>
-            <h3 className="font-medium text-lg sm:text-xl text-[#f4f3ef] tracking-tight group-hover:text-white transition-colors">
-              {member.name}
-            </h3>
-            <p
-              className={`font-mono text-xs uppercase tracking-wider mt-1 ${
-                isProminent ? "text-[#f5ed00] font-medium" : "text-[#a5a49f]"
-              }`}
-            >
-              {member.position}
-            </p>
+        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-black via-black/5 to-black/10 opacity-85 transition-opacity duration-500 group-hover:opacity-100" />
+        <div aria-hidden="true" className="absolute inset-4 border border-white/0 transition-all duration-500 group-hover:inset-5 group-hover:border-[#f5ed00]/45" />
+        <span className="absolute left-5 top-5 font-mono text-[10px] tracking-[0.18em] text-white/65">{String(index + 1).padStart(2, "0")}</span>
+        {hasLinkedIn && (
+          <a
+            href={member.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`LinkedIn profile of ${member.name}`}
+            className="absolute right-4 top-4 z-20 flex h-10 w-10 items-center justify-center border border-white/25 bg-black/35 text-white backdrop-blur-sm transition-all duration-300 hover:border-[#f5ed00] hover:bg-[#f5ed00] hover:text-black"
+          >
+            <Linkedin className="h-4 w-4" />
+          </a>
+        )}
+        <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6">
+          <p className="mb-2 font-mono text-[9px] uppercase tracking-[0.22em] text-[#f5ed00]">{member.position}</p>
+          <h3 className={`font-semibold leading-[0.95] tracking-[-0.055em] text-white ${isProminent ? "text-3xl sm:text-4xl" : "text-2xl"}`}>{member.name}</h3>
+          <div className="mt-4 flex items-center justify-between border-t border-white/25 pt-3">
+            <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-white/50">TVC · 2026—27</span>
+            <span className="flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.16em] text-white/65 transition-colors group-hover:text-[#f5ed00]">
+              Connect <ArrowUpRight className="h-3.5 w-3.5" />
+            </span>
           </div>
-
-          {/* LinkedIn Icon & Link (Only rendered if URL exists) */}
-          {hasLinkedIn && (
-            <a
-              href={member.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`LinkedIn profile of ${member.name}`}
-              className="text-[#a5a49f] hover:text-[#f5ed00] p-1.5 rounded-sm hover:bg-white/[0.05] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#f5ed00]"
-            >
-              <Linkedin className="w-4 h-4" />
-            </a>
-          )}
-        </div>
-
-        {/* Footer Metadata */}
-        <div className="mt-5 pt-3 border-t border-white/[0.06] flex items-center justify-between text-[11px] font-mono text-white/35">
-          <span>TIET PATIALA</span>
-          <span>TERM 2026–2027</span>
         </div>
       </div>
     </article>
