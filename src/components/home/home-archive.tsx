@@ -7,7 +7,7 @@ import { ArrowLeft, ArrowRight, ArrowUpRight, X } from "lucide-react";
 
 const archive = [
   { src: "/images/about/TVC-01.png", label: "The community" },
-  { src: "/images/team/tvc-team-02.png", label: "The people" },
+  { src: "/images/about/TVC-02.jpeg", label: "The people" },
   { src: "/images/about/TVC-03.jpeg", label: "The conversations" },
   { src: "/images/esummit/team/team-03.jpeg", label: "The summit" },
   { src: "/images/about/TVC-05.JPG", label: "The moments" },
