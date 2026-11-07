@@ -88,6 +88,15 @@ export function HomeScrollStory() {
       });
 
       mm.add("(max-width: 899px)", () => {
+        ScrollTrigger.create({
+          trigger: section,
+          start: "top top",
+          end: "bottom bottom",
+          onUpdate: (self) => {
+            if (progressRef.current) gsap.set(progressRef.current, { scaleX: self.progress });
+          },
+        });
+
         panels.forEach((panel) => {
           const text = panel.querySelector(".tvc-story-copy");
           const image = panel.querySelector(".tvc-story-media");
