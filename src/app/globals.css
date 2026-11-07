@@ -238,3 +238,17 @@ a {
 @media (prefers-reduced-motion: reduce) {
   .tvc-story-track { transform: none !important; }
 }
+
+@media (min-width: 900px) and (max-width: 1023px) {
+  .tvc-story-panel {
+    width: 100vw;
+    height: calc(100vh - 90px);
+    min-height: 680px;
+    flex-direction: row;
+    align-items: center;
+    gap: 3rem;
+    padding: 3rem 7vw;
+  }
+  .tvc-story-copy { width: 42%; padding-top: 0; padding-bottom: 0; }
+  .tvc-story-media { width: 54%; height: 76%; }
+}
