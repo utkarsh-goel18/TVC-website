@@ -150,10 +150,18 @@ export function HeroReveal() {
       aria-label="Thapar Venture Club Signature Brand Reveal"
       className="relative w-full h-screen bg-[#000000] overflow-hidden flex flex-col items-center justify-center select-none"
     >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_50%,rgba(245,237,0,0.04),transparent_70%)]"
-      />
+      <div aria-hidden="true" className="tvc-hero-atmosphere pointer-events-none absolute inset-0">
+        <div className="tvc-hero-orbit tvc-hero-orbit-one" />
+        <div className="tvc-hero-orbit tvc-hero-orbit-two" />
+        <div className="tvc-hero-grid absolute inset-0" />
+        <div className="tvc-hero-glow absolute inset-0" />
+      </div>
+      <div className="absolute top-1/2 left-5 hidden -translate-y-1/2 -rotate-90 font-mono text-[9px] tracking-[0.32em] text-white/25 uppercase xl:block">
+        Venture beyond the ordinary
+      </div>
+      <div className="absolute top-1/2 right-5 hidden -translate-y-1/2 rotate-90 font-mono text-[9px] tracking-[0.32em] text-white/25 uppercase xl:block">
+        TIET · PATIALA
+      </div>
 
       <div className="relative z-10 w-full max-w-7xl px-4 sm:px-8 lg:px-12 flex items-center justify-center">
         <div
