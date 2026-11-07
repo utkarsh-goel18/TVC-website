@@ -10,7 +10,7 @@ export const previousSpeakers: Speaker[] = [
   { id: "ashneer-grover", 
     name: "Ashneer Grover", 
     field: "Entrepreneurship",
-    image: "/images/speakers/ashneer-grover.jpeg",},
+    image: "/images/speakers/ashneer-grover.jpg",},
 
   { id: "aman-gupta", 
     name: "Aman Gupta", 
