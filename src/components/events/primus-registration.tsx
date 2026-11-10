@@ -35,6 +35,7 @@ export function PrimusRegistration() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [team, setTeam] = useState<Team | null>(null);
+  const [createdTeamCode, setCreatedTeamCode] = useState("");
   const [teamName, setTeamName] = useState("");
   const [track, setTrack] = useState<(typeof tracks)[number]>("Product");
   const [teamCode, setTeamCode] = useState("");
@@ -111,7 +112,12 @@ export function PrimusRegistration() {
         ? { teamName, track, name, phone, hostel }
         : { teamCode, name, phone, hostel };
       const data = await request(action === "create" ? "/api/primus/teams" : "/api/primus/teams/join", payload);
-      setNotice(action === "create" ? `Team created. Your team code is ${data.teamCode}.` : "You have joined the team.");
+      if (action === "create" && typeof data.teamCode === "string") {
+        setCreatedTeamCode(data.teamCode);
+        setNotice("Your team has been created. Save this code and share it with your teammates.");
+      } else {
+        setNotice("You have joined the team.");
+      }
       await loadTeam(user!);
     } catch (err) { setError(err instanceof Error ? err.message : "Unable to complete registration."); }
     finally { setBusy(false); }
@@ -146,6 +152,16 @@ export function PrimusRegistration() {
           <p className="mt-6 max-w-xl text-sm leading-relaxed text-white/55">For current TIET students with a verified @thapar.edu email address. Teams can have 2–4 members. Participants from outside TIET should register through Saturnalia.</p>
         </div>
 
+        {createdTeamCode && !team && (
+          <div className="mt-8 border border-[#a3ff12]/35 bg-[#a3ff12]/[0.06] p-5 sm:p-7">
+            <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#a3ff12]">Team created · Save this code</p>
+            <div className="mt-3 flex flex-wrap items-center gap-4">
+              <strong className="text-2xl tracking-[0.12em] text-white sm:text-3xl">{createdTeamCode}</strong>
+              <button type="button" onClick={() => void navigator.clipboard.writeText(createdTeamCode).then(() => setNotice("Team code copied."))} className="inline-flex items-center gap-2 border border-white/20 px-3 py-2 font-mono text-[10px] uppercase tracking-widest text-white/75 hover:border-[#a3ff12]/60 hover:text-[#a3ff12]"><Copy className="h-4 w-4" /> Copy code</button>
+            </div>
+            <p className="mt-3 text-xs text-white/45">Share this code with your teammates so they can join your team.</p>
+          </div>
+        )}
         {(error || notice) && <div role="status" className={`mt-8 border px-4 py-3 text-sm ${error ? "border-red-400/30 bg-red-400/5 text-red-200" : "border-[#a3ff12]/30 bg-[#a3ff12]/5 text-[#dfffbe]"}`}>{error || notice}</div>}
 
         {!authReady ? <p className="mt-12 text-sm text-white/50">Loading secure registration…</p> : !user ? (
