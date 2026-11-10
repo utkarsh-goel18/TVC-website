@@ -31,6 +31,7 @@ const labelClass = "block font-mono text-[10px] uppercase tracking-[0.16em] text
 export function PrimusRegistration() {
   const [user, setUser] = useState<User | null>(null);
   const [authReady, setAuthReady] = useState(false);
+  const [emailVerified, setEmailVerified] = useState(false);
   const [authMode, setAuthMode] = useState<"signup" | "login">("signup");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -48,13 +49,14 @@ export function PrimusRegistration() {
 
   useEffect(() => onAuthStateChanged(firebaseAuth, (nextUser) => {
     setUser(nextUser);
+    setEmailVerified(Boolean(nextUser?.emailVerified));
     setAuthReady(true);
   }), []);
 
   useEffect(() => {
-    if (!user || !user.emailVerified) { setTeam(null); return; }
+    if (!user || !emailVerified) { setTeam(null); return; }
     void loadTeam(user);
-  }, [user]);
+  }, [user, emailVerified]);
 
   async function loadTeam(currentUser: User) {
     try {
@@ -68,6 +70,25 @@ export function PrimusRegistration() {
     }
   }
 
+  async function refreshVerificationStatus() {
+    if (!user) return;
+    setBusy(true); setError(""); setNotice("");
+    try {
+      await user.reload();
+      const refreshedUser = firebaseAuth.currentUser;
+      const verified = Boolean(refreshedUser?.emailVerified);
+      setEmailVerified(verified);
+      if (verified && refreshedUser) {
+        await refreshedUser.getIdToken(true);
+        setNotice("Email verified. Your registration dashboard is ready.");
+        await loadTeam(refreshedUser);
+      } else {
+        setNotice("We have not detected the verification yet. Open the latest email link, then try again.");
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Unable to refresh verification status.");
+    } finally { setBusy(false); }
+  }
   async function handleAuth(event: FormEvent<HTMLFormElement>) {
     event.preventDefault(); setBusy(true); setError(""); setNotice("");
     try {
@@ -174,8 +195,16 @@ export function PrimusRegistration() {
               <button disabled={busy} className="inline-flex items-center gap-3 bg-[#a3ff12] px-6 py-4 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-black transition hover:bg-[#c2ff70] disabled:opacity-50">{busy ? "Please wait…" : authMode === "signup" ? "Create account" : "Sign in"} <ArrowUpRight className="h-4 w-4" /></button>
             </form>
           </section>
-        ) : !user.emailVerified ? (
-          <section className="mt-12 border border-[#a3ff12]/20 p-7"><h2 className="text-2xl font-semibold">Verify your email</h2><p className="mt-3 text-sm text-white/55">We sent a verification link to {user.email}. After verifying, sign out and sign back in.</p><button onClick={() => void sendEmailVerification(user).then(() => setNotice("Verification email sent again."))} className="mt-6 border border-white/20 px-4 py-3 font-mono text-[10px] uppercase tracking-widest">Resend verification</button></section>
+        ) : !emailVerified ? (
+          <section className="mt-12 border border-[#a3ff12]/20 p-7">
+            <h2 className="text-2xl font-semibold">Verify your email</h2>
+            <p className="mt-3 text-sm text-white/55">We sent a verification link to {user.email}. Once you have clicked it, return here and refresh your verification status.</p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <button type="button" disabled={busy} onClick={() => void refreshVerificationStatus()} className="bg-[#a3ff12] px-4 py-3 font-mono text-[10px] font-bold uppercase tracking-widest text-black disabled:opacity-50">{busy ? "Checking…" : "I have verified — continue"}</button>
+              <button type="button" disabled={busy} onClick={() => void sendEmailVerification(user).then(() => setNotice("Verification email sent again.")).catch((err) => setError(err instanceof Error ? err.message : "Unable to resend verification email."))} className="border border-white/20 px-4 py-3 font-mono text-[10px] uppercase tracking-widest disabled:opacity-50">Resend verification</button>
+              <button type="button" disabled={busy} onClick={() => void signOut(firebaseAuth)} className="border border-white/20 px-4 py-3 font-mono text-[10px] uppercase tracking-widest disabled:opacity-50">Sign out</button>
+            </div>
+          </section>
         ) : (
           <section className="mt-12 border-t border-white/10 pt-8">
             <div className="flex flex-wrap items-center justify-between gap-4"><div><p className="text-sm text-white/50">Signed in as</p><p className="mt-1 text-white">{user.email}</p></div><button onClick={() => void signOut(firebaseAuth)} className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-white/45 hover:text-white"><LogOut className="h-4 w-4" /> Sign out</button></div>
