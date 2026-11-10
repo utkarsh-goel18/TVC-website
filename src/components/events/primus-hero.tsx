@@ -65,11 +65,11 @@ export function PrimusHero() {
           className="mt-9 flex flex-wrap justify-center gap-3 transition-all delay-700 duration-700"
           style={{ opacity: revealed ? 1 : 0, transform: `translateY(${revealed ? 0 : 12}px)` }}
         >
-          <a href="#tracks" className="group inline-flex items-center gap-3 bg-[#a3ff12] px-6 py-4 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-black transition-all hover:-translate-y-1 hover:bg-[#c2ff70]">
-            Enter the arena <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+          <a href="/events/tvc-x-sat/register" className="group inline-flex items-center gap-3 bg-[#a3ff12] px-6 py-4 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-black transition-all hover:-translate-y-1 hover:bg-[#c2ff70]">
+            TIET student registration <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
           </a>
           <a href="https://www.saturnalia.in/events/business" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 border border-[#a3ff12]/55 bg-black/60 px-6 py-4 font-mono text-[10px] uppercase tracking-[0.16em] text-white/85 transition-colors hover:border-[#a3ff12] hover:text-[#a3ff12]">
-            Register now <ArrowRight className="h-4 w-4" />
+            External participant registration <ArrowRight className="h-4 w-4" />
           </a>
         </div>
       </div>
