@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { firebaseAuth, firestore } from "@/lib/primus/firebase-admin";
+import { getFirebaseAuth, getFirebaseFirestore } from "@/lib/primus/firebase-admin";
 
 export const runtime = "nodejs";
 
@@ -9,11 +9,11 @@ export async function GET(req: NextRequest) {
     const token = header.startsWith("Bearer ") ? header.slice(7) : "";
     if (!token) return NextResponse.json({ error: "AUTH_REQUIRED" }, { status: 401 });
 
-    const decoded = await firebaseAuth.verifyIdToken(token);
+    const decoded = await getFirebaseAuth().verifyIdToken(token);
     const allowedAdmins = (process.env.PRIMUS_ADMIN_UIDS || "").split(",").map((uid) => uid.trim()).filter(Boolean);
     if (!allowedAdmins.includes(decoded.uid)) return NextResponse.json({ error: "FORBIDDEN", message: "You are not authorised to view registrations." }, { status: 403 });
 
-    const snapshot = await firestore.collection("primusTeams").orderBy("createdAt", "desc").get();
+    const snapshot = await getFirebaseFirestore().collection("primusTeams").orderBy("createdAt", "desc").get();
     const teams = snapshot.docs.map((doc) => doc.data());
     return NextResponse.json({
       teams,
