@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { firebaseAuth, firestore } from "@/lib/primus/firebase-admin";
+import { getFirebaseAuth, getFirebaseFirestore } from "@/lib/primus/firebase-admin";
 import { isThaparEmail, normaliseEmail, teamReference } from "@/lib/primus/registration";
 
 export const runtime = "nodejs";
@@ -10,7 +10,7 @@ export async function POST(req: NextRequest, context: { params: Promise<{ teamCo
     const token = header.startsWith("Bearer ") ? header.slice(7) : "";
     if (!token) return NextResponse.json({ error: "AUTH_REQUIRED", message: "Authentication required." }, { status: 401 });
 
-    const decoded = await firebaseAuth.verifyIdToken(token);
+    const decoded = await getFirebaseAuth().verifyIdToken(token);
     const email = normaliseEmail(decoded.email || "");
     if (!decoded.email_verified || !isThaparEmail(email)) return NextResponse.json({ error: "THAPAR_EMAIL_REQUIRED", message: "A verified Thapar email is required." }, { status: 403 });
 
@@ -18,7 +18,7 @@ export async function POST(req: NextRequest, context: { params: Promise<{ teamCo
     const code = teamCode.toUpperCase();
     const teamRef = teamReference(code);
 
-    await firestore.runTransaction(async (transaction) => {
+    await getFirebaseFirestore().runTransaction(async (transaction) => {
       const snapshot = await transaction.get(teamRef);
       if (!snapshot.exists) throw new Error("TEAM_NOT_FOUND");
       const team = snapshot.data()!;
