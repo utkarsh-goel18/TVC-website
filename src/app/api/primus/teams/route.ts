@@ -1,0 +1,97 @@
+import { NextRequest, NextResponse } from "next/server";
+import { FieldValue } from "firebase-admin/firestore";
+import { firebaseAuth, firestore } from "@/lib/primus/firebase-admin";
+import {
+  cleanParticipant,
+  createTeamCode,
+  isThaparEmail,
+  normaliseEmail,
+  PRIMUS_TRACKS,
+  setParticipantIndex,
+  teamReference,
+  timestamp,
+} from "@/lib/primus/registration";
+
+export const runtime = "nodejs";
+
+async function verifiedParticipant(req: NextRequest) {
+  const header = req.headers.get("authorization") || "";
+  const token = header.startsWith("Bearer ") ? header.slice(7) : "";
+  if (!token) throw new Error("AUTH_REQUIRED");
+  const decoded = await firebaseAuth.verifyIdToken(token);
+  const email = normaliseEmail(decoded.email || "");
+  if (!decoded.email_verified || !isThaparEmail(email)) throw new Error("THAPAR_EMAIL_REQUIRED");
+  return { uid: decoded.uid, email };
+}
+
+export async function POST(req: NextRequest) {
+  try {
+    const participant = await verifiedParticipant(req);
+    const body = await req.json();
+    const details = cleanParticipant(body);
+    const teamName = typeof body.teamName === "string" ? body.teamName.trim() : "";
+    const track = body.track;
+
+    if (!details || teamName.length < 2 || teamName.length > 60 || !PRIMUS_TRACKS.includes(track)) {
+      return NextResponse.json({ error: "INVALID_INPUT", message: "Provide a valid team name, track and complete participant details." }, { status: 400 });
+    }
+
+    const code = createTeamCode();
+    const teamRef = teamReference(code);
+    const participantRef = firestore.collection("primusParticipantIndex").doc(participant.uid);
+    const createdAt = timestamp();
+
+    await firestore.runTransaction(async (transaction) => {
+      const existing = await transaction.get(participantRef);
+      if (existing.exists) throw new Error("ALREADY_REGISTERED");
+
+      transaction.create(teamRef, {
+        code,
+        teamName,
+        track,
+        leaderUid: participant.uid,
+        leaderEmail: participant.email,
+        members: [{
+          ...details,
+          uid: participant.uid,
+          email: participant.email,
+          joinedAt: createdAt,
+          role: "leader",
+        }],
+        status: "OPEN",
+        createdAt,
+        submittedAt: null,
+      });
+      setParticipantIndex(transaction, participant.uid, code, participant.email);
+      transaction.set(firestore.collection("primusRegistrationMeta").doc("counts"), {
+        teamsCreated: FieldValue.increment(1),
+        updatedAt: FieldValue.serverTimestamp(),
+      }, { merge: true });
+    });
+
+    return NextResponse.json({ success: true, teamCode: code, teamName, track, memberCount: 1 }, { status: 201 });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "";
+    const status = message === "AUTH_REQUIRED" ? 401 : message === "THAPAR_EMAIL_REQUIRED" ? 403 : message === "ALREADY_REGISTERED" ? 409 : 500;
+    return NextResponse.json({
+      error: message === "ALREADY_REGISTERED" ? message : "REGISTRATION_ERROR",
+      message: message === "ALREADY_REGISTERED" ? "This account is already part of a PRIMUS team." : status === 401 ? "Sign in with your verified Thapar email first." : status === 403 ? "Only verified Thapar student email accounts can register here." : "Unable to create the team. Please try again.",
+    }, { status });
+  }
+}
+
+export async function GET(req: NextRequest) {
+  try {
+    const participant = await verifiedParticipant(req);
+    const index = await firestore.collection("primusParticipantIndex").doc(participant.uid).get();
+    if (!index.exists) return NextResponse.json({ team: null });
+    const code = String(index.data()?.teamCode || "");
+    const team = await teamReference(code).get();
+    if (!team.exists) return NextResponse.json({ team: null });
+    return NextResponse.json({ team: team.data() });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "";
+    const status = message === "AUTH_REQUIRED" ? 401 : message === "THAPAR_EMAIL_REQUIRED" ? 403 : 500;
+    return NextResponse.json({ error: "REQUEST_FAILED", message: status === 401 ? "Authentication required." : status === 403 ? "A verified Thapar email is required." : "Unable to load your team." }, { status });
+  }
+}
