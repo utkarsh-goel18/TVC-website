@@ -414,3 +414,216 @@ a {
     will-change: auto;
   }
 }
+
+/* 3D Gyroscopic Orbital Rings, Liquid Morphing & Specular Glass Effects */
+.tvc-3d-ring {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.tvc-3d-ring-one {
+  animation: tvc-gyro-one 16s linear infinite;
+}
+.tvc-3d-ring-two {
+  animation: tvc-gyro-two 22s linear infinite reverse;
+}
+.tvc-3d-ring-three {
+  animation: tvc-gyro-three 28s linear infinite;
+}
+
+@keyframes tvc-gyro-one {
+  0% { transform: perspective(900px) rotateX(68deg) rotateY(-18deg) rotateZ(0deg); }
+  100% { transform: perspective(900px) rotateX(68deg) rotateY(-18deg) rotateZ(360deg); }
+}
+@keyframes tvc-gyro-two {
+  0% { transform: perspective(900px) rotateX(-58deg) rotateY(24deg) rotateZ(0deg); }
+  100% { transform: perspective(900px) rotateX(-58deg) rotateY(24deg) rotateZ(360deg); }
+}
+@keyframes tvc-gyro-three {
+  0% { transform: perspective(900px) rotateX(32deg) rotateY(64deg) rotateZ(0deg); }
+  100% { transform: perspective(900px) rotateX(32deg) rotateY(64deg) rotateZ(360deg); }
+}
+
+.tvc-liquid-blob-a {
+  animation: tvc-liquid-morph-a 11s ease-in-out infinite alternate;
+}
+.tvc-liquid-blob-b {
+  animation: tvc-liquid-morph-b 14s ease-in-out infinite alternate;
+}
+
+@keyframes tvc-liquid-morph-a {
+  0% {
+    border-radius: 62% 38% 46% 54% / 60% 44% 56% 40%;
+    transform: translate3d(-8%, -6%, 0) scale(0.94) rotate(0deg);
+  }
+  50% {
+    border-radius: 38% 62% 64% 36% / 42% 58% 42% 58%;
+    transform: translate3d(8%, 6%, 0) scale(1.08) rotate(120deg);
+  }
+  100% {
+    border-radius: 54% 46% 38% 62% / 52% 38% 62% 48%;
+    transform: translate3d(-4%, 9%, 0) scale(1.02) rotate(240deg);
+  }
+}
+
+@keyframes tvc-liquid-morph-b {
+  0% {
+    border-radius: 44% 56% 62% 38% / 48% 58% 42% 52%;
+    transform: translate3d(10%, 6%, 0) scale(1.04) rotate(0deg);
+  }
+  50% {
+    border-radius: 64% 36% 42% 58% / 58% 36% 64% 42%;
+    transform: translate3d(-9%, -7%, 0) scale(0.92) rotate(-120deg);
+  }
+  100% {
+    border-radius: 48% 52% 56% 44% / 40% 62% 38% 60%;
+    transform: translate3d(5%, -8%, 0) scale(1.06) rotate(-240deg);
+  }
+}
+
+/* Cursor-tracking Specular Glass Spotlight */
+.tvc-glass-interactive {
+  --mx: 50%;
+  --my: 50%;
+  position: relative;
+  will-change: transform;
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.tvc-glass-interactive::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 12;
+  border-radius: inherit;
+  background: radial-gradient(
+    480px circle at var(--mx) var(--my),
+    rgba(245, 237, 0, 0.085),
+    rgba(255, 255, 255, 0.035) 36%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.tvc-glass-interactive:hover::before {
+  opacity: 1;
+}
+
+.tvc-glass-tile {
+  transition:
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.tvc-glass-tile:hover {
+  transform: translate3d(0, -4px, 0) scale(1.025);
+  border-color: rgba(245, 237, 0, 0.45);
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.7),
+    0 0 24px rgba(245, 237, 0, 0.14),
+    inset 0 1px 1px rgba(255, 255, 255, 0.28);
+}
+
+/* Elite Border Beam Animation */
+@keyframes tvc-border-beam {
+  100% {
+    offset-distance: 100%;
+  }
+}
+
+.tvc-border-beam {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid transparent;
+  mask: linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+
+.tvc-border-beam::after {
+  content: "";
+  position: absolute;
+  aspect-ratio: 1;
+  width: 140px;
+  background: linear-gradient(to right, transparent, #f5ed00, #ffffff, transparent);
+  offset-path: rect(0 auto auto 0 round inherit);
+  animation: tvc-border-beam 7s linear infinite;
+}
+
+/* Radar Sweep Animation */
+@keyframes tvc-radar-sweep {
+  0% { transform: rotate(0deg); opacity: 0.8; }
+  100% { transform: rotate(360deg); opacity: 0.8; }
+}
+
+.tvc-radar-sweep {
+  background: conic-gradient(from 0deg at 50% 50%, rgba(245, 237, 0, 0.6) 0deg, transparent 65deg, transparent 360deg);
+  animation: tvc-radar-sweep 3s linear infinite;
+}
+
+/* Thruster Flame Pulse */
+@keyframes tvc-thruster-pulse {
+  0%, 100% { transform: translate(-50%, 0) scaleY(1) scaleX(1); opacity: 0.7; }
+  50% { transform: translate(-50%, 4px) scaleY(1.3) scaleX(0.85); opacity: 1; filter: drop-shadow(0 0 18px #f5ed00); }
+}
+
+.tvc-thruster-flare {
+  animation: tvc-thruster-pulse 1.4s ease-in-out infinite;
+}
+
+/* Diagonal Specular Sheen Sweep */
+@keyframes tvc-sheen-sweep {
+  0% { transform: translateX(-120%) rotate(14deg); }
+  35%, 100% { transform: translateX(380%) rotate(14deg); }
+}
+
+.tvc-panel-sheen {
+  animation: tvc-sheen-sweep 9s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+/* Holographic Neon Gradient Text Animation */
+@keyframes tvc-text-gradient-flow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.tvc-gradient-text-flow {
+  background: linear-gradient(90deg, #ffffff 0%, #f5ed00 30%, #ffffff 60%, #f5ed00 85%, #ffffff 100%);
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: tvc-text-gradient-flow 8s linear infinite;
+}
+
+/* Interactive Corner Crosshairs on Hover */
+.tvc-crosshair {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
+}
+
+.group:hover .tvc-crosshair {
+  color: #f5ed00;
+  transform: scale(1.35);
+  text-shadow: 0 0 8px rgba(245, 237, 0, 0.8);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tvc-3d-ring-one,
+  .tvc-3d-ring-two,
+  .tvc-3d-ring-three,
+  .tvc-liquid-blob-a,
+  .tvc-liquid-blob-b,
+  .tvc-radar-sweep,
+  .tvc-thruster-flare,
+  .tvc-panel-sheen,
+  .tvc-gradient-text-flow,
+  .tvc-border-beam::after {
+    animation: none !important;
+  }
+}
