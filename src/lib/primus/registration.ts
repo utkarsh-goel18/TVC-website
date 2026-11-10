@@ -1,6 +1,6 @@
 import { FieldValue, type Transaction } from "firebase-admin/firestore";
 import { randomBytes } from "crypto";
-import { firestore } from "./firebase-admin";
+import { getFirebaseFirestore } from "./firebase-admin";
 
 export const PRIMUS_HOSTELS = [
   "Agira Hall",
@@ -75,11 +75,11 @@ export function createTeamCode(): string {
 }
 
 export function teamReference(code: string) {
-  return firestore.collection("primusTeams").doc(code);
+  return getFirebaseFirestore().collection("primusTeams").doc(code);
 }
 
 export function participantReference(uid: string) {
-  return firestore.collection("primusParticipantIndex").doc(uid);
+  return getFirebaseFirestore().collection("primusParticipantIndex").doc(uid);
 }
 
 export function normaliseEmail(email: string) {
