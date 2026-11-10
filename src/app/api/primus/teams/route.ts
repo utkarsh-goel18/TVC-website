@@ -72,6 +72,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ success: true, teamCode: code, teamName, track, memberCount: 1 }, { status: 201 });
   } catch (error) {
+    console.error("[PRIMUS teams POST]", error);
     const message = error instanceof Error ? error.message : "";
     const status = message === "AUTH_REQUIRED" ? 401 : message === "THAPAR_EMAIL_REQUIRED" ? 403 : message === "ALREADY_REGISTERED" ? 409 : 500;
     return NextResponse.json({
@@ -92,6 +93,7 @@ export async function GET(req: NextRequest) {
     if (!team.exists) return NextResponse.json({ team: null });
     return NextResponse.json({ team: team.data() });
   } catch (error) {
+    console.error("[PRIMUS teams GET]", error);
     const message = error instanceof Error ? error.message : "";
     const status = message === "AUTH_REQUIRED" ? 401 : message === "THAPAR_EMAIL_REQUIRED" ? 403 : 500;
     return NextResponse.json({ error: "REQUEST_FAILED", message: status === 401 ? "Authentication required." : status === 403 ? "A verified Thapar email is required." : "Unable to load your team." }, { status });
