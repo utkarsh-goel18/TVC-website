@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { FieldValue } from "firebase-admin/firestore";
-import { firebaseAuth, firestore } from "@/lib/primus/firebase-admin";
+import { getFirebaseAuth, getFirebaseFirestore } from "@/lib/primus/firebase-admin";
 import {
   cleanParticipant,
   createTeamCode,
@@ -18,7 +18,7 @@ async function verifiedParticipant(req: NextRequest) {
   const header = req.headers.get("authorization") || "";
   const token = header.startsWith("Bearer ") ? header.slice(7) : "";
   if (!token) throw new Error("AUTH_REQUIRED");
-  const decoded = await firebaseAuth.verifyIdToken(token);
+  const decoded = await getFirebaseAuth().verifyIdToken(token);
   const email = normaliseEmail(decoded.email || "");
   if (!decoded.email_verified || !isThaparEmail(email)) throw new Error("THAPAR_EMAIL_REQUIRED");
   return { uid: decoded.uid, email };
@@ -38,10 +38,11 @@ export async function POST(req: NextRequest) {
 
     const code = createTeamCode();
     const teamRef = teamReference(code);
-    const participantRef = firestore.collection("primusParticipantIndex").doc(participant.uid);
+    const db = getFirebaseFirestore();
+    const participantRef = db.collection("primusParticipantIndex").doc(participant.uid);
     const createdAt = timestamp();
 
-    await firestore.runTransaction(async (transaction) => {
+    await db.runTransaction(async (transaction) => {
       const existing = await transaction.get(participantRef);
       if (existing.exists) throw new Error("ALREADY_REGISTERED");
 
@@ -63,7 +64,7 @@ export async function POST(req: NextRequest) {
         submittedAt: null,
       });
       setParticipantIndex(transaction, participant.uid, code, participant.email);
-      transaction.set(firestore.collection("primusRegistrationMeta").doc("counts"), {
+      transaction.set(db.collection("primusRegistrationMeta").doc("counts"), {
         teamsCreated: FieldValue.increment(1),
         updatedAt: FieldValue.serverTimestamp(),
       }, { merge: true });
