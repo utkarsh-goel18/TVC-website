@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { firebaseAuth, firestore } from "@/lib/primus/firebase-admin";
+import { getFirebaseAuth, getFirebaseFirestore } from "@/lib/primus/firebase-admin";
 import { cleanParticipant, isThaparEmail, normaliseEmail, participantReference, teamReference, timestamp } from "@/lib/primus/registration";
 
 export const runtime = "nodejs";
@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
     const token = header.startsWith("Bearer ") ? header.slice(7) : "";
     if (!token) return NextResponse.json({ error: "AUTH_REQUIRED", message: "Sign in with your verified Thapar email first." }, { status: 401 });
 
-    const decoded = await firebaseAuth.verifyIdToken(token);
+    const decoded = await getFirebaseAuth().verifyIdToken(token);
     const email = normaliseEmail(decoded.email || "");
     if (!decoded.email_verified || !isThaparEmail(email)) return NextResponse.json({ error: "THAPAR_EMAIL_REQUIRED", message: "Only verified Thapar student email accounts can join a team." }, { status: 403 });
 
@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
     const indexRef = participantReference(decoded.uid);
     const joinedAt = timestamp();
 
-    await firestore.runTransaction(async (transaction) => {
+    await getFirebaseFirestore().runTransaction(async (transaction) => {
       const [teamSnapshot, indexSnapshot] = await Promise.all([transaction.get(teamRef), transaction.get(indexRef)]);
       if (!teamSnapshot.exists) throw new Error("TEAM_NOT_FOUND");
       if (indexSnapshot.exists) throw new Error("ALREADY_REGISTERED");
