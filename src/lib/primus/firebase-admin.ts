@@ -2,7 +2,7 @@ import "server-only";
 
 import { cert, getApps, initializeApp } from "firebase-admin/app";
 import { getAuth } from "firebase-admin/auth";
-import { getFirestore } from "firebase-admin/firestore";
+import { getFirestore as firestoreForApp } from "firebase-admin/firestore";
 
 function getFirebaseApp() {
   const existing = getApps()[0];
@@ -22,7 +22,10 @@ function getFirebaseApp() {
   });
 }
 
-const app = getFirebaseApp();
+export function getFirebaseAuth() {
+  return getAuth(getFirebaseApp());
+}
 
-export const firebaseAuth = getAuth(app);
-export const firestore = getFirestore(app);
+export function getFirebaseFirestore() {
+  return firestoreForApp(getFirebaseApp());
+}
