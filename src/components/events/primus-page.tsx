@@ -176,9 +176,14 @@ export function PrimusPage() {
               <div>
                 <p className="text-base leading-relaxed text-white/60">PRIMUS is an opportunity to experience the different dimensions of the business world — from creating products and shaping strategies to evaluating investments and helping startups grow. It brings together people curious about entrepreneurship, business, innovation and decision-making, giving them a platform to challenge themselves, learn through experience and engage with like-minded minds.</p>
                 <p className="mt-6 border-l border-[#a3ff12]/60 pl-5 text-lg leading-relaxed text-white">PRIMUS — Where Every Decision Connects.</p>
-                <a href="https://www.saturnalia.in/events/business" target="_blank" rel="noopener noreferrer" className="group mt-8 inline-flex items-center gap-3 bg-[#a3ff12] px-6 py-4 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-black transition-all hover:-translate-y-1 hover:bg-[#c2ff70]">
-                  Explore PRIMUS’26 <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-                </a>
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <a href="/events/tvc-x-sat/register" className="group inline-flex items-center gap-3 bg-[#a3ff12] px-6 py-4 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-black transition-all hover:-translate-y-1 hover:bg-[#c2ff70]">
+                    TIET student registration <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                  </a>
+                  <a href="https://www.saturnalia.in/events/business" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 border border-white/20 px-6 py-4 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-white/75 transition-all hover:border-[#a3ff12]/60 hover:text-[#a3ff12]">
+                    External participants <ArrowUpRight className="h-4 w-4" />
+                  </a>
+                </div>
               </div>
             </div>
           </div>
