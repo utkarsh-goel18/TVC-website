@@ -84,7 +84,8 @@ export async function POST(req: NextRequest) {
 export async function GET(req: NextRequest) {
   try {
     const participant = await verifiedParticipant(req);
-    const index = await firestore.collection("primusParticipantIndex").doc(participant.uid).get();
+    const db = getFirebaseFirestore();
+    const index = await db.collection("primusParticipantIndex").doc(participant.uid).get();
     if (!index.exists) return NextResponse.json({ team: null });
     const code = String(index.data()?.teamCode || "");
     const team = await teamReference(code).get();
