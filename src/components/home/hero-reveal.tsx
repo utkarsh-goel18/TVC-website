@@ -1,23 +1,23 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-const useIsomorphicLayoutEffect =
-  typeof window !== "undefined" ? useLayoutEffect : useEffect;
+import { HeroLiquidCanvas } from "@/components/home/hero-liquid-canvas";
 
 export function HeroReveal() {
   const containerRef = useRef<HTMLElement>(null);
   const lockupRef = useRef<HTMLDivElement>(null);
   const rocketRef = useRef<HTMLDivElement>(null);
+  const rocket3DRef = useRef<HTMLDivElement>(null);
+  const rings3DRef = useRef<HTMLDivElement>(null);
   const wordmarkRef = useRef<HTMLDivElement>(null);
   const taglineRef = useRef<HTMLDivElement>(null);
   const revealRef = useRef<HTMLDivElement>(null);
   const indicatorRef = useRef<HTMLDivElement>(null);
 
-  useIsomorphicLayoutEffect(() => {
+  useLayoutEffect(() => {
     if (
       !containerRef.current ||
       !lockupRef.current ||
@@ -25,118 +25,196 @@ export function HeroReveal() {
       !wordmarkRef.current ||
       !taglineRef.current ||
       !revealRef.current
-    ) return;
+    )
+      return;
 
     gsap.registerPlugin(ScrollTrigger);
 
-    const ctx = gsap.context(() => {
-      const desktop = window.matchMedia("(min-width: 768px)").matches;
+    let cleanupMouse = () => {};
+
+    // 3D pointer parallax strictly enabled on fine pointer devices (desktop with mouse)
+    const isFinePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (isFinePointer && !reducedMotion && rocket3DRef.current && rings3DRef.current) {
+      gsap.set([rocket3DRef.current, rings3DRef.current], {
+        transformPerspective: 1100,
+        transformStyle: "preserve-3d",
+      });
+
+      const rxTo = gsap.quickTo(rocket3DRef.current, "rotationX", {
+        duration: 0.7,
+        ease: "power3.out",
+      });
+      const ryTo = gsap.quickTo(rocket3DRef.current, "rotationY", {
+        duration: 0.7,
+        ease: "power3.out",
+      });
+      const xTo = gsap.quickTo(rocket3DRef.current, "x", {
+        duration: 0.8,
+        ease: "power3.out",
+      });
+      const yTo = gsap.quickTo(rocket3DRef.current, "y", {
+        duration: 0.8,
+        ease: "power3.out",
+      });
+
+      const ringRxTo = gsap.quickTo(rings3DRef.current, "rotationX", {
+        duration: 1.0,
+        ease: "power3.out",
+      });
+      const ringRyTo = gsap.quickTo(rings3DRef.current, "rotationY", {
+        duration: 1.0,
+        ease: "power3.out",
+      });
+
+      const onMove = (e: MouseEvent) => {
+        const nx = (e.clientX / Math.max(1, window.innerWidth) - 0.5) * 2;
+        const ny = (e.clientY / Math.max(1, window.innerHeight) - 0.5) * 2;
+        rxTo(-ny * 16);
+        ryTo(nx * 20);
+        xTo(nx * 10);
+        yTo(ny * 8);
+        ringRxTo(-ny * 24);
+        ringRyTo(nx * 26);
+      };
+
+      window.addEventListener("mousemove", onMove, { passive: true });
+      cleanupMouse = () => window.removeEventListener("mousemove", onMove);
+    }
+
+    // Use GSAP matchMedia to strictly isolate Desktop vs Mobile animations
+    const mm = gsap.matchMedia();
+
+    // DESKTOP (>= 768px): Horizontal slide reveal
+    mm.add("(min-width: 768px)", () => {
+      const revealWidth = revealRef.current?.getBoundingClientRect().width ?? 0;
       const gap = window.innerWidth >= 1024 ? 40 : 32;
-      const revealWidth = revealRef.current!.getBoundingClientRect().width;
 
-      // Keep the rocket centred before the first scroll frame.
-      if (desktop) {
-        gsap.set(lockupRef.current, { x: (revealWidth + gap) / 2, y: 0 });
-        gsap.set(wordmarkRef.current, {
-          clipPath: "inset(0% 100% 0% 0%)",
-          opacity: 0,
-          x: -20,
-        });
-        gsap.set(taglineRef.current, { opacity: 0, y: 16 });
+      gsap.set(lockupRef.current, { x: (revealWidth + gap) / 2, y: 0 });
+      gsap.set(wordmarkRef.current, {
+        clipPath: "inset(0% 100% 0% 0%)",
+        opacity: 0,
+        x: -20,
+      });
+      gsap.set(taglineRef.current, { opacity: 0, y: 16 });
 
-        const timeline = gsap.timeline({
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "top top",
-            end: "+=120%",
-            pin: true,
-            scrub: 0.8,
-            anticipatePin: 1,
-            invalidateOnRefresh: true,
-            onRefresh: () => {
-              const width = revealRef.current?.getBoundingClientRect().width ?? 0;
-              const currentGap = window.innerWidth >= 1024 ? 40 : 32;
-              gsap.set(lockupRef.current, { x: (width + currentGap) / 2 });
-            },
+      const timeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top top",
+          end: "+=100%",
+          pin: true,
+          scrub: 0.8,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+          onRefresh: () => {
+            const width = revealRef.current?.getBoundingClientRect().width ?? 0;
+            const currentGap = window.innerWidth >= 1024 ? 40 : 32;
+            gsap.set(lockupRef.current, { x: (width + currentGap) / 2 });
           },
-        });
+        },
+      });
 
-        if (indicatorRef.current) {
-          timeline.to(indicatorRef.current, {
-            opacity: 0, y: 14, duration: 0.15, ease: "power1.out",
-          }, 0);
-        }
+      if (indicatorRef.current) {
+        timeline.to(
+          indicatorRef.current,
+          { opacity: 0, y: 14, duration: 0.15, ease: "power1.out" },
+          0
+        );
+      }
 
-        timeline.to(lockupRef.current, {
-          x: 0, duration: 0.65, ease: "power2.inOut",
-        }, 0.05);
+      timeline.to(
+        lockupRef.current,
+        { x: 0, duration: 0.65, ease: "power2.inOut" },
+        0.05
+      );
 
-        timeline.to(wordmarkRef.current, {
+      timeline.to(
+        wordmarkRef.current,
+        {
           clipPath: "inset(0% 0% 0% 0%)",
           opacity: 1,
           x: 0,
           duration: 0.6,
           ease: "power2.out",
-        }, 0.18);
+        },
+        0.18
+      );
 
-        timeline.to(taglineRef.current, {
-          opacity: 1, y: 0, duration: 0.45, ease: "power2.out",
-        }, 0.48);
+      timeline.to(
+        taglineRef.current,
+        { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" },
+        0.48
+      );
 
-        timeline.to({}, { duration: 0.25 });
-      } else {
-        gsap.set(rocketRef.current, { y: 0 });
-        gsap.set(wordmarkRef.current, {
-          clipPath: "inset(0% 0% 100% 0%)",
-          opacity: 0,
-          y: 12,
-        });
-        gsap.set(taglineRef.current, { opacity: 0, y: 12 });
+      timeline.to({}, { duration: 0.25 });
+    });
 
-        const timeline = gsap.timeline({
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "top top",
-            end: "+=85%",
-            pin: true,
-            scrub: 0.6,
-            anticipatePin: 1,
-            invalidateOnRefresh: true,
+    // MOBILE (< 768px): STRICT CENTERED LOCKUP, NO HORIZONTAL OFFSET, FAST SCROLL PIN
+    mm.add("(max-width: 767px)", () => {
+      // Ensure lockup is always centered without horizontal shift
+      gsap.set(lockupRef.current, { x: 0, y: 0, clearProps: "x,transform" });
+      gsap.set(rocketRef.current, { x: 0, y: 0 });
+      gsap.set(wordmarkRef.current, {
+        clipPath: "inset(0% 0% 0% 0%)",
+        opacity: 0,
+        y: 10,
+        x: 0,
+      });
+      gsap.set(taglineRef.current, { opacity: 0, y: 8 });
+
+      const timeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top top",
+          end: "+=45%", // Compact scroll pin so user transitions quickly to content
+          pin: true,
+          scrub: 0.5,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+          onRefresh: () => {
+            gsap.set(lockupRef.current, { x: 0, y: 0 });
           },
-        });
+        },
+      });
 
-        if (indicatorRef.current) {
-          timeline.to(indicatorRef.current, {
-            opacity: 0, y: 10, duration: 0.15, ease: "power1.out",
-          }, 0);
-        }
-
-        timeline.to(rocketRef.current, {
-          y: -18, duration: 0.5, ease: "power2.inOut",
-        }, 0.05);
-
-        timeline.to(wordmarkRef.current, {
-          clipPath: "inset(0% 0% 0% 0%)",
-          opacity: 1,
-          y: 0,
-          duration: 0.5,
-          ease: "power2.out",
-        }, 0.18);
-
-        timeline.to(taglineRef.current, {
-          opacity: 1, y: 0, duration: 0.4, ease: "power2.out",
-        }, 0.42);
-
-        timeline.to({}, { duration: 0.2 });
+      if (indicatorRef.current) {
+        timeline.to(
+          indicatorRef.current,
+          { opacity: 0, y: 8, duration: 0.15, ease: "power1.out" },
+          0
+        );
       }
-    }, containerRef);
+
+      timeline.to(
+        rocketRef.current,
+        { y: -10, duration: 0.35, ease: "power2.inOut" },
+        0.04
+      );
+
+      timeline.to(
+        wordmarkRef.current,
+        { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" },
+        0.12
+      );
+
+      timeline.to(
+        taglineRef.current,
+        { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" },
+        0.26
+      );
+
+      timeline.to({}, { duration: 0.1 });
+    });
 
     // Refresh after layout and image dimensions have settled.
     const refresh = () => ScrollTrigger.refresh();
     requestAnimationFrame(refresh);
 
     return () => {
-      ctx.revert();
+      cleanupMouse();
+      mm.revert();
     };
   }, []);
 
@@ -148,57 +226,117 @@ export function HeroReveal() {
     <section
       ref={containerRef}
       aria-label="Thapar Venture Club Signature Brand Reveal"
-      className="relative w-full h-screen bg-[#000000] overflow-hidden flex flex-col items-center justify-center select-none"
+      className="relative w-full h-[100dvh] min-h-[500px] max-h-[1080px] bg-[#000000] overflow-hidden flex flex-col items-center justify-center select-none"
     >
+      {/* SVG Gooey Filter for Liquid Morphing Aura */}
+      <svg aria-hidden="true" className="pointer-events-none absolute h-0 w-0">
+        <defs>
+          <filter id="tvc-liquid-filter">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="22" result="blur" />
+            <feColorMatrix
+              in="blur"
+              mode="matrix"
+              values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 24 -9"
+              result="goo"
+            />
+            <feBlend in="SourceGraphic" in2="goo" />
+          </filter>
+        </defs>
+      </svg>
+
+      {/* Interactive 3D Warp Vortex & Liquid Gold Wave Canvas */}
+      <HeroLiquidCanvas />
+
       <div aria-hidden="true" className="tvc-hero-atmosphere pointer-events-none absolute inset-0">
         <div className="tvc-hero-orbit tvc-hero-orbit-one" />
         <div className="tvc-hero-orbit tvc-hero-orbit-two" />
         <div className="tvc-hero-grid absolute inset-0" />
         <div className="tvc-hero-glow absolute inset-0" />
       </div>
-      <div className="absolute top-1/2 left-5 hidden -translate-y-1/2 -rotate-90 font-mono text-[9px] tracking-[0.32em] text-white/25 uppercase xl:block">
-        Venture beyond the ordinary
+
+      {/* Floating Frosted Glass Telemetry Pills (Left & Right) - Hidden on Mobile */}
+      <div className="absolute top-1/2 left-6 hidden -translate-y-1/2 -rotate-90 origin-left xl:flex items-center gap-2.5 rounded-full border border-white/[0.14] bg-white/[0.035] backdrop-blur-xl px-4 py-1.5 font-mono text-[9px] tracking-[0.32em] text-white/65 uppercase shadow-[0_12px_36px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.22)] pointer-events-none z-10">
+        <span className="h-1.5 w-1.5 rounded-full bg-[#f5ed00] shadow-[0_0_8px_#f5ed00] animate-ping" />
+        <span>Venture beyond the ordinary</span>
       </div>
-      <div className="absolute top-1/2 right-5 hidden -translate-y-1/2 rotate-90 font-mono text-[9px] tracking-[0.32em] text-white/25 uppercase xl:block">
-        TIET · PATIALA
+      <div className="absolute top-1/2 right-6 hidden -translate-y-1/2 rotate-90 origin-right xl:flex items-center gap-2.5 rounded-full border border-white/[0.14] bg-white/[0.035] backdrop-blur-xl px-4 py-1.5 font-mono text-[9px] tracking-[0.32em] text-white/65 uppercase shadow-[0_12px_36px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.22)] pointer-events-none z-10">
+        <span className="h-1.5 w-1.5 rounded-full bg-[#f5ed00] shadow-[0_0_8px_#f5ed00]" />
+        <span>TIET · PATIALA · 30.3564° N</span>
       </div>
 
+      {/* Main Lockup Container — Strictly Centered on all viewports */}
       <div className="relative z-10 w-full max-w-7xl px-4 sm:px-8 lg:px-12 flex items-center justify-center">
         <div
           ref={lockupRef}
-          className="flex flex-col md:flex-row items-center justify-center gap-5 sm:gap-6 md:gap-8 lg:gap-10 transition-none"
+          className="flex flex-col md:flex-row items-center justify-center gap-3.5 sm:gap-6 md:gap-8 lg:gap-10 transition-none w-full max-w-full text-center md:text-left mx-auto"
         >
+          {/* Rocket Container */}
           <div
             ref={rocketRef}
-            className="relative flex-shrink-0 w-32 h-32 xs:w-36 xs:h-36 sm:w-44 sm:h-44 md:w-48 md:h-48 lg:w-56 lg:h-56 xl:w-60 xl:h-60"
+            className="relative flex-shrink-0 w-28 h-28 xs:w-32 xs:h-32 sm:w-44 sm:h-44 md:w-48 md:h-48 lg:w-56 lg:h-56 xl:w-60 xl:h-60"
           >
-            <Image
-              src="/brand/tvc-rocket-emblem.png"
-              alt="Thapar Venture Club Rocket"
-              fill
-              priority
-              sizes="(max-width: 640px) 144px, (max-width: 768px) 176px, (max-width: 1200px) 224px, 240px"
-              className="object-contain filter drop-shadow-[0_0_24px_rgba(245,237,0,0.12)]"
-              onLoad={handleAssetLoaded}
-            />
+            {/* Liquid Morphing Metaball Aura behind Rocket */}
+            <div
+              aria-hidden="true"
+              style={{ filter: "url(#tvc-liquid-filter)" }}
+              className="pointer-events-none absolute -inset-6 sm:-inset-8 opacity-85"
+            >
+              <div className="tvc-liquid-blob-a absolute inset-3 rounded-full bg-[#f5ed00]/25 blur-xl" />
+              <div className="tvc-liquid-blob-b absolute inset-5 rounded-full bg-white/15 blur-xl" />
+            </div>
+
+            {/* 3D Gyroscopic Glass & Gold Rings with Orbiting Satellites */}
+            <div
+              ref={rings3DRef}
+              aria-hidden="true"
+              className="pointer-events-none absolute -inset-4 sm:-inset-6 flex items-center justify-center"
+            >
+              <div className="tvc-3d-ring tvc-3d-ring-one absolute inset-0 rounded-full border border-[#f5ed00]/35 shadow-[inset_0_0_28px_rgba(245,237,0,0.12)]">
+                <span className="absolute -top-1.5 left-1/2 -translate-x-1/2 h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full bg-[#f5ed00] shadow-[0_0_14px_#f5ed00]" />
+              </div>
+              <div className="tvc-3d-ring tvc-3d-ring-two absolute inset-2 rounded-full border border-white/20">
+                <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 h-2 w-2 rounded-full bg-white shadow-[0_0_10px_#ffffff]" />
+              </div>
+              <div className="tvc-3d-ring tvc-3d-ring-three absolute -inset-2 rounded-full border border-dashed border-[#f5ed00]/25" />
+              {/* Frosted Glass Specular Halo */}
+              <div className="tvc-glass-shimmer absolute inset-2.5 sm:inset-3 rounded-full bg-white/[0.03] backdrop-blur-md border border-white/15 shadow-[inset_0_1px_1px_rgba(255,255,255,0.28),0_16px_48px_rgba(0,0,0,0.75)]" />
+            </div>
+
+            {/* 3D Tilting Rocket Emblem + Plasma Thruster Flare */}
+            <div ref={rocket3DRef} className="relative h-full w-full will-change-transform">
+              <div
+                aria-hidden="true"
+                className="tvc-thruster-flare pointer-events-none absolute bottom-1 left-1/2 -translate-x-1/2 h-14 w-8 sm:h-16 sm:w-10 rounded-full bg-gradient-to-b from-[#f5ed00]/45 via-[#f5ed00]/15 to-transparent blur-md"
+              />
+              <Image
+                src="/brand/tvc-rocket-emblem.png"
+                alt="Thapar Venture Club Rocket"
+                fill
+                priority
+                sizes="(max-width: 640px) 128px, (max-width: 768px) 176px, (max-width: 1200px) 224px, 240px"
+                className="object-contain filter drop-shadow-[0_0_36px_rgba(245,237,0,0.28)]"
+                onLoad={handleAssetLoaded}
+              />
+            </div>
           </div>
 
+          {/* Reveal Content (Wordmark + Tagline) */}
           <div
             ref={revealRef}
-            className="flex flex-col items-center md:items-start text-center md:text-left"
+            className="flex flex-col items-center md:items-start text-center md:text-left max-w-full"
           >
             <div
               ref={wordmarkRef}
-              style={{ clipPath: "inset(0% 100% 0% 0%)", opacity: 0 }}
-              className="relative w-[260px] xs:w-[300px] sm:w-[380px] md:w-[420px] lg:w-[500px] xl:w-[540px] aspect-[930/100] will-change-transform"
+              style={{ opacity: 0 }}
+              className="relative w-[230px] xs:w-[270px] sm:w-[360px] md:w-[420px] lg:w-[500px] xl:w-[540px] aspect-[930/100] will-change-transform max-w-full"
             >
               <Image
                 src="/brand/tvc-wordmark.png"
                 alt="Thapar Venture Club"
                 fill
                 priority
-                sizes="(max-width: 640px) 300px, (max-width: 1024px) 460px, 540px"
-                className="object-contain"
+                sizes="(max-width: 640px) 270px, (max-width: 1024px) 460px, 540px"
+                className="object-contain drop-shadow-[0_10px_32px_rgba(0,0,0,0.85)]"
                 onLoad={handleAssetLoaded}
               />
             </div>
@@ -206,12 +344,12 @@ export function HeroReveal() {
             <div
               ref={taglineRef}
               style={{ opacity: 0 }}
-              className="mt-3 sm:mt-4 md:mt-4 lg:mt-5 flex items-center justify-center md:justify-start gap-2.5 sm:gap-3 will-change-transform"
+              className="mt-2.5 sm:mt-3.5 md:mt-4 inline-flex items-center justify-center md:justify-start gap-2 sm:gap-3 rounded-full border border-white/[0.14] bg-white/[0.04] backdrop-blur-xl px-3.5 py-1 sm:px-4 sm:py-1.5 shadow-[0_12px_32px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.22)] will-change-transform max-w-full"
             >
-              <div className="h-[2px] w-4 sm:w-6 bg-[#f5ed00] rounded-full hidden md:block" />
-              <p className="font-mono text-[11px] xs:text-xs sm:text-sm lg:text-base font-semibold tracking-[0.24em] xs:tracking-[0.28em] sm:tracking-[0.32em] text-[#f4f3ef] uppercase">
-                Ideate <span className="text-[#f5ed00] mx-0.5 sm:mx-1.5">•</span> Ascend{" "}
-                <span className="text-[#f5ed00] mx-0.5 sm:mx-1.5">•</span> Lead
+              <div className="h-[2px] w-3 sm:w-5 bg-[#f5ed00] rounded-full hidden md:block shadow-[0_0_10px_#f5ed00]" />
+              <p className="font-mono text-[9px] xs:text-[10px] sm:text-xs md:text-sm lg:text-base font-semibold tracking-[0.16em] xs:tracking-[0.2em] sm:tracking-[0.28em] text-[#f4f3ef] uppercase whitespace-nowrap">
+                Ideate <span className="text-[#f5ed00] mx-0.5 sm:mx-1">•</span> Ascend{" "}
+                <span className="text-[#f5ed00] mx-0.5 sm:mx-1">•</span> Lead
               </p>
             </div>
           </div>
@@ -221,13 +359,13 @@ export function HeroReveal() {
       <div
         ref={indicatorRef}
         aria-hidden="true"
-        className="absolute bottom-8 sm:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none transition-opacity duration-300"
+        className="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 sm:gap-2 pointer-events-none transition-opacity duration-300 z-10"
       >
-        <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-[#a5a49f]">
+        <span className="rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-md px-2.5 py-0.5 sm:px-3 sm:py-1 font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.22em] text-[#a5a49f]">
           Scroll to explore
         </span>
-        <div className="w-4 h-7 sm:w-5 sm:h-8 rounded-full border border-white/20 flex items-start justify-center p-1 sm:p-1.5">
-          <div className="w-1 h-2 rounded-full bg-[#f5ed00] animate-bounce" />
+        <div className="w-4 h-6 sm:w-5 sm:h-8 rounded-full border border-white/20 bg-white/[0.05] backdrop-blur-xl shadow-[0_8px_24px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.25)] flex items-start justify-center p-1 sm:p-1.5">
+          <div className="w-1 h-1.5 sm:h-2 rounded-full bg-[#f5ed00] animate-bounce shadow-[0_0_8px_#f5ed00]" />
         </div>
       </div>
     </section>

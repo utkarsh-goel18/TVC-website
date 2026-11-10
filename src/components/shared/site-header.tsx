@@ -46,17 +46,23 @@ export function SiteHeader() {
       <header
         className={`fixed top-0 right-0 left-0 z-40 transition-all duration-300 ${
           isScrolled
-            ? "border-b border-white/[0.06] bg-[#0d0d0d]/95 shadow-[0_1px_0_rgba(255,255,255,0.04)] backdrop-blur-md"
-            : "border-b border-white/[0.04] bg-[#0d0d0d]/80 backdrop-blur-sm"
+            ? "border-b border-white/[0.08] bg-[#070706]/85 shadow-[0_4px_30px_rgba(0,0,0,0.7),inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-2xl"
+            : "border-b border-white/[0.04] bg-[#070706]/60 backdrop-blur-xl"
         }`}
       >
+        {/* Subtle Specular Top Highlight */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#f5ed00]/30 to-transparent"
+        />
+
         <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-8 px-6 sm:h-16 sm:px-10 lg:px-16">
           <Link
             href="/"
-            className="group flex flex-shrink-0 items-center gap-2.5 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f5ed00]"
+            className="group flex flex-shrink-0 items-center gap-3 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f5ed00]"
             aria-label="Thapar Venture Club — Home"
           >
-            <div className="relative h-6 w-6 flex-shrink-0 transition-transform duration-300 group-hover:scale-105 sm:h-7 sm:w-7">
+            <div className="relative h-6 w-6 flex-shrink-0 transition-transform duration-300 group-hover:scale-110 sm:h-7 sm:w-7 filter drop-shadow-[0_0_12px_rgba(245,237,0,0.25)]">
               <Image
                 src="/brand/tvc-rocket-emblem.png"
                 alt="TVC"
@@ -66,9 +72,15 @@ export function SiteHeader() {
                 priority
               />
             </div>
-            <span className="text-sm font-medium tracking-tight text-[#e8e7e3] transition-colors duration-200 group-hover:text-white sm:text-[15px]">
-              Thapar Venture Club
-            </span>
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-medium tracking-tight text-[#e8e7e3] transition-colors duration-200 group-hover:text-white sm:text-[15px]">
+                Thapar Venture Club
+              </span>
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#f5ed00] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#f5ed00]"></span>
+              </span>
+            </div>
           </Link>
 
           <nav
@@ -88,7 +100,7 @@ export function SiteHeader() {
                   aria-current={isActive ? "page" : undefined}
                   className={`nav-item group/navitem relative rounded-sm px-5 py-2 text-[13px] font-normal tracking-wide transition-colors duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#f5ed00] ${
                     isActive
-                      ? "text-[#f5ed00]"
+                      ? "text-[#f5ed00] font-semibold"
                       : "text-[#9e9d99] hover:text-[#e8e7e3]"
                   }`}
                 >
@@ -112,7 +124,7 @@ export function SiteHeader() {
 
           <a
             href="/#contact"
-            className="tvc-header-cta hidden flex-shrink-0 items-center gap-2 border border-[#f5ed00]/60 px-4 py-2 font-mono text-[10px] font-semibold tracking-[0.16em] text-[#f5ed00] transition-all duration-300 hover:border-[#f5ed00] hover:bg-[#f5ed00] hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white sm:px-5 sm:text-xs md:inline-flex"
+            className="tvc-header-cta hidden flex-shrink-0 items-center gap-2 rounded-full border border-[#f5ed00]/50 bg-[#f5ed00]/10 hover:bg-[#f5ed00] hover:text-black backdrop-blur-md px-5 py-2 font-mono text-[10px] font-semibold tracking-[0.16em] text-[#f5ed00] transition-all duration-300 shadow-[0_0_16px_rgba(245,237,0,0.15)] hover:shadow-[0_0_24px_rgba(245,237,0,0.35)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white sm:text-xs md:inline-flex"
           >
             LET'S CONNECT <ArrowUpRight className="h-3.5 w-3.5" />
           </a>
@@ -120,7 +132,7 @@ export function SiteHeader() {
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="rounded-sm p-2 text-[#9e9d99] transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f5ed00] md:hidden"
+            className="rounded-lg border border-white/10 bg-white/[0.04] p-2 text-[#9e9d99] backdrop-blur-md transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f5ed00] md:hidden"
             aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileMenuOpen}
             aria-controls="mobile-navigation"
@@ -140,13 +152,13 @@ export function SiteHeader() {
           role="dialog"
           aria-modal="true"
           aria-label="Mobile navigation"
-          className="fixed inset-0 z-50 flex flex-col justify-between bg-[#0a0a0a]/98 p-6 pt-20 backdrop-blur-xl md:hidden"
+          className="fixed inset-0 z-50 flex flex-col justify-between bg-[#0a0a0a]/98 p-6 pt-20 backdrop-blur-2xl md:hidden"
         >
           <div className="absolute top-4 right-5">
             <button
               type="button"
               onClick={() => setMobileMenuOpen(false)}
-              className="rounded-sm p-2 text-[#9e9d99] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f5ed00]"
+              className="rounded-full border border-white/10 bg-white/[0.04] p-2 text-[#9e9d99] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f5ed00]"
               aria-label="Close navigation"
             >
               <X className="h-6 w-6" />
@@ -202,7 +214,7 @@ export function SiteHeader() {
             <a
               href="/#contact"
               onClick={() => setMobileMenuOpen(false)}
-              className="inline-flex w-fit items-center gap-3 border border-[#f5ed00] bg-[#f5ed00] px-5 py-3 font-mono text-xs font-semibold tracking-[0.14em] text-black transition-colors hover:bg-[#ded700] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+              className="inline-flex w-fit items-center gap-3 rounded-full border border-[#f5ed00] bg-[#f5ed00] px-6 py-3.5 font-mono text-xs font-semibold tracking-[0.14em] text-black transition-all shadow-[0_0_20px_rgba(245,237,0,0.3)] hover:bg-[#ded700] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
             >
               LET'S CONNECT <ArrowUpRight className="h-4 w-4" />
             </a>

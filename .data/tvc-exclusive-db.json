@@ -1,0 +1,2665 @@
+{
+  "positions": [
+    {
+      "id": "pos-president",
+      "name": "President",
+      "slug": "president",
+      "organisational_level": 3,
+      "description": "Executive President of Thapar Venture Club",
+      "is_active": true,
+      "created_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "pos-general-secretary",
+      "name": "General Secretary",
+      "slug": "general_secretary",
+      "organisational_level": 3,
+      "description": "Executive General Secretary overseeing club strategy and operations",
+      "is_active": true,
+      "created_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "pos-joint-secretary",
+      "name": "Joint Secretary",
+      "slug": "joint_secretary",
+      "organisational_level": 3,
+      "description": "Executive Joint Secretary coordinating cross-department execution",
+      "is_active": true,
+      "created_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "pos-design-secretary",
+      "name": "Media and Design Secretary",
+      "slug": "design_secretary",
+      "organisational_level": 3,
+      "description": "Executive Secretary leading visual identity, UI/UX, and media production",
+      "is_active": true,
+      "created_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "pos-tech-secretary",
+      "name": "Technical Secretary",
+      "slug": "tech_secretary",
+      "organisational_level": 3,
+      "description": "Executive Secretary leading engineering, web/mobile platforms, and tech",
+      "is_active": true,
+      "created_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "pos-marketing-secretary",
+      "name": "Marketing and External Secretary",
+      "slug": "marketing_secretary",
+      "organisational_level": 3,
+      "description": "Executive Secretary leading brand growth, sponsorships, and external affairs",
+      "is_active": true,
+      "created_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "pos-outreach-secretary",
+      "name": "Outreach Secretary",
+      "slug": "outreach_secretary",
+      "organisational_level": 3,
+      "description": "Executive Secretary leading speaker relations, partnerships, and outreach",
+      "is_active": true,
+      "created_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "pos-media-secretary",
+      "name": "Media Secretary",
+      "slug": "media_secretary",
+      "organisational_level": 3,
+      "description": "Executive Secretary leading cinematography, photography, and media coverage",
+      "is_active": true,
+      "created_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "pos-finance-secretary",
+      "name": "Finance Secretary",
+      "slug": "finance_secretary",
+      "organisational_level": 3,
+      "description": "Executive Secretary overseeing treasury, budgeting, and compliance",
+      "is_active": true,
+      "created_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "pos-head-entrepreneurship",
+      "name": "Head of Entrepreneurship",
+      "slug": "head_of_entrepreneurship",
+      "organisational_level": 3,
+      "description": "Executive Head driving venture incubation and founder programs",
+      "is_active": true,
+      "created_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "pos-head-operations",
+      "name": "Head of Operations",
+      "slug": "head_of_operations",
+      "organisational_level": 3,
+      "description": "Executive Head overseeing campus logistics and flagship event execution",
+      "is_active": true,
+      "created_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "pos-co-convener",
+      "name": "Co-Convener",
+      "slug": "co_convener",
+      "organisational_level": 3,
+      "description": "Executive Co-Convener for flagship summits and institutional initiatives",
+      "is_active": true,
+      "created_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "pos-l2-core",
+      "name": "Core Member",
+      "slug": "core",
+      "organisational_level": 2,
+      "description": "Second-Year Core Member designation with task and L1 onboarding leadership",
+      "is_active": true,
+      "created_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "pos-l2-general",
+      "name": "General Member",
+      "slug": "general_member",
+      "organisational_level": 2,
+      "description": "Second-Year General Member with full Level 2 task & L1 review privileges",
+      "is_active": true,
+      "created_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "pos-l1-general",
+      "name": "General Member",
+      "slug": "l1_general_member",
+      "organisational_level": 1,
+      "description": "First-Year General Member participating in departments, communities, and tasks",
+      "is_active": true,
+      "created_at": "2026-11-08T07:21:34.941Z"
+    }
+  ],
+  "permissions": [
+    {
+      "id": "perm-approve-l2",
+      "key": "approve_level_2_applications",
+      "description": "Review and approve or reject Level 2 (Second-Year) membership applications"
+    },
+    {
+      "id": "perm-approve-l1",
+      "key": "approve_level_1_applications",
+      "description": "Review and approve or reject Level 1 (First-Year) membership applications"
+    },
+    {
+      "id": "perm-promote-core",
+      "key": "promote_core_members",
+      "description": "Promote Level 2 General Members to Core designation or revoke Core designation"
+    },
+    {
+      "id": "perm-create-l2-tasks",
+      "key": "create_level_2_tasks",
+      "description": "Create and assign official tasks to Level 2 members"
+    },
+    {
+      "id": "perm-create-l1-tasks",
+      "key": "create_level_1_tasks",
+      "description": "Create and assign official tasks to Level 1 members"
+    },
+    {
+      "id": "perm-manage-depts",
+      "key": "manage_departments",
+      "description": "Add/remove department members and manage department configurations"
+    },
+    {
+      "id": "perm-manage-positions",
+      "key": "manage_positions",
+      "description": "Add, edit, or deactivate official positions without code changes"
+    },
+    {
+      "id": "perm-manage-members",
+      "key": "manage_members",
+      "description": "Activate, deactivate, or provision TVC member accounts"
+    },
+    {
+      "id": "perm-manage-perms",
+      "key": "manage_permissions",
+      "description": "Configure position permissions and explicit member permission grants"
+    },
+    {
+      "id": "perm-publish-announcements",
+      "key": "publish_general_announcements",
+      "description": "Publish organization-wide announcements in General Announcements"
+    },
+    {
+      "id": "perm-audit-logs",
+      "key": "view_audit_logs",
+      "description": "Inspect administrative audit history logs"
+    }
+  ],
+  "position_permissions": [
+    {
+      "position_id": "pos-president",
+      "permission_id": "perm-approve-l2"
+    },
+    {
+      "position_id": "pos-president",
+      "permission_id": "perm-approve-l1"
+    },
+    {
+      "position_id": "pos-president",
+      "permission_id": "perm-promote-core"
+    },
+    {
+      "position_id": "pos-president",
+      "permission_id": "perm-create-l2-tasks"
+    },
+    {
+      "position_id": "pos-president",
+      "permission_id": "perm-create-l1-tasks"
+    },
+    {
+      "position_id": "pos-president",
+      "permission_id": "perm-manage-depts"
+    },
+    {
+      "position_id": "pos-president",
+      "permission_id": "perm-manage-positions"
+    },
+    {
+      "position_id": "pos-president",
+      "permission_id": "perm-manage-members"
+    },
+    {
+      "position_id": "pos-president",
+      "permission_id": "perm-manage-perms"
+    },
+    {
+      "position_id": "pos-president",
+      "permission_id": "perm-publish-announcements"
+    },
+    {
+      "position_id": "pos-president",
+      "permission_id": "perm-audit-logs"
+    },
+    {
+      "position_id": "pos-general-secretary",
+      "permission_id": "perm-approve-l2"
+    },
+    {
+      "position_id": "pos-general-secretary",
+      "permission_id": "perm-approve-l1"
+    },
+    {
+      "position_id": "pos-general-secretary",
+      "permission_id": "perm-promote-core"
+    },
+    {
+      "position_id": "pos-general-secretary",
+      "permission_id": "perm-create-l2-tasks"
+    },
+    {
+      "position_id": "pos-general-secretary",
+      "permission_id": "perm-create-l1-tasks"
+    },
+    {
+      "position_id": "pos-general-secretary",
+      "permission_id": "perm-manage-depts"
+    },
+    {
+      "position_id": "pos-general-secretary",
+      "permission_id": "perm-manage-positions"
+    },
+    {
+      "position_id": "pos-general-secretary",
+      "permission_id": "perm-manage-members"
+    },
+    {
+      "position_id": "pos-general-secretary",
+      "permission_id": "perm-manage-perms"
+    },
+    {
+      "position_id": "pos-general-secretary",
+      "permission_id": "perm-publish-announcements"
+    },
+    {
+      "position_id": "pos-general-secretary",
+      "permission_id": "perm-audit-logs"
+    },
+    {
+      "position_id": "pos-joint-secretary",
+      "permission_id": "perm-approve-l2"
+    },
+    {
+      "position_id": "pos-joint-secretary",
+      "permission_id": "perm-approve-l1"
+    },
+    {
+      "position_id": "pos-joint-secretary",
+      "permission_id": "perm-promote-core"
+    },
+    {
+      "position_id": "pos-joint-secretary",
+      "permission_id": "perm-create-l2-tasks"
+    },
+    {
+      "position_id": "pos-joint-secretary",
+      "permission_id": "perm-create-l1-tasks"
+    },
+    {
+      "position_id": "pos-joint-secretary",
+      "permission_id": "perm-manage-depts"
+    },
+    {
+      "position_id": "pos-joint-secretary",
+      "permission_id": "perm-manage-positions"
+    },
+    {
+      "position_id": "pos-joint-secretary",
+      "permission_id": "perm-manage-members"
+    },
+    {
+      "position_id": "pos-joint-secretary",
+      "permission_id": "perm-manage-perms"
+    },
+    {
+      "position_id": "pos-joint-secretary",
+      "permission_id": "perm-publish-announcements"
+    },
+    {
+      "position_id": "pos-joint-secretary",
+      "permission_id": "perm-audit-logs"
+    },
+    {
+      "position_id": "pos-design-secretary",
+      "permission_id": "perm-approve-l2"
+    },
+    {
+      "position_id": "pos-design-secretary",
+      "permission_id": "perm-approve-l1"
+    },
+    {
+      "position_id": "pos-design-secretary",
+      "permission_id": "perm-promote-core"
+    },
+    {
+      "position_id": "pos-design-secretary",
+      "permission_id": "perm-create-l2-tasks"
+    },
+    {
+      "position_id": "pos-design-secretary",
+      "permission_id": "perm-create-l1-tasks"
+    },
+    {
+      "position_id": "pos-design-secretary",
+      "permission_id": "perm-manage-depts"
+    },
+    {
+      "position_id": "pos-design-secretary",
+      "permission_id": "perm-manage-positions"
+    },
+    {
+      "position_id": "pos-design-secretary",
+      "permission_id": "perm-manage-members"
+    },
+    {
+      "position_id": "pos-design-secretary",
+      "permission_id": "perm-manage-perms"
+    },
+    {
+      "position_id": "pos-design-secretary",
+      "permission_id": "perm-publish-announcements"
+    },
+    {
+      "position_id": "pos-design-secretary",
+      "permission_id": "perm-audit-logs"
+    },
+    {
+      "position_id": "pos-tech-secretary",
+      "permission_id": "perm-approve-l2"
+    },
+    {
+      "position_id": "pos-tech-secretary",
+      "permission_id": "perm-approve-l1"
+    },
+    {
+      "position_id": "pos-tech-secretary",
+      "permission_id": "perm-promote-core"
+    },
+    {
+      "position_id": "pos-tech-secretary",
+      "permission_id": "perm-create-l2-tasks"
+    },
+    {
+      "position_id": "pos-tech-secretary",
+      "permission_id": "perm-create-l1-tasks"
+    },
+    {
+      "position_id": "pos-tech-secretary",
+      "permission_id": "perm-manage-depts"
+    },
+    {
+      "position_id": "pos-tech-secretary",
+      "permission_id": "perm-manage-positions"
+    },
+    {
+      "position_id": "pos-tech-secretary",
+      "permission_id": "perm-manage-members"
+    },
+    {
+      "position_id": "pos-tech-secretary",
+      "permission_id": "perm-manage-perms"
+    },
+    {
+      "position_id": "pos-tech-secretary",
+      "permission_id": "perm-publish-announcements"
+    },
+    {
+      "position_id": "pos-tech-secretary",
+      "permission_id": "perm-audit-logs"
+    },
+    {
+      "position_id": "pos-marketing-secretary",
+      "permission_id": "perm-approve-l2"
+    },
+    {
+      "position_id": "pos-marketing-secretary",
+      "permission_id": "perm-approve-l1"
+    },
+    {
+      "position_id": "pos-marketing-secretary",
+      "permission_id": "perm-promote-core"
+    },
+    {
+      "position_id": "pos-marketing-secretary",
+      "permission_id": "perm-create-l2-tasks"
+    },
+    {
+      "position_id": "pos-marketing-secretary",
+      "permission_id": "perm-create-l1-tasks"
+    },
+    {
+      "position_id": "pos-marketing-secretary",
+      "permission_id": "perm-manage-depts"
+    },
+    {
+      "position_id": "pos-marketing-secretary",
+      "permission_id": "perm-manage-positions"
+    },
+    {
+      "position_id": "pos-marketing-secretary",
+      "permission_id": "perm-manage-members"
+    },
+    {
+      "position_id": "pos-marketing-secretary",
+      "permission_id": "perm-manage-perms"
+    },
+    {
+      "position_id": "pos-marketing-secretary",
+      "permission_id": "perm-publish-announcements"
+    },
+    {
+      "position_id": "pos-marketing-secretary",
+      "permission_id": "perm-audit-logs"
+    },
+    {
+      "position_id": "pos-outreach-secretary",
+      "permission_id": "perm-approve-l2"
+    },
+    {
+      "position_id": "pos-outreach-secretary",
+      "permission_id": "perm-approve-l1"
+    },
+    {
+      "position_id": "pos-outreach-secretary",
+      "permission_id": "perm-promote-core"
+    },
+    {
+      "position_id": "pos-outreach-secretary",
+      "permission_id": "perm-create-l2-tasks"
+    },
+    {
+      "position_id": "pos-outreach-secretary",
+      "permission_id": "perm-create-l1-tasks"
+    },
+    {
+      "position_id": "pos-outreach-secretary",
+      "permission_id": "perm-manage-depts"
+    },
+    {
+      "position_id": "pos-outreach-secretary",
+      "permission_id": "perm-manage-positions"
+    },
+    {
+      "position_id": "pos-outreach-secretary",
+      "permission_id": "perm-manage-members"
+    },
+    {
+      "position_id": "pos-outreach-secretary",
+      "permission_id": "perm-manage-perms"
+    },
+    {
+      "position_id": "pos-outreach-secretary",
+      "permission_id": "perm-publish-announcements"
+    },
+    {
+      "position_id": "pos-outreach-secretary",
+      "permission_id": "perm-audit-logs"
+    },
+    {
+      "position_id": "pos-media-secretary",
+      "permission_id": "perm-approve-l2"
+    },
+    {
+      "position_id": "pos-media-secretary",
+      "permission_id": "perm-approve-l1"
+    },
+    {
+      "position_id": "pos-media-secretary",
+      "permission_id": "perm-promote-core"
+    },
+    {
+      "position_id": "pos-media-secretary",
+      "permission_id": "perm-create-l2-tasks"
+    },
+    {
+      "position_id": "pos-media-secretary",
+      "permission_id": "perm-create-l1-tasks"
+    },
+    {
+      "position_id": "pos-media-secretary",
+      "permission_id": "perm-manage-depts"
+    },
+    {
+      "position_id": "pos-media-secretary",
+      "permission_id": "perm-manage-positions"
+    },
+    {
+      "position_id": "pos-media-secretary",
+      "permission_id": "perm-manage-members"
+    },
+    {
+      "position_id": "pos-media-secretary",
+      "permission_id": "perm-manage-perms"
+    },
+    {
+      "position_id": "pos-media-secretary",
+      "permission_id": "perm-publish-announcements"
+    },
+    {
+      "position_id": "pos-media-secretary",
+      "permission_id": "perm-audit-logs"
+    },
+    {
+      "position_id": "pos-finance-secretary",
+      "permission_id": "perm-approve-l2"
+    },
+    {
+      "position_id": "pos-finance-secretary",
+      "permission_id": "perm-approve-l1"
+    },
+    {
+      "position_id": "pos-finance-secretary",
+      "permission_id": "perm-promote-core"
+    },
+    {
+      "position_id": "pos-finance-secretary",
+      "permission_id": "perm-create-l2-tasks"
+    },
+    {
+      "position_id": "pos-finance-secretary",
+      "permission_id": "perm-create-l1-tasks"
+    },
+    {
+      "position_id": "pos-finance-secretary",
+      "permission_id": "perm-manage-depts"
+    },
+    {
+      "position_id": "pos-finance-secretary",
+      "permission_id": "perm-manage-positions"
+    },
+    {
+      "position_id": "pos-finance-secretary",
+      "permission_id": "perm-manage-members"
+    },
+    {
+      "position_id": "pos-finance-secretary",
+      "permission_id": "perm-manage-perms"
+    },
+    {
+      "position_id": "pos-finance-secretary",
+      "permission_id": "perm-publish-announcements"
+    },
+    {
+      "position_id": "pos-finance-secretary",
+      "permission_id": "perm-audit-logs"
+    },
+    {
+      "position_id": "pos-head-entrepreneurship",
+      "permission_id": "perm-approve-l2"
+    },
+    {
+      "position_id": "pos-head-entrepreneurship",
+      "permission_id": "perm-approve-l1"
+    },
+    {
+      "position_id": "pos-head-entrepreneurship",
+      "permission_id": "perm-promote-core"
+    },
+    {
+      "position_id": "pos-head-entrepreneurship",
+      "permission_id": "perm-create-l2-tasks"
+    },
+    {
+      "position_id": "pos-head-entrepreneurship",
+      "permission_id": "perm-create-l1-tasks"
+    },
+    {
+      "position_id": "pos-head-entrepreneurship",
+      "permission_id": "perm-manage-depts"
+    },
+    {
+      "position_id": "pos-head-entrepreneurship",
+      "permission_id": "perm-manage-positions"
+    },
+    {
+      "position_id": "pos-head-entrepreneurship",
+      "permission_id": "perm-manage-members"
+    },
+    {
+      "position_id": "pos-head-entrepreneurship",
+      "permission_id": "perm-manage-perms"
+    },
+    {
+      "position_id": "pos-head-entrepreneurship",
+      "permission_id": "perm-publish-announcements"
+    },
+    {
+      "position_id": "pos-head-entrepreneurship",
+      "permission_id": "perm-audit-logs"
+    },
+    {
+      "position_id": "pos-head-operations",
+      "permission_id": "perm-approve-l2"
+    },
+    {
+      "position_id": "pos-head-operations",
+      "permission_id": "perm-approve-l1"
+    },
+    {
+      "position_id": "pos-head-operations",
+      "permission_id": "perm-promote-core"
+    },
+    {
+      "position_id": "pos-head-operations",
+      "permission_id": "perm-create-l2-tasks"
+    },
+    {
+      "position_id": "pos-head-operations",
+      "permission_id": "perm-create-l1-tasks"
+    },
+    {
+      "position_id": "pos-head-operations",
+      "permission_id": "perm-manage-depts"
+    },
+    {
+      "position_id": "pos-head-operations",
+      "permission_id": "perm-manage-positions"
+    },
+    {
+      "position_id": "pos-head-operations",
+      "permission_id": "perm-manage-members"
+    },
+    {
+      "position_id": "pos-head-operations",
+      "permission_id": "perm-manage-perms"
+    },
+    {
+      "position_id": "pos-head-operations",
+      "permission_id": "perm-publish-announcements"
+    },
+    {
+      "position_id": "pos-head-operations",
+      "permission_id": "perm-audit-logs"
+    },
+    {
+      "position_id": "pos-co-convener",
+      "permission_id": "perm-approve-l2"
+    },
+    {
+      "position_id": "pos-co-convener",
+      "permission_id": "perm-approve-l1"
+    },
+    {
+      "position_id": "pos-co-convener",
+      "permission_id": "perm-promote-core"
+    },
+    {
+      "position_id": "pos-co-convener",
+      "permission_id": "perm-create-l2-tasks"
+    },
+    {
+      "position_id": "pos-co-convener",
+      "permission_id": "perm-create-l1-tasks"
+    },
+    {
+      "position_id": "pos-co-convener",
+      "permission_id": "perm-manage-depts"
+    },
+    {
+      "position_id": "pos-co-convener",
+      "permission_id": "perm-manage-positions"
+    },
+    {
+      "position_id": "pos-co-convener",
+      "permission_id": "perm-manage-members"
+    },
+    {
+      "position_id": "pos-co-convener",
+      "permission_id": "perm-manage-perms"
+    },
+    {
+      "position_id": "pos-co-convener",
+      "permission_id": "perm-publish-announcements"
+    },
+    {
+      "position_id": "pos-co-convener",
+      "permission_id": "perm-audit-logs"
+    },
+    {
+      "position_id": "pos-l2-core",
+      "permission_id": "perm-approve-l1"
+    },
+    {
+      "position_id": "pos-l2-core",
+      "permission_id": "perm-create-l2-tasks"
+    },
+    {
+      "position_id": "pos-l2-core",
+      "permission_id": "perm-create-l1-tasks"
+    },
+    {
+      "position_id": "pos-l2-general",
+      "permission_id": "perm-approve-l1"
+    },
+    {
+      "position_id": "pos-l2-general",
+      "permission_id": "perm-create-l2-tasks"
+    },
+    {
+      "position_id": "pos-l2-general",
+      "permission_id": "perm-create-l1-tasks"
+    }
+  ],
+  "members": [
+    {
+      "id": "member-president",
+      "name": "Pranav Kapoor",
+      "roll_number": "102203000",
+      "username": "president",
+      "email": "pkapoor_be22@thapar.edu",
+      "phone": "+91 98765 03000",
+      "level": 3,
+      "academic_year": "4th Year",
+      "position_id": "pos-president",
+      "membership_status": "active",
+      "profile_image": "/brand/tvc-rocket-emblem.png",
+      "bio": "President at Thapar Venture Club. Building TIET's flagship founder & venture ecosystem.",
+      "skills": [
+        "Venture Strategy",
+        "Leadership",
+        "Ecosystem Building",
+        "Product"
+      ],
+      "interests": [
+        "DeepTech",
+        "SaaS",
+        "Angel Investing"
+      ],
+      "linkedin": "https://www.linkedin.com/school/thaparventureclub/",
+      "password_hash": "scrypt$tvc2026fixedsalt01$69900ec479fea1b93bd192abd91921b706cab721d23a476c0941f733ad4295dd0f221228ed598167739f13a0aa3b7c4ac6e42eb3fe81852c37bee6d5756aa8e8",
+      "must_change_password": false,
+      "notification_preferences": {
+        "direct_messages": true,
+        "group_messages": true,
+        "announcements": true,
+        "task_updates": true,
+        "applications": true,
+        "promotions": true,
+        "deadlines": true,
+        "push_enabled": true,
+        "muted_conversations": []
+      },
+      "joined_at": "2023-08-15T10:00:00.000Z",
+      "created_at": "2026-11-08T07:21:34.941Z",
+      "updated_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "member-sanchit-sehgal",
+      "name": "Sanchit Sehgal",
+      "roll_number": "102203001",
+      "username": "sanchit-sehgal",
+      "email": "sanchit.sehgal@thapar.edu",
+      "phone": "+91 98765 03001",
+      "level": 3,
+      "academic_year": "4th Year",
+      "position_id": "pos-general-secretary",
+      "membership_status": "active",
+      "profile_image": "/images/eb/sanchit.jpg",
+      "bio": "General Secretary at Thapar Venture Club (Executive Board).",
+      "skills": [
+        "Executive Leadership",
+        "Venture Operations",
+        "Event Architecture"
+      ],
+      "interests": [
+        "Entrepreneurship",
+        "Startups",
+        "Venture Capital"
+      ],
+      "linkedin": "https://www.linkedin.com/in/sanchitsehgal/",
+      "password_hash": "scrypt$tvc2026fixedsalt01$69900ec479fea1b93bd192abd91921b706cab721d23a476c0941f733ad4295dd0f221228ed598167739f13a0aa3b7c4ac6e42eb3fe81852c37bee6d5756aa8e8",
+      "must_change_password": false,
+      "notification_preferences": {
+        "direct_messages": true,
+        "group_messages": true,
+        "announcements": true,
+        "task_updates": true,
+        "applications": true,
+        "promotions": true,
+        "deadlines": true,
+        "push_enabled": true,
+        "muted_conversations": []
+      },
+      "joined_at": "2023-09-01T10:00:00.000Z",
+      "created_at": "2026-11-08T07:21:34.941Z",
+      "updated_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "member-shashank-jain",
+      "name": "Shashank Jain",
+      "roll_number": "102203002",
+      "username": "shashank-jain",
+      "email": "shashank.jain@thapar.edu",
+      "phone": "+91 98765 03002",
+      "level": 3,
+      "academic_year": "4th Year",
+      "position_id": "pos-general-secretary",
+      "membership_status": "active",
+      "profile_image": "/images/eb/shashank-jain.jpeg",
+      "bio": "General Secretary at Thapar Venture Club (Executive Board).",
+      "skills": [
+        "Executive Leadership",
+        "Venture Operations",
+        "Event Architecture"
+      ],
+      "interests": [
+        "Entrepreneurship",
+        "Startups",
+        "Venture Capital"
+      ],
+      "linkedin": "https://www.linkedin.com/in/shashank-jain-ngn/",
+      "password_hash": "scrypt$tvc2026fixedsalt01$69900ec479fea1b93bd192abd91921b706cab721d23a476c0941f733ad4295dd0f221228ed598167739f13a0aa3b7c4ac6e42eb3fe81852c37bee6d5756aa8e8",
+      "must_change_password": false,
+      "notification_preferences": {
+        "direct_messages": true,
+        "group_messages": true,
+        "announcements": true,
+        "task_updates": true,
+        "applications": true,
+        "promotions": true,
+        "deadlines": true,
+        "push_enabled": true,
+        "muted_conversations": []
+      },
+      "joined_at": "2023-09-01T10:00:00.000Z",
+      "created_at": "2026-11-08T07:21:34.941Z",
+      "updated_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "member-devyansh-arya",
+      "name": "Devyansh Arya",
+      "roll_number": "102203003",
+      "username": "devyansh-arya",
+      "email": "devyansh.arya@thapar.edu",
+      "phone": "+91 98765 03003",
+      "level": 3,
+      "academic_year": "4th Year",
+      "position_id": "pos-general-secretary",
+      "membership_status": "active",
+      "profile_image": "/images/eb/dev.jpeg",
+      "bio": "General Secretary at Thapar Venture Club (Executive Board).",
+      "skills": [
+        "Executive Leadership",
+        "Venture Operations",
+        "Event Architecture"
+      ],
+      "interests": [
+        "Entrepreneurship",
+        "Startups",
+        "Venture Capital"
+      ],
+      "linkedin": "https://www.linkedin.com/in/devyansh-arya-4b8b901b5/",
+      "password_hash": "scrypt$tvc2026fixedsalt01$69900ec479fea1b93bd192abd91921b706cab721d23a476c0941f733ad4295dd0f221228ed598167739f13a0aa3b7c4ac6e42eb3fe81852c37bee6d5756aa8e8",
+      "must_change_password": false,
+      "notification_preferences": {
+        "direct_messages": true,
+        "group_messages": true,
+        "announcements": true,
+        "task_updates": true,
+        "applications": true,
+        "promotions": true,
+        "deadlines": true,
+        "push_enabled": true,
+        "muted_conversations": []
+      },
+      "joined_at": "2023-09-01T10:00:00.000Z",
+      "created_at": "2026-11-08T07:21:34.941Z",
+      "updated_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "member-aadish-jain",
+      "name": "Aadish Jain",
+      "roll_number": "102203004",
+      "username": "aadish-jain",
+      "email": "aadish.jain@thapar.edu",
+      "phone": "+91 98765 03004",
+      "level": 3,
+      "academic_year": "4th Year",
+      "position_id": "pos-joint-secretary",
+      "membership_status": "active",
+      "profile_image": "/images/eb/aadish-jain.jpg",
+      "bio": "Joint Secretary at Thapar Venture Club (Executive Board).",
+      "skills": [
+        "Executive Leadership",
+        "Venture Operations",
+        "Event Architecture"
+      ],
+      "interests": [
+        "Entrepreneurship",
+        "Startups",
+        "Venture Capital"
+      ],
+      "linkedin": "https://www.linkedin.com/in/aadishjain20/",
+      "password_hash": "scrypt$tvc2026fixedsalt01$69900ec479fea1b93bd192abd91921b706cab721d23a476c0941f733ad4295dd0f221228ed598167739f13a0aa3b7c4ac6e42eb3fe81852c37bee6d5756aa8e8",
+      "must_change_password": false,
+      "notification_preferences": {
+        "direct_messages": true,
+        "group_messages": true,
+        "announcements": true,
+        "task_updates": true,
+        "applications": true,
+        "promotions": true,
+        "deadlines": true,
+        "push_enabled": true,
+        "muted_conversations": []
+      },
+      "joined_at": "2023-09-01T10:00:00.000Z",
+      "created_at": "2026-11-08T07:21:34.941Z",
+      "updated_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "member-lakshya-goyal",
+      "name": "Lakshya Goyal",
+      "roll_number": "102203005",
+      "username": "lakshya-goyal",
+      "email": "lakshya.goyal@thapar.edu",
+      "phone": "+91 98765 03005",
+      "level": 3,
+      "academic_year": "4th Year",
+      "position_id": "pos-joint-secretary",
+      "membership_status": "active",
+      "profile_image": "/images/eb/lakshay.jpg",
+      "bio": "Joint Secretary at Thapar Venture Club (Executive Board).",
+      "skills": [
+        "Executive Leadership",
+        "Venture Operations",
+        "Event Architecture"
+      ],
+      "interests": [
+        "Entrepreneurship",
+        "Startups",
+        "Venture Capital"
+      ],
+      "linkedin": "https://www.linkedin.com/in/lakshya-goyal-070308229/",
+      "password_hash": "scrypt$tvc2026fixedsalt01$69900ec479fea1b93bd192abd91921b706cab721d23a476c0941f733ad4295dd0f221228ed598167739f13a0aa3b7c4ac6e42eb3fe81852c37bee6d5756aa8e8",
+      "must_change_password": false,
+      "notification_preferences": {
+        "direct_messages": true,
+        "group_messages": true,
+        "announcements": true,
+        "task_updates": true,
+        "applications": true,
+        "promotions": true,
+        "deadlines": true,
+        "push_enabled": true,
+        "muted_conversations": []
+      },
+      "joined_at": "2023-09-01T10:00:00.000Z",
+      "created_at": "2026-11-08T07:21:34.941Z",
+      "updated_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "member-nishtha-saha",
+      "name": "Nishtha Saha",
+      "roll_number": "102203006",
+      "username": "nishtha-saha",
+      "email": "nishtha.saha@thapar.edu",
+      "phone": "+91 98765 03006",
+      "level": 3,
+      "academic_year": "4th Year",
+      "position_id": "pos-joint-secretary",
+      "membership_status": "active",
+      "profile_image": "/images/eb/nishtha.png",
+      "bio": "Joint Secretary at Thapar Venture Club (Executive Board).",
+      "skills": [
+        "Executive Leadership",
+        "Venture Operations",
+        "Event Architecture"
+      ],
+      "interests": [
+        "Entrepreneurship",
+        "Startups",
+        "Venture Capital"
+      ],
+      "linkedin": "https://www.linkedin.com/in/nishtha-saha-2355352a6/",
+      "password_hash": "scrypt$tvc2026fixedsalt01$69900ec479fea1b93bd192abd91921b706cab721d23a476c0941f733ad4295dd0f221228ed598167739f13a0aa3b7c4ac6e42eb3fe81852c37bee6d5756aa8e8",
+      "must_change_password": false,
+      "notification_preferences": {
+        "direct_messages": true,
+        "group_messages": true,
+        "announcements": true,
+        "task_updates": true,
+        "applications": true,
+        "promotions": true,
+        "deadlines": true,
+        "push_enabled": true,
+        "muted_conversations": []
+      },
+      "joined_at": "2023-09-01T10:00:00.000Z",
+      "created_at": "2026-11-08T07:21:34.941Z",
+      "updated_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "member-parth-gakhar",
+      "name": "Parth Gakhar",
+      "roll_number": "102203007",
+      "username": "parth-gakhar",
+      "email": "parth.gakhar@thapar.edu",
+      "phone": "+91 98765 03007",
+      "level": 3,
+      "academic_year": "4th Year",
+      "position_id": "pos-finance-secretary",
+      "membership_status": "active",
+      "profile_image": "/images/eb/parth.jpeg",
+      "bio": "Finance Secretary at Thapar Venture Club (Executive Board).",
+      "skills": [
+        "Executive Leadership",
+        "Venture Operations",
+        "Event Architecture"
+      ],
+      "interests": [
+        "Entrepreneurship",
+        "Startups",
+        "Venture Capital"
+      ],
+      "linkedin": "https://www.linkedin.com/in/parth-gakhar-427913324/",
+      "password_hash": "scrypt$tvc2026fixedsalt01$69900ec479fea1b93bd192abd91921b706cab721d23a476c0941f733ad4295dd0f221228ed598167739f13a0aa3b7c4ac6e42eb3fe81852c37bee6d5756aa8e8",
+      "must_change_password": false,
+      "notification_preferences": {
+        "direct_messages": true,
+        "group_messages": true,
+        "announcements": true,
+        "task_updates": true,
+        "applications": true,
+        "promotions": true,
+        "deadlines": true,
+        "push_enabled": true,
+        "muted_conversations": []
+      },
+      "joined_at": "2023-09-01T10:00:00.000Z",
+      "created_at": "2026-11-08T07:21:34.941Z",
+      "updated_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "member-sparsh-gupta",
+      "name": "Sparsh Gupta",
+      "roll_number": "102203008",
+      "username": "sparsh-gupta",
+      "email": "sparsh.gupta@thapar.edu",
+      "phone": "+91 98765 03008",
+      "level": 3,
+      "academic_year": "4th Year",
+      "position_id": "pos-head-entrepreneurship",
+      "membership_status": "active",
+      "profile_image": "/images/eb/sparsh.jpg",
+      "bio": "Head of Entrepreneurship at Thapar Venture Club (Executive Board).",
+      "skills": [
+        "Executive Leadership",
+        "Venture Operations",
+        "Event Architecture"
+      ],
+      "interests": [
+        "Entrepreneurship",
+        "Startups",
+        "Venture Capital"
+      ],
+      "linkedin": "https://www.linkedin.com/in/sparsh-gupta-3976aa337/",
+      "password_hash": "scrypt$tvc2026fixedsalt01$69900ec479fea1b93bd192abd91921b706cab721d23a476c0941f733ad4295dd0f221228ed598167739f13a0aa3b7c4ac6e42eb3fe81852c37bee6d5756aa8e8",
+      "must_change_password": false,
+      "notification_preferences": {
+        "direct_messages": true,
+        "group_messages": true,
+        "announcements": true,
+        "task_updates": true,
+        "applications": true,
+        "promotions": true,
+        "deadlines": true,
+        "push_enabled": true,
+        "muted_conversations": []
+      },
+      "joined_at": "2023-09-01T10:00:00.000Z",
+      "created_at": "2026-11-08T07:21:34.941Z",
+      "updated_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "member-nimitt-malhotra",
+      "name": "Nimitt Malhotra",
+      "roll_number": "102203009",
+      "username": "nimitt-malhotra",
+      "email": "nimitt.malhotra@thapar.edu",
+      "phone": "+91 98765 03009",
+      "level": 3,
+      "academic_year": "4th Year",
+      "position_id": "pos-head-operations",
+      "membership_status": "active",
+      "profile_image": "/images/eb/nimitt.jpeg",
+      "bio": "Head of Operations at Thapar Venture Club (Executive Board).",
+      "skills": [
+        "Executive Leadership",
+        "Venture Operations",
+        "Event Architecture"
+      ],
+      "interests": [
+        "Entrepreneurship",
+        "Startups",
+        "Venture Capital"
+      ],
+      "linkedin": "https://www.linkedin.com/in/nimitt-malhotra-912bb22b3/",
+      "password_hash": "scrypt$tvc2026fixedsalt01$69900ec479fea1b93bd192abd91921b706cab721d23a476c0941f733ad4295dd0f221228ed598167739f13a0aa3b7c4ac6e42eb3fe81852c37bee6d5756aa8e8",
+      "must_change_password": false,
+      "notification_preferences": {
+        "direct_messages": true,
+        "group_messages": true,
+        "announcements": true,
+        "task_updates": true,
+        "applications": true,
+        "promotions": true,
+        "deadlines": true,
+        "push_enabled": true,
+        "muted_conversations": []
+      },
+      "joined_at": "2023-09-01T10:00:00.000Z",
+      "created_at": "2026-11-08T07:21:34.941Z",
+      "updated_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "member-liya",
+      "name": "Liya",
+      "roll_number": "102203010",
+      "username": "liya",
+      "email": "liya@thapar.edu",
+      "phone": "+91 98765 03010",
+      "level": 3,
+      "academic_year": "4th Year",
+      "position_id": "pos-head-operations",
+      "membership_status": "active",
+      "profile_image": "/images/eb/liya.JPG",
+      "bio": "Head of Operations at Thapar Venture Club (Executive Board).",
+      "skills": [
+        "Executive Leadership",
+        "Venture Operations",
+        "Event Architecture"
+      ],
+      "interests": [
+        "Entrepreneurship",
+        "Startups",
+        "Venture Capital"
+      ],
+      "linkedin": "https://www.linkedin.com/in/liyamittal/",
+      "password_hash": "scrypt$tvc2026fixedsalt01$69900ec479fea1b93bd192abd91921b706cab721d23a476c0941f733ad4295dd0f221228ed598167739f13a0aa3b7c4ac6e42eb3fe81852c37bee6d5756aa8e8",
+      "must_change_password": false,
+      "notification_preferences": {
+        "direct_messages": true,
+        "group_messages": true,
+        "announcements": true,
+        "task_updates": true,
+        "applications": true,
+        "promotions": true,
+        "deadlines": true,
+        "push_enabled": true,
+        "muted_conversations": []
+      },
+      "joined_at": "2023-09-01T10:00:00.000Z",
+      "created_at": "2026-11-08T07:21:34.941Z",
+      "updated_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "member-namandeep-jindal",
+      "name": "Namandeep Jindal",
+      "roll_number": "102203011",
+      "username": "namandeep-jindal",
+      "email": "namandeep.jindal@thapar.edu",
+      "phone": "+91 98765 03011",
+      "level": 3,
+      "academic_year": "4th Year",
+      "position_id": "pos-marketing-secretary",
+      "membership_status": "active",
+      "profile_image": "/images/eb/naman.png",
+      "bio": "Marketing and External Secretary at Thapar Venture Club (Executive Board).",
+      "skills": [
+        "Executive Leadership",
+        "Venture Operations",
+        "Event Architecture"
+      ],
+      "interests": [
+        "Entrepreneurship",
+        "Startups",
+        "Venture Capital"
+      ],
+      "linkedin": "https://www.linkedin.com/in/namandeep-jindal-b307b132b/",
+      "password_hash": "scrypt$tvc2026fixedsalt01$69900ec479fea1b93bd192abd91921b706cab721d23a476c0941f733ad4295dd0f221228ed598167739f13a0aa3b7c4ac6e42eb3fe81852c37bee6d5756aa8e8",
+      "must_change_password": false,
+      "notification_preferences": {
+        "direct_messages": true,
+        "group_messages": true,
+        "announcements": true,
+        "task_updates": true,
+        "applications": true,
+        "promotions": true,
+        "deadlines": true,
+        "push_enabled": true,
+        "muted_conversations": []
+      },
+      "joined_at": "2023-09-01T10:00:00.000Z",
+      "created_at": "2026-11-08T07:21:34.941Z",
+      "updated_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "member-bhuvan-malhotra",
+      "name": "Bhuvan Malhotra",
+      "roll_number": "102203012",
+      "username": "bhuvan-malhotra",
+      "email": "bhuvan.malhotra@thapar.edu",
+      "phone": "+91 98765 03012",
+      "level": 3,
+      "academic_year": "4th Year",
+      "position_id": "pos-marketing-secretary",
+      "membership_status": "active",
+      "profile_image": "/images/eb/bhuvan.jpeg",
+      "bio": "Marketing and External Secretary at Thapar Venture Club (Executive Board).",
+      "skills": [
+        "Executive Leadership",
+        "Venture Operations",
+        "Event Architecture"
+      ],
+      "interests": [
+        "Entrepreneurship",
+        "Startups",
+        "Venture Capital"
+      ],
+      "linkedin": "https://www.linkedin.com/in/bhuvan-malhotra-2629b82b2/",
+      "password_hash": "scrypt$tvc2026fixedsalt01$69900ec479fea1b93bd192abd91921b706cab721d23a476c0941f733ad4295dd0f221228ed598167739f13a0aa3b7c4ac6e42eb3fe81852c37bee6d5756aa8e8",
+      "must_change_password": false,
+      "notification_preferences": {
+        "direct_messages": true,
+        "group_messages": true,
+        "announcements": true,
+        "task_updates": true,
+        "applications": true,
+        "promotions": true,
+        "deadlines": true,
+        "push_enabled": true,
+        "muted_conversations": []
+      },
+      "joined_at": "2023-09-01T10:00:00.000Z",
+      "created_at": "2026-11-08T07:21:34.941Z",
+      "updated_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "member-vidhi-saxena",
+      "name": "Vidhi Saxena",
+      "roll_number": "102203013",
+      "username": "vidhi-saxena",
+      "email": "vidhi.saxena@thapar.edu",
+      "phone": "+91 98765 03013",
+      "level": 3,
+      "academic_year": "4th Year",
+      "position_id": "pos-tech-secretary",
+      "membership_status": "active",
+      "profile_image": "/images/eb/vidhi.jpg",
+      "bio": "Technical Secretary at Thapar Venture Club (Executive Board).",
+      "skills": [
+        "Executive Leadership",
+        "Venture Operations",
+        "Event Architecture"
+      ],
+      "interests": [
+        "Entrepreneurship",
+        "Startups",
+        "Venture Capital"
+      ],
+      "linkedin": "https://www.linkedin.com/in/vidhi-saxena-ab2547346/",
+      "password_hash": "scrypt$tvc2026fixedsalt01$69900ec479fea1b93bd192abd91921b706cab721d23a476c0941f733ad4295dd0f221228ed598167739f13a0aa3b7c4ac6e42eb3fe81852c37bee6d5756aa8e8",
+      "must_change_password": false,
+      "notification_preferences": {
+        "direct_messages": true,
+        "group_messages": true,
+        "announcements": true,
+        "task_updates": true,
+        "applications": true,
+        "promotions": true,
+        "deadlines": true,
+        "push_enabled": true,
+        "muted_conversations": []
+      },
+      "joined_at": "2023-09-01T10:00:00.000Z",
+      "created_at": "2026-11-08T07:21:34.941Z",
+      "updated_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "member-vansh-goyal",
+      "name": "Vansh Goyal",
+      "roll_number": "102203014",
+      "username": "vansh-goyal",
+      "email": "vansh.goyal@thapar.edu",
+      "phone": "+91 98765 03014",
+      "level": 3,
+      "academic_year": "4th Year",
+      "position_id": "pos-design-secretary",
+      "membership_status": "active",
+      "profile_image": "/images/eb/vansh-goyal.jpeg",
+      "bio": "Media and Design Secretary at Thapar Venture Club (Executive Board).",
+      "skills": [
+        "Executive Leadership",
+        "Venture Operations",
+        "Event Architecture"
+      ],
+      "interests": [
+        "Entrepreneurship",
+        "Startups",
+        "Venture Capital"
+      ],
+      "linkedin": "https://www.linkedin.com/in/vansh-goyal-60033a21a/",
+      "password_hash": "scrypt$tvc2026fixedsalt01$69900ec479fea1b93bd192abd91921b706cab721d23a476c0941f733ad4295dd0f221228ed598167739f13a0aa3b7c4ac6e42eb3fe81852c37bee6d5756aa8e8",
+      "must_change_password": false,
+      "notification_preferences": {
+        "direct_messages": true,
+        "group_messages": true,
+        "announcements": true,
+        "task_updates": true,
+        "applications": true,
+        "promotions": true,
+        "deadlines": true,
+        "push_enabled": true,
+        "muted_conversations": []
+      },
+      "joined_at": "2023-09-01T10:00:00.000Z",
+      "created_at": "2026-11-08T07:21:34.941Z",
+      "updated_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "member-vasu-garg",
+      "name": "Vasu Garg",
+      "roll_number": "102203015",
+      "username": "vasu-garg",
+      "email": "vasu.garg@thapar.edu",
+      "phone": "+91 98765 03015",
+      "level": 3,
+      "academic_year": "4th Year",
+      "position_id": "pos-co-convener",
+      "membership_status": "active",
+      "profile_image": "/images/eb/vasu-garg.jpeg",
+      "bio": "Co-Convener at Thapar Venture Club (Executive Board).",
+      "skills": [
+        "Executive Leadership",
+        "Venture Operations",
+        "Event Architecture"
+      ],
+      "interests": [
+        "Entrepreneurship",
+        "Startups",
+        "Venture Capital"
+      ],
+      "linkedin": "https://www.linkedin.com/in/vasu-garg-7b61a8337/",
+      "password_hash": "scrypt$tvc2026fixedsalt01$69900ec479fea1b93bd192abd91921b706cab721d23a476c0941f733ad4295dd0f221228ed598167739f13a0aa3b7c4ac6e42eb3fe81852c37bee6d5756aa8e8",
+      "must_change_password": false,
+      "notification_preferences": {
+        "direct_messages": true,
+        "group_messages": true,
+        "announcements": true,
+        "task_updates": true,
+        "applications": true,
+        "promotions": true,
+        "deadlines": true,
+        "push_enabled": true,
+        "muted_conversations": []
+      },
+      "joined_at": "2023-09-01T10:00:00.000Z",
+      "created_at": "2026-11-08T07:21:34.941Z",
+      "updated_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "member-ruhan-garg",
+      "name": "Ruhan Garg",
+      "roll_number": "102203016",
+      "username": "ruhan-garg",
+      "email": "ruhan.garg@thapar.edu",
+      "phone": "+91 98765 03016",
+      "level": 3,
+      "academic_year": "4th Year",
+      "position_id": "pos-co-convener",
+      "membership_status": "active",
+      "profile_image": "/images/eb/ruhan.jpeg",
+      "bio": "Co-Convener at Thapar Venture Club (Executive Board).",
+      "skills": [
+        "Executive Leadership",
+        "Venture Operations",
+        "Event Architecture"
+      ],
+      "interests": [
+        "Entrepreneurship",
+        "Startups",
+        "Venture Capital"
+      ],
+      "linkedin": "https://www.linkedin.com/in/ruhangarg/",
+      "password_hash": "scrypt$tvc2026fixedsalt01$69900ec479fea1b93bd192abd91921b706cab721d23a476c0941f733ad4295dd0f221228ed598167739f13a0aa3b7c4ac6e42eb3fe81852c37bee6d5756aa8e8",
+      "must_change_password": false,
+      "notification_preferences": {
+        "direct_messages": true,
+        "group_messages": true,
+        "announcements": true,
+        "task_updates": true,
+        "applications": true,
+        "promotions": true,
+        "deadlines": true,
+        "push_enabled": true,
+        "muted_conversations": []
+      },
+      "joined_at": "2023-09-01T10:00:00.000Z",
+      "created_at": "2026-11-08T07:21:34.941Z",
+      "updated_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "member-vishesh-nagpure",
+      "name": "Vishesh Nagpure",
+      "roll_number": "102203017",
+      "username": "vishesh-nagpure",
+      "email": "vishesh.nagpure@thapar.edu",
+      "phone": "+91 98765 03017",
+      "level": 3,
+      "academic_year": "4th Year",
+      "position_id": "pos-co-convener",
+      "membership_status": "active",
+      "profile_image": "/images/eb/vishesh.jpeg",
+      "bio": "Co-Convener at Thapar Venture Club (Executive Board).",
+      "skills": [
+        "Executive Leadership",
+        "Venture Operations",
+        "Event Architecture"
+      ],
+      "interests": [
+        "Entrepreneurship",
+        "Startups",
+        "Venture Capital"
+      ],
+      "linkedin": "https://www.linkedin.com/in/vishesh-nagpure-10a9b22b7/",
+      "password_hash": "scrypt$tvc2026fixedsalt01$69900ec479fea1b93bd192abd91921b706cab721d23a476c0941f733ad4295dd0f221228ed598167739f13a0aa3b7c4ac6e42eb3fe81852c37bee6d5756aa8e8",
+      "must_change_password": false,
+      "notification_preferences": {
+        "direct_messages": true,
+        "group_messages": true,
+        "announcements": true,
+        "task_updates": true,
+        "applications": true,
+        "promotions": true,
+        "deadlines": true,
+        "push_enabled": true,
+        "muted_conversations": []
+      },
+      "joined_at": "2023-09-01T10:00:00.000Z",
+      "created_at": "2026-11-08T07:21:34.941Z",
+      "updated_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "member-l2-core-1",
+      "name": "Arjun Mehta",
+      "roll_number": "102303101",
+      "username": "arjun-mehta",
+      "email": "amehta_be23@thapar.edu",
+      "phone": "+91 98111 23101",
+      "level": 2,
+      "academic_year": "2nd Year",
+      "position_id": "pos-l2-core",
+      "membership_status": "active",
+      "bio": "Level 2 Core Member in Tech & Design. Leading PRIMUS'26 portal modules and mentoring first-year associates.",
+      "skills": [
+        "Next.js",
+        "TypeScript",
+        "Figma",
+        "System Design"
+      ],
+      "interests": [
+        "Product Engineering",
+        "FinTech",
+        "UI/UX"
+      ],
+      "password_hash": "scrypt$tvc2026fixedsalt01$69900ec479fea1b93bd192abd91921b706cab721d23a476c0941f733ad4295dd0f221228ed598167739f13a0aa3b7c4ac6e42eb3fe81852c37bee6d5756aa8e8",
+      "must_change_password": false,
+      "notification_preferences": {
+        "direct_messages": true,
+        "group_messages": true,
+        "announcements": true,
+        "task_updates": true,
+        "applications": true,
+        "promotions": true,
+        "deadlines": true,
+        "push_enabled": true,
+        "muted_conversations": []
+      },
+      "joined_at": "2024-08-20T10:00:00.000Z",
+      "created_at": "2026-11-08T07:21:34.941Z",
+      "updated_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "member-l2-general-1",
+      "name": "Riya Sharma",
+      "roll_number": "102303102",
+      "username": "riya-sharma",
+      "email": "rsharma_be23@thapar.edu",
+      "phone": "+91 98111 23102",
+      "level": 2,
+      "academic_year": "2nd Year",
+      "position_id": "pos-l2-general",
+      "membership_status": "active",
+      "bio": "Second-Year General Member driving Marketing & Outreach sponsorships for Flagship E-Summit.",
+      "skills": [
+        "Corporate Relations",
+        "Pitch Decks",
+        "Brand Strategy"
+      ],
+      "interests": [
+        "Consumer Brands",
+        "Growth Marketing",
+        "Venture Capital"
+      ],
+      "password_hash": "scrypt$tvc2026fixedsalt01$69900ec479fea1b93bd192abd91921b706cab721d23a476c0941f733ad4295dd0f221228ed598167739f13a0aa3b7c4ac6e42eb3fe81852c37bee6d5756aa8e8",
+      "must_change_password": false,
+      "notification_preferences": {
+        "direct_messages": true,
+        "group_messages": true,
+        "announcements": true,
+        "task_updates": true,
+        "applications": true,
+        "promotions": true,
+        "deadlines": true,
+        "push_enabled": true,
+        "muted_conversations": []
+      },
+      "joined_at": "2024-08-20T10:00:00.000Z",
+      "created_at": "2026-11-08T07:21:34.941Z",
+      "updated_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "member-l2-general-2",
+      "name": "Kabir Bedi",
+      "roll_number": "102303103",
+      "username": "kabir-bedi",
+      "email": "kbedi_be23@thapar.edu",
+      "phone": "+91 98111 23103",
+      "level": 2,
+      "academic_year": "2nd Year",
+      "position_id": "pos-l2-general",
+      "membership_status": "active",
+      "bio": "Second-Year General Member in Media & Creativity. Directing E-Summit teasers and founder stories.",
+      "skills": [
+        "Premiere Pro",
+        "After Effects",
+        "Copywriting",
+        "Storyboarding"
+      ],
+      "interests": [
+        "Media Production",
+        "Brand Films"
+      ],
+      "password_hash": "scrypt$tvc2026fixedsalt01$69900ec479fea1b93bd192abd91921b706cab721d23a476c0941f733ad4295dd0f221228ed598167739f13a0aa3b7c4ac6e42eb3fe81852c37bee6d5756aa8e8",
+      "must_change_password": false,
+      "notification_preferences": {
+        "direct_messages": true,
+        "group_messages": true,
+        "announcements": true,
+        "task_updates": true,
+        "applications": true,
+        "promotions": true,
+        "deadlines": true,
+        "push_enabled": true,
+        "muted_conversations": []
+      },
+      "joined_at": "2024-08-20T10:00:00.000Z",
+      "created_at": "2026-11-08T07:21:34.941Z",
+      "updated_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "member-l2-core-2",
+      "name": "Ananya Verma",
+      "roll_number": "102303104",
+      "username": "ananya-verma",
+      "email": "averma_be23@thapar.edu",
+      "phone": "+91 98111 23104",
+      "level": 2,
+      "academic_year": "2nd Year",
+      "position_id": "pos-l2-core",
+      "membership_status": "active",
+      "bio": "Second-Year Core Member coordinating Logistics and Outreach for guest speakers.",
+      "skills": [
+        "Operations",
+        "Event Logistics",
+        "Speaker Relations"
+      ],
+      "interests": [
+        "Supply Chain",
+        "Operations",
+        "Consulting"
+      ],
+      "password_hash": "scrypt$tvc2026fixedsalt01$69900ec479fea1b93bd192abd91921b706cab721d23a476c0941f733ad4295dd0f221228ed598167739f13a0aa3b7c4ac6e42eb3fe81852c37bee6d5756aa8e8",
+      "must_change_password": false,
+      "notification_preferences": {
+        "direct_messages": true,
+        "group_messages": true,
+        "announcements": true,
+        "task_updates": true,
+        "applications": true,
+        "promotions": true,
+        "deadlines": true,
+        "push_enabled": true,
+        "muted_conversations": []
+      },
+      "joined_at": "2024-08-20T10:00:00.000Z",
+      "created_at": "2026-11-08T07:21:34.941Z",
+      "updated_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "member-l1-general-1",
+      "name": "Aarav Gupta",
+      "roll_number": "102403201",
+      "username": "aarav-gupta",
+      "email": "agupta_be24@thapar.edu",
+      "phone": "+91 98222 24201",
+      "level": 1,
+      "academic_year": "1st Year",
+      "position_id": "pos-l1-general",
+      "membership_status": "active",
+      "bio": "First-Year General Member in Tech & Design. Building interactive frontend components for TVC.",
+      "skills": [
+        "React",
+        "Tailwind CSS",
+        "UI Design"
+      ],
+      "interests": [
+        "Web Development",
+        "AI Startups"
+      ],
+      "password_hash": "scrypt$tvc2026fixedsalt01$69900ec479fea1b93bd192abd91921b706cab721d23a476c0941f733ad4295dd0f221228ed598167739f13a0aa3b7c4ac6e42eb3fe81852c37bee6d5756aa8e8",
+      "must_change_password": false,
+      "notification_preferences": {
+        "direct_messages": true,
+        "group_messages": true,
+        "announcements": true,
+        "task_updates": true,
+        "applications": true,
+        "promotions": true,
+        "deadlines": true,
+        "push_enabled": true,
+        "muted_conversations": []
+      },
+      "joined_at": "2025-09-01T10:00:00.000Z",
+      "created_at": "2026-11-08T07:21:34.941Z",
+      "updated_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "member-l1-general-2",
+      "name": "Meera Nair",
+      "roll_number": "102403202",
+      "username": "meera-nair",
+      "email": "mnair_be24@thapar.edu",
+      "phone": "+91 98222 24202",
+      "level": 1,
+      "academic_year": "1st Year",
+      "position_id": "pos-l1-general",
+      "membership_status": "active",
+      "bio": "First-Year General Member in Marketing & Creativity. Crafting social campaigns and founder spotlights.",
+      "skills": [
+        "Content Writing",
+        "Canva",
+        "Social Media Analytics"
+      ],
+      "interests": [
+        "D2C Brands",
+        "Storytelling"
+      ],
+      "password_hash": "scrypt$tvc2026fixedsalt01$69900ec479fea1b93bd192abd91921b706cab721d23a476c0941f733ad4295dd0f221228ed598167739f13a0aa3b7c4ac6e42eb3fe81852c37bee6d5756aa8e8",
+      "must_change_password": false,
+      "notification_preferences": {
+        "direct_messages": true,
+        "group_messages": true,
+        "announcements": true,
+        "task_updates": true,
+        "applications": true,
+        "promotions": true,
+        "deadlines": true,
+        "push_enabled": true,
+        "muted_conversations": []
+      },
+      "joined_at": "2025-09-01T10:00:00.000Z",
+      "created_at": "2026-11-08T07:21:34.941Z",
+      "updated_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "member-l1-general-3",
+      "name": "Rohan Joshi",
+      "roll_number": "102403203",
+      "username": "rohan-joshi",
+      "email": "rjoshi_be24@thapar.edu",
+      "phone": "+91 98222 24203",
+      "level": 1,
+      "academic_year": "1st Year",
+      "position_id": "pos-l1-general",
+      "membership_status": "active",
+      "bio": "First-Year General Member in Logistics & Media. Supporting venue setup and photography.",
+      "skills": [
+        "Photography",
+        "Venue Management",
+        "Vendor Coordination"
+      ],
+      "interests": [
+        "Event Production",
+        "Hardware"
+      ],
+      "password_hash": "scrypt$tvc2026fixedsalt01$69900ec479fea1b93bd192abd91921b706cab721d23a476c0941f733ad4295dd0f221228ed598167739f13a0aa3b7c4ac6e42eb3fe81852c37bee6d5756aa8e8",
+      "must_change_password": false,
+      "notification_preferences": {
+        "direct_messages": true,
+        "group_messages": true,
+        "announcements": true,
+        "task_updates": true,
+        "applications": true,
+        "promotions": true,
+        "deadlines": true,
+        "push_enabled": true,
+        "muted_conversations": []
+      },
+      "joined_at": "2025-09-01T10:00:00.000Z",
+      "created_at": "2026-11-08T07:21:34.941Z",
+      "updated_at": "2026-11-08T07:21:34.941Z"
+    }
+  ],
+  "member_permissions": [],
+  "sessions": [],
+  "password_reset_tokens": [],
+  "departments": [
+    {
+      "id": "dept-media",
+      "name": "Media",
+      "slug": "media",
+      "description": "Cinematography, aftermovies, reels, photography, and live event production.",
+      "accent_color": "#f5ed00",
+      "created_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "dept-outreach",
+      "name": "Outreach",
+      "slug": "outreach",
+      "description": "Speaker curation, VC/founder relations, institutional collaborations, and PR.",
+      "accent_color": "#38bdf8",
+      "created_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "dept-marketing",
+      "name": "Marketing",
+      "slug": "marketing",
+      "description": "Corporate sponsorships, brand partnerships, growth campaigns, and campus reach.",
+      "accent_color": "#fb923c",
+      "created_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "dept-tech",
+      "name": "Tech",
+      "slug": "tech",
+      "description": "Full-stack platforms, mobile engineering, internal portals, and B-Hackathon infra.",
+      "accent_color": "#a3ff12",
+      "created_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "dept-design",
+      "name": "Design",
+      "slug": "design",
+      "description": "Brand systems, UI/UX design, stage scenography, and editorial graphics.",
+      "accent_color": "#e879f9",
+      "created_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "dept-logistics",
+      "name": "Logistics",
+      "slug": "logistics",
+      "description": "Venue operations, hospitality, security, procurement, and on-ground command.",
+      "accent_color": "#2dd4bf",
+      "created_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "dept-creativity",
+      "name": "Creativity",
+      "slug": "creativity",
+      "description": "Content strategy, copywriting, event concepts, case study design, and storytelling.",
+      "accent_color": "#f43f5e",
+      "created_at": "2026-11-08T07:21:34.941Z"
+    }
+  ],
+  "member_departments": [
+    {
+      "member_id": "member-president",
+      "department_id": "dept-outreach",
+      "assigned_by": "member-president",
+      "assigned_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "member_id": "member-president",
+      "department_id": "dept-tech",
+      "assigned_by": "member-president",
+      "assigned_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "member_id": "member-sanchit-sehgal",
+      "department_id": "dept-media",
+      "assigned_by": "member-president",
+      "assigned_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "member_id": "member-shashank-jain",
+      "department_id": "dept-outreach",
+      "assigned_by": "member-president",
+      "assigned_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "member_id": "member-devyansh-arya",
+      "department_id": "dept-marketing",
+      "assigned_by": "member-president",
+      "assigned_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "member_id": "member-aadish-jain",
+      "department_id": "dept-tech",
+      "assigned_by": "member-president",
+      "assigned_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "member_id": "member-lakshya-goyal",
+      "department_id": "dept-design",
+      "assigned_by": "member-president",
+      "assigned_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "member_id": "member-nishtha-saha",
+      "department_id": "dept-logistics",
+      "assigned_by": "member-president",
+      "assigned_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "member_id": "member-parth-gakhar",
+      "department_id": "dept-creativity",
+      "assigned_by": "member-president",
+      "assigned_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "member_id": "member-sparsh-gupta",
+      "department_id": "dept-media",
+      "assigned_by": "member-president",
+      "assigned_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "member_id": "member-nimitt-malhotra",
+      "department_id": "dept-logistics",
+      "assigned_by": "member-president",
+      "assigned_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "member_id": "member-liya",
+      "department_id": "dept-logistics",
+      "assigned_by": "member-president",
+      "assigned_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "member_id": "member-namandeep-jindal",
+      "department_id": "dept-marketing",
+      "assigned_by": "member-president",
+      "assigned_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "member_id": "member-namandeep-jindal",
+      "department_id": "dept-outreach",
+      "assigned_by": "member-president",
+      "assigned_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "member_id": "member-bhuvan-malhotra",
+      "department_id": "dept-marketing",
+      "assigned_by": "member-president",
+      "assigned_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "member_id": "member-bhuvan-malhotra",
+      "department_id": "dept-outreach",
+      "assigned_by": "member-president",
+      "assigned_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "member_id": "member-vidhi-saxena",
+      "department_id": "dept-tech",
+      "assigned_by": "member-president",
+      "assigned_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "member_id": "member-vansh-goyal",
+      "department_id": "dept-design",
+      "assigned_by": "member-president",
+      "assigned_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "member_id": "member-vansh-goyal",
+      "department_id": "dept-media",
+      "assigned_by": "member-president",
+      "assigned_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "member_id": "member-vasu-garg",
+      "department_id": "dept-media",
+      "assigned_by": "member-president",
+      "assigned_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "member_id": "member-ruhan-garg",
+      "department_id": "dept-outreach",
+      "assigned_by": "member-president",
+      "assigned_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "member_id": "member-vishesh-nagpure",
+      "department_id": "dept-marketing",
+      "assigned_by": "member-president",
+      "assigned_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "member_id": "member-l2-core-1",
+      "department_id": "dept-tech",
+      "assigned_by": "member-sanchit-sehgal",
+      "assigned_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "member_id": "member-l2-core-1",
+      "department_id": "dept-design",
+      "assigned_by": "member-sanchit-sehgal",
+      "assigned_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "member_id": "member-l2-general-1",
+      "department_id": "dept-marketing",
+      "assigned_by": "member-sanchit-sehgal",
+      "assigned_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "member_id": "member-l2-general-1",
+      "department_id": "dept-outreach",
+      "assigned_by": "member-sanchit-sehgal",
+      "assigned_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "member_id": "member-l2-general-2",
+      "department_id": "dept-media",
+      "assigned_by": "member-sanchit-sehgal",
+      "assigned_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "member_id": "member-l2-general-2",
+      "department_id": "dept-creativity",
+      "assigned_by": "member-sanchit-sehgal",
+      "assigned_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "member_id": "member-l2-core-2",
+      "department_id": "dept-logistics",
+      "assigned_by": "member-sanchit-sehgal",
+      "assigned_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "member_id": "member-l2-core-2",
+      "department_id": "dept-outreach",
+      "assigned_by": "member-sanchit-sehgal",
+      "assigned_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "member_id": "member-l1-general-1",
+      "department_id": "dept-tech",
+      "assigned_by": "member-l2-core-1",
+      "assigned_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "member_id": "member-l1-general-1",
+      "department_id": "dept-design",
+      "assigned_by": "member-l2-core-1",
+      "assigned_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "member_id": "member-l1-general-2",
+      "department_id": "dept-marketing",
+      "assigned_by": "member-l2-core-1",
+      "assigned_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "member_id": "member-l1-general-2",
+      "department_id": "dept-creativity",
+      "assigned_by": "member-l2-core-1",
+      "assigned_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "member_id": "member-l1-general-3",
+      "department_id": "dept-logistics",
+      "assigned_by": "member-l2-core-1",
+      "assigned_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "member_id": "member-l1-general-3",
+      "department_id": "dept-media",
+      "assigned_by": "member-l2-core-1",
+      "assigned_at": "2026-11-08T07:21:34.941Z"
+    }
+  ],
+  "member_position_history": [
+    {
+      "id": "mph-001",
+      "member_id": "member-l2-core-1",
+      "previous_position_id": "pos-l2-general",
+      "new_position_id": "pos-l2-core",
+      "previous_level": 2,
+      "new_level": 2,
+      "reason": "Outstanding leadership in PRIMUS'26 engineering & design sprints",
+      "changed_by": "member-sanchit-sehgal",
+      "changed_at": "2026-11-05T07:21:34.969Z"
+    }
+  ],
+  "membership_applications": [
+    {
+      "id": "app-l2-001",
+      "full_name": "Ishaan Malhotra",
+      "roll_number": "102303155",
+      "email": "imalhotra_be23@thapar.edu",
+      "phone": "+91 98711 03155",
+      "academic_year": "2nd Year",
+      "requested_level": 2,
+      "department_interests": [
+        "Tech",
+        "Design"
+      ],
+      "skills": [
+        "React Native",
+        "Node.js",
+        "PostgreSQL",
+        "Figma"
+      ],
+      "previous_experience": "Built campus hackathon portal and led UI/UX for 2 student projects.",
+      "motivation": "Want to contribute to TVC's engineering infrastructure and help scale PRIMUS'26 and Flagship E-Summit.",
+      "additional_info": "GitHub: github.com/ishaan-m | Portfolio available on request.",
+      "status": "pending",
+      "submitted_at": "2026-11-07T17:21:34.969Z"
+    },
+    {
+      "id": "app-l2-002",
+      "full_name": "Tanya Bansal",
+      "roll_number": "102303162",
+      "email": "tbansal_be23@thapar.edu",
+      "phone": "+91 98711 03162",
+      "academic_year": "2nd Year",
+      "requested_level": 2,
+      "department_interests": [
+        "Marketing",
+        "Outreach"
+      ],
+      "skills": [
+        "Sponsorship Pitching",
+        "Corporate Communication",
+        "Market Research"
+      ],
+      "previous_experience": "Secured 3 regional sponsors for departmental fest in first year.",
+      "motivation": "Passionate about connecting TIET student founders with national VCs and corporate partners.",
+      "additional_info": "Available 12+ hours/week for outreach sprints.",
+      "status": "pending",
+      "submitted_at": "2026-11-07T23:21:34.969Z"
+    },
+    {
+      "id": "app-l1-001",
+      "full_name": "Vivaan Khanna",
+      "roll_number": "102403288",
+      "email": "vkhanna_be24@thapar.edu",
+      "phone": "+91 98722 03288",
+      "academic_year": "1st Year",
+      "requested_level": 1,
+      "department_interests": [
+        "Media",
+        "Creativity"
+      ],
+      "skills": [
+        "DaVinci Resolve",
+        "Motion Graphics",
+        "Scriptwriting"
+      ],
+      "previous_experience": "Edited high-school entrepreneurship summit aftermovie (25k+ views).",
+      "motivation": "Excited to learn from TVC's creative team and craft high-impact visual stories for campus events.",
+      "additional_info": "Own mirrorless camera kit.",
+      "status": "pending",
+      "submitted_at": "2026-11-08T02:21:34.969Z"
+    },
+    {
+      "id": "app-l1-002",
+      "full_name": "Diya Chatterjee",
+      "roll_number": "102403294",
+      "email": "dchatterjee_be24@thapar.edu",
+      "phone": "+91 98722 03294",
+      "academic_year": "1st Year",
+      "requested_level": 1,
+      "department_interests": [
+        "Tech",
+        "Outreach"
+      ],
+      "skills": [
+        "TypeScript",
+        "Python",
+        "Public Speaking"
+      ],
+      "previous_experience": "High school debate captain & web developer.",
+      "motivation": "Want to build technical products and host founder sessions at Thapar Venture Club.",
+      "additional_info": "Ready to start immediately.",
+      "status": "pending",
+      "submitted_at": "2026-11-08T05:21:34.969Z"
+    }
+  ],
+  "application_reviews": [],
+  "tasks": [
+    {
+      "id": "task-parent-001",
+      "title": "PRIMUS'26 Brand Identity & Keynote Stage Package",
+      "description": "Design the complete visual identity, keynote stage LED backdrop templates, and speaker reveal deck for PRIMUS'26.",
+      "instructions": "Follow TVC's dark editorial aesthetic (#0d0d0d canvas, #f5ed00 accent). Break down asset production into subtasks for Level 1 associates as needed.",
+      "expected_deliverables": "1. Master Figma system link\n2. 4K LED stage backdrop exports\n3. Social announcement templates",
+      "reference_links": [
+        "https://thaparventureclub.in/events/tvc-x-sat"
+      ],
+      "created_by": "member-vansh-goyal",
+      "department_id": "dept-design",
+      "priority": "high",
+      "deadline": "2026-11-13T07:21:34.969Z",
+      "assignment_mode": "individual",
+      "status": "in_progress",
+      "progress": 65,
+      "created_at": "2026-11-06T19:21:34.969Z",
+      "updated_at": "2026-11-08T03:21:34.969Z"
+    },
+    {
+      "id": "task-sub-001",
+      "title": "Speaker Spotlight Social Cards (Subtask)",
+      "description": "Create 12 responsive Instagram & LinkedIn speaker cards matching the PRIMUS'26 master grid.",
+      "instructions": "Use the master typography tokens from parent task #task-parent-001 and export 1080x1350 PNGs.",
+      "expected_deliverables": "Figma frame link + exported PNG folder link",
+      "reference_links": [
+        "https://thaparventureclub.in/speakers"
+      ],
+      "created_by": "member-l2-core-1",
+      "parent_task_id": "task-parent-001",
+      "department_id": "dept-design",
+      "priority": "medium",
+      "deadline": "2026-11-10T07:21:34.969Z",
+      "assignment_mode": "individual",
+      "status": "submitted",
+      "progress": 100,
+      "created_at": "2026-11-07T11:21:34.969Z",
+      "updated_at": "2026-11-08T05:21:34.969Z"
+    },
+    {
+      "id": "task-pool-001",
+      "title": "E-Summit'26 Founder hospitality & Airport Reception Desk",
+      "description": "Coordinate guest speaker arrival schedules, welcome kits, and VIP green-room readiness during E-Summit.",
+      "instructions": "Open task pool for Level 1 & Level 2 members across Logistics and Outreach. Claim a slot to join the reception squad.",
+      "expected_deliverables": "Completed flight tracker sheet + on-ground checklist sign-off",
+      "reference_links": [
+        "https://thaparventureclub.in/events/e-summit"
+      ],
+      "created_by": "member-sanchit-sehgal",
+      "department_id": "dept-logistics",
+      "priority": "high",
+      "deadline": "2026-11-15T07:21:34.969Z",
+      "assignment_mode": "open_pool",
+      "open_pool_config": {
+        "eligible_levels": [
+          1,
+          2
+        ],
+        "eligible_department_ids": [
+          "dept-logistics",
+          "dept-outreach"
+        ],
+        "max_slots": 3,
+        "claimed_member_ids": [
+          "member-l1-general-3"
+        ],
+        "claim_deadline": "2026-11-12T07:21:34.969Z"
+      },
+      "status": "in_progress",
+      "progress": 35,
+      "created_at": "2026-11-07T19:21:34.969Z",
+      "updated_at": "2026-11-08T01:21:34.969Z"
+    },
+    {
+      "id": "task-tech-001",
+      "title": "B-Hackathon Live Leaderboard & Judge Scoring Portal QA",
+      "description": "Verify real-time scoring calculations, mobile responsiveness, and rate-limiting on the judge evaluation endpoints.",
+      "instructions": "Run load tests and submit the QA verification report.",
+      "expected_deliverables": "Playwright / Lighthouse report + bug resolution PR",
+      "reference_links": [],
+      "created_by": "member-vidhi-saxena",
+      "department_id": "dept-tech",
+      "priority": "critical",
+      "deadline": "2026-11-11T07:21:34.969Z",
+      "assignment_mode": "multiple",
+      "status": "in_progress",
+      "progress": 50,
+      "created_at": "2026-11-07T13:21:34.969Z",
+      "updated_at": "2026-11-08T04:21:34.969Z"
+    }
+  ],
+  "task_assignments": [
+    {
+      "id": "ta-001",
+      "task_id": "task-parent-001",
+      "member_id": "member-l2-core-1",
+      "status": "in_progress",
+      "progress": 65,
+      "submission_links": [],
+      "accepted_at": "2026-11-07T01:21:34.969Z"
+    },
+    {
+      "id": "ta-002",
+      "task_id": "task-sub-001",
+      "member_id": "member-l1-general-1",
+      "status": "submitted",
+      "progress": 100,
+      "submission_notes": "Completed all 12 speaker cards following the monochrome + #f5ed00 accent grid. Ready for Core review.",
+      "submission_links": [
+        "https://figma.com/file/tvc-primus26-speaker-cards"
+      ],
+      "accepted_at": "2026-11-07T13:21:34.969Z",
+      "submitted_at": "2026-11-08T05:21:34.969Z"
+    },
+    {
+      "id": "ta-003",
+      "task_id": "task-pool-001",
+      "member_id": "member-l1-general-3",
+      "status": "in_progress",
+      "progress": 35,
+      "submission_links": [],
+      "accepted_at": "2026-11-08T01:21:34.969Z"
+    },
+    {
+      "id": "ta-004",
+      "task_id": "task-tech-001",
+      "member_id": "member-l2-core-1",
+      "status": "in_progress",
+      "progress": 50,
+      "submission_links": [],
+      "accepted_at": "2026-11-07T16:21:34.969Z"
+    },
+    {
+      "id": "ta-005",
+      "task_id": "task-tech-001",
+      "member_id": "member-l2-general-1",
+      "status": "accepted",
+      "progress": 30,
+      "submission_links": [],
+      "accepted_at": "2026-11-07T17:21:34.969Z"
+    }
+  ],
+  "task_comments": [
+    {
+      "id": "tc-001",
+      "task_id": "task-parent-001",
+      "member_id": "member-vansh-goyal",
+      "content": "Make sure the rocket emblem watermark stays at 8% opacity on dark backgrounds.",
+      "created_at": "2026-11-07T07:21:34.969Z"
+    },
+    {
+      "id": "tc-002",
+      "task_id": "task-parent-001",
+      "member_id": "member-l2-core-1",
+      "content": "Noted! I've delegated the 12 speaker social cards as a subtask to Aarav (Level 1) and will review before merging.",
+      "created_at": "2026-11-07T12:21:34.969Z"
+    },
+    {
+      "id": "tc-003",
+      "task_id": "task-sub-001",
+      "member_id": "member-l1-general-1",
+      "content": "Uploaded the exported cards and Figma frame link for review.",
+      "created_at": "2026-11-08T05:21:34.969Z"
+    }
+  ],
+  "task_attachments": [],
+  "task_activity": [
+    {
+      "id": "tact-001",
+      "task_id": "task-parent-001",
+      "actor_id": "member-vansh-goyal",
+      "action": "TASK_CREATED",
+      "metadata": {
+        "assignment_mode": "individual",
+        "target": "Arjun Mehta (L2 Core)"
+      },
+      "created_at": "2026-11-06T19:21:34.969Z"
+    },
+    {
+      "id": "tact-002",
+      "task_id": "task-sub-001",
+      "actor_id": "member-l2-core-1",
+      "action": "SUBTASK_CREATED",
+      "metadata": {
+        "parent_task_id": "task-parent-001",
+        "target": "Aarav Gupta (L1)"
+      },
+      "created_at": "2026-11-07T11:21:34.969Z"
+    },
+    {
+      "id": "tact-003",
+      "task_id": "task-sub-001",
+      "actor_id": "member-l1-general-1",
+      "action": "WORK_SUBMITTED",
+      "metadata": {
+        "progress": 100
+      },
+      "created_at": "2026-11-08T05:21:34.969Z"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "conv-announcements",
+      "type": "announcement",
+      "title": "General Announcements",
+      "subtitle": "Official organisation-wide dispatches from TVC Executive Leadership (Level 3)",
+      "created_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "conv-level-3",
+      "type": "level",
+      "title": "Level 3 — Executive Leadership",
+      "subtitle": "Private council channel for President, Secretaries, and Executive Board",
+      "level": 3,
+      "created_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "conv-level-2",
+      "type": "level",
+      "title": "Level 2 — Second-Year Collective",
+      "subtitle": "Private workspace channel for Level 2 Core & General Members",
+      "level": 2,
+      "created_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "conv-level-1",
+      "type": "level",
+      "title": "Level 1 — First-Year Associates",
+      "subtitle": "Private community channel for Level 1 First-Year Members",
+      "level": 1,
+      "created_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "conv-dept-media",
+      "type": "department",
+      "title": "Media Department",
+      "subtitle": "Cinematography, aftermovies, reels, photography, and live event production.",
+      "department_id": "dept-media",
+      "created_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "conv-dept-outreach",
+      "type": "department",
+      "title": "Outreach Department",
+      "subtitle": "Speaker curation, VC/founder relations, institutional collaborations, and PR.",
+      "department_id": "dept-outreach",
+      "created_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "conv-dept-marketing",
+      "type": "department",
+      "title": "Marketing Department",
+      "subtitle": "Corporate sponsorships, brand partnerships, growth campaigns, and campus reach.",
+      "department_id": "dept-marketing",
+      "created_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "conv-dept-tech",
+      "type": "department",
+      "title": "Tech Department",
+      "subtitle": "Full-stack platforms, mobile engineering, internal portals, and B-Hackathon infra.",
+      "department_id": "dept-tech",
+      "created_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "conv-dept-design",
+      "type": "department",
+      "title": "Design Department",
+      "subtitle": "Brand systems, UI/UX design, stage scenography, and editorial graphics.",
+      "department_id": "dept-design",
+      "created_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "conv-dept-logistics",
+      "type": "department",
+      "title": "Logistics Department",
+      "subtitle": "Venue operations, hospitality, security, procurement, and on-ground command.",
+      "department_id": "dept-logistics",
+      "created_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "conv-dept-creativity",
+      "type": "department",
+      "title": "Creativity Department",
+      "subtitle": "Content strategy, copywriting, event concepts, case study design, and storytelling.",
+      "department_id": "dept-creativity",
+      "created_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "conv-dm-sanchit-arjun",
+      "type": "direct",
+      "title": "Direct Message",
+      "subtitle": "Sanchit Sehgal & Arjun Mehta",
+      "participant_ids": [
+        "member-sanchit-sehgal",
+        "member-l2-core-1"
+      ],
+      "created_at": "2026-11-08T07:21:34.941Z"
+    }
+  ],
+  "conversation_members": [],
+  "messages": [
+    {
+      "id": "msg-ann-001",
+      "conversation_id": "conv-announcements",
+      "sender_id": "member-president",
+      "content": "Welcome to TVC Exclusive — our unified internal operating system. All flagship sprint tasks for PRIMUS'26 and E-Summit'26, department channels, and onboarding workflows are now live here.",
+      "links": [
+        "https://thaparventureclub.in/events"
+      ],
+      "is_pinned": true,
+      "read_by": [
+        "member-president",
+        "member-sanchit-sehgal",
+        "member-shashank-jain",
+        "member-devyansh-arya",
+        "member-aadish-jain",
+        "member-lakshya-goyal",
+        "member-nishtha-saha",
+        "member-parth-gakhar",
+        "member-sparsh-gupta",
+        "member-nimitt-malhotra",
+        "member-liya",
+        "member-namandeep-jindal",
+        "member-bhuvan-malhotra",
+        "member-vidhi-saxena",
+        "member-vansh-goyal",
+        "member-vasu-garg",
+        "member-ruhan-garg",
+        "member-vishesh-nagpure",
+        "member-l2-core-1",
+        "member-l2-general-1",
+        "member-l2-general-2",
+        "member-l2-core-2",
+        "member-l1-general-1",
+        "member-l1-general-2",
+        "member-l1-general-3"
+      ],
+      "created_at": "2026-11-06T07:21:34.969Z"
+    },
+    {
+      "id": "msg-ann-002",
+      "conversation_id": "conv-announcements",
+      "sender_id": "member-sanchit-sehgal",
+      "content": "All Level 2 Core & General Members: Level 1 associate applications for the new semester are open in the Applications tab. Please review candidates aligned with your department interests.",
+      "links": [],
+      "is_pinned": true,
+      "read_by": [
+        "member-president",
+        "member-sanchit-sehgal",
+        "member-l2-core-1"
+      ],
+      "created_at": "2026-11-07T21:21:34.969Z"
+    },
+    {
+      "id": "msg-l3-001",
+      "conversation_id": "conv-level-3",
+      "sender_id": "member-sanchit-sehgal",
+      "content": "Executive Board sync at 8:00 PM tonight to finalize Level 2 Core promotions and review the two pending second-year applications.",
+      "links": [],
+      "is_pinned": false,
+      "read_by": [
+        "member-president",
+        "member-sanchit-sehgal",
+        "member-aadish-jain"
+      ],
+      "created_at": "2026-11-08T01:21:34.969Z"
+    },
+    {
+      "id": "msg-l2-001",
+      "conversation_id": "conv-level-2",
+      "sender_id": "member-l2-core-1",
+      "content": "Hey team! Let's coordinate on the Level 1 task breakdown so every first-year member gets hands-on deliverables this week.",
+      "links": [],
+      "is_pinned": false,
+      "read_by": [
+        "member-l2-core-1",
+        "member-l2-general-1"
+      ],
+      "created_at": "2026-11-08T02:21:34.969Z"
+    },
+    {
+      "id": "msg-l1-001",
+      "conversation_id": "conv-level-1",
+      "sender_id": "member-l1-general-1",
+      "content": "Just submitted the Speaker Spotlight social cards subtask! Also check out the Open Task Pool if anyone wants to join the E-Summit reception squad.",
+      "links": [],
+      "is_pinned": false,
+      "read_by": [
+        "member-l1-general-1",
+        "member-l1-general-2"
+      ],
+      "created_at": "2026-11-08T06:21:34.969Z"
+    },
+    {
+      "id": "msg-dept-tech-001",
+      "conversation_id": "conv-dept-tech",
+      "sender_id": "member-vidhi-saxena",
+      "content": "Tech department: Please review the B-Hackathon leaderboard QA task before Friday's deployment freeze.",
+      "links": [],
+      "is_pinned": true,
+      "read_by": [
+        "member-vidhi-saxena",
+        "member-l2-core-1",
+        "member-l1-general-1"
+      ],
+      "created_at": "2026-11-08T03:21:34.969Z"
+    },
+    {
+      "id": "msg-dm-001",
+      "conversation_id": "conv-dm-sanchit-arjun",
+      "sender_id": "member-sanchit-sehgal",
+      "content": "Hi Arjun, how is the PRIMUS'26 stage package coming along? Let me know if you need additional Design associates.",
+      "links": [],
+      "is_pinned": false,
+      "read_by": [
+        "member-sanchit-sehgal",
+        "member-l2-core-1"
+      ],
+      "created_at": "2026-11-08T04:21:34.969Z"
+    },
+    {
+      "id": "msg-dm-002",
+      "conversation_id": "conv-dm-sanchit-arjun",
+      "sender_id": "member-l2-core-1",
+      "content": "Going great! Aarav just submitted the speaker spotlight subtask and I'm reviewing it now.",
+      "links": [],
+      "is_pinned": false,
+      "read_by": [
+        "member-l2-core-1"
+      ],
+      "created_at": "2026-11-08T06:21:34.969Z"
+    }
+  ],
+  "notifications": [
+    {
+      "id": "notif-001",
+      "recipient_id": "member-sanchit-sehgal",
+      "type": "direct_message",
+      "title": "New message from Arjun Mehta",
+      "body": "Going great! Aarav just submitted the speaker spotlight subtask...",
+      "reference_type": "conversation",
+      "reference_id": "conv-dm-sanchit-arjun",
+      "deep_link": "/members?module=connect&conversation=conv-dm-sanchit-arjun",
+      "is_read": false,
+      "created_at": "2026-11-08T06:21:34.969Z"
+    },
+    {
+      "id": "notif-002",
+      "recipient_id": "member-sanchit-sehgal",
+      "type": "application_accepted",
+      "title": "2 Pending Level 2 Applications",
+      "body": "Ishaan Malhotra and Tanya Bansal have applied for Level 2 membership.",
+      "reference_type": "application",
+      "reference_id": "app-l2-001",
+      "deep_link": "/members?module=applications",
+      "is_read": false,
+      "created_at": "2026-11-07T23:21:34.969Z"
+    },
+    {
+      "id": "notif-003",
+      "recipient_id": "member-l2-core-1",
+      "type": "task_submitted",
+      "title": "Subtask Submitted for Review",
+      "body": "Aarav Gupta submitted 'Speaker Spotlight Social Cards (Subtask)'.",
+      "reference_type": "task",
+      "reference_id": "task-sub-001",
+      "deep_link": "/members?module=tasks&task=task-sub-001",
+      "is_read": false,
+      "created_at": "2026-11-08T05:21:34.969Z"
+    },
+    {
+      "id": "notif-004",
+      "recipient_id": "member-l1-general-1",
+      "type": "announcement",
+      "title": "Pinned Announcement from President",
+      "body": "Welcome to TVC Exclusive — our unified internal operating system.",
+      "reference_type": "conversation",
+      "reference_id": "conv-announcements",
+      "deep_link": "/members?module=connect&conversation=conv-announcements",
+      "is_read": false,
+      "created_at": "2026-11-07T19:21:34.969Z"
+    }
+  ],
+  "device_tokens": [],
+  "audit_logs": [
+    {
+      "id": "audit-001",
+      "actor_id": "member-president",
+      "action": "SYSTEM_PROVISIONED",
+      "target_type": "ecosystem",
+      "target_id": "tvc-exclusive",
+      "summary": "Initialized TVC Exclusive with 18 Level 3 Executive accounts, 7 departments, and role-independent permission matrix.",
+      "metadata": {
+        "level_3_count": 18,
+        "departments": 7
+      },
+      "created_at": "2026-11-08T07:21:34.941Z"
+    },
+    {
+      "id": "audit-002",
+      "actor_id": "member-sanchit-sehgal",
+      "action": "CORE_PROMOTION",
+      "target_type": "member",
+      "target_id": "member-l2-core-1",
+      "summary": "Promoted Arjun Mehta (102303101) from Level 2 General Member to Level 2 Core Member.",
+      "metadata": {
+        "previous_position": "pos-l2-general",
+        "new_position": "pos-l2-core",
+        "level": 2
+      },
+      "created_at": "2026-11-05T07:21:34.969Z"
+    }
+  ]
+}
