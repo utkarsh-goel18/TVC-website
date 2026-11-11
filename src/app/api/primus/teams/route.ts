@@ -44,8 +44,9 @@ export async function POST(req: NextRequest) {
     const details = cleanParticipant(payload);
     const teamName = typeof payload.teamName === "string" ? payload.teamName.trim() : "";
     const track = payload.track;
+    const validTrack = typeof track === "string" && PRIMUS_TRACKS.includes(track as (typeof PRIMUS_TRACKS)[number]);
 
-    if (!details || teamName.length < 2 || teamName.length > 60 || !PRIMUS_TRACKS.includes(track)) {
+    if (!details || teamName.length < 2 || teamName.length > 60 || !validTrack) {
       return NextResponse.json({ error: "INVALID_INPUT", message: "Provide a valid team name, track and complete participant details." }, { status: 400, headers: NO_STORE });
     }
 
