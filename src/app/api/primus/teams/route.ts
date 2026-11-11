@@ -90,8 +90,28 @@ export async function GET(req: NextRequest) {
     if (!index.exists) return NextResponse.json({ team: null });
     const code = String(index.data()?.teamCode || "");
     const team = await teamReference(code).get();
-    if (!team.exists) return NextResponse.json({ team: null });
-    return NextResponse.json({ team: team.data() });
+    if (!team.exists) return NextResponse.json({ team: null }, { headers: { "Cache-Control": "no-store" } });
+
+    // Team members only need the shared roster fields in their own dashboard.
+    // Keep phone numbers and hall details restricted to the admin endpoint.
+    const data = team.data() || {};
+    const members = Array.isArray(data.members)
+      ? data.members.map((member: Record<string, unknown>) => ({
+          name: member.name,
+          email: member.email,
+          role: member.role,
+        }))
+      : [];
+
+    return NextResponse.json({
+      team: {
+        code: team.id,
+        teamName: data.teamName,
+        track: data.track,
+        status: data.status,
+        members,
+      },
+    }, { headers: { "Cache-Control": "no-store" } });
   } catch (error) {
     console.error("[PRIMUS teams GET]", error);
     const message = error instanceof Error ? error.message : "";
