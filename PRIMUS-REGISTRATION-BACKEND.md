@@ -100,3 +100,34 @@ The page uses Firebase Authentication for sign-in and relies on the server-side 
 - Firebase Admin credentials are server-only. Never prefix them with `NEXT_PUBLIC_`.
 - The admin export includes names, email addresses and phone numbers. Limit access to the smallest possible set of admins and publish an appropriate event privacy notice.
 - Do a test registration with test accounts before opening registration publicly.
+
+
+## Pre-launch verification checklist
+
+Run these checks against a staging Firebase project with test accounts before opening the production form. Do not create test registrations in the live event database.
+
+### Participant flow
+- [ ] A verified account using the configured institutional domain can create a team and receives a unique `PRM-XXXXXXXX` code.
+- [ ] An unverified account, wrong-domain account, expired token and revoked token are rejected.
+- [ ] The same Firebase UID cannot create or join a second team.
+- [ ] A valid team code adds a participant; an invalid or unknown code returns a clear client error.
+- [ ] A team cannot exceed four members, including when two people attempt to take the final slot concurrently.
+- [ ] The ninth valid-format join attempt by the same UID inside 15 minutes is rate-limited.
+- [ ] Only the leader can submit; a one-member team cannot submit; a submitted team cannot accept new members.
+- [ ] The participant team lookup contains only the shared roster fields and does not return phone numbers or hall details.
+
+### Admin flow
+- [ ] Missing/invalid/revoked token returns 401; a signed-in UID outside `PRIMUS_ADMIN_UIDS` returns 403.
+- [ ] An allowlisted admin can load global totals and all three track counts.
+- [ ] Track and status filters work together; search finds team code/name and member name/email/phone/hall across pages.
+- [ ] Next/previous pagination has no duplicate or skipped teams when multiple teams share the same creation timestamp.
+- [ ] CSV export respects active filters and spreadsheet-formula-like values are treated as text.
+- [ ] Admin responses are not cached by the browser or intermediary caches.
+
+### Deployment
+- [ ] Firebase Auth Email/Password is enabled and authorised domains/action URLs are correct.
+- [ ] `THAPAR_EMAIL_DOMAIN` and `NEXT_PUBLIC_THAPAR_EMAIL_DOMAIN` match the domain confirmed by TIET IT.
+- [ ] Firestore rules and the composite indexes from `firestore.indexes.json` are deployed to the intended project.
+- [ ] The App Hosting service identity has the required Firebase Auth and Firestore permissions.
+- [ ] `PRIMUS_ADMIN_UIDS` contains only the approved admin UIDs.
+- [ ] A real admin login, one full test registration, CSV export and a mobile dashboard check have been completed before launch.
