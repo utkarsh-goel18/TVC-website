@@ -29,7 +29,7 @@ jobs:
       - name: Report dependency advisories
         run: |
           npm audit --json > audit-report.json || true
-          node -e 'const report = require("./audit-report.json"); console.log("Dependency advisories:", JSON.stringify(report.metadata?.vulnerabilities || {})); for (const [name, issue] of Object.entries(report.vulnerabilities || {})) console.log(name, issue.severity, "direct=" + issue.isDirect, "fixAvailable=" + JSON.stringify(issue.fixAvailable));'
+          node -e 'const report = require("./audit-report.json"); console.log("Dependency advisories:", JSON.stringify(report.metadata?.vulnerabilities || {})); for (const [name, issue] of Object.entries(report.vulnerabilities || {})) { const via = (issue.via || []).map(item => typeof item === "string" ? item : [item.title, item.range, item.url].filter(Boolean).join(" | ")); console.log(name, issue.severity, "direct=" + issue.isDirect, "range=" + issue.range, "fixAvailable=" + JSON.stringify(issue.fixAvailable), "via=" + JSON.stringify(via)); }'
       - name: Typecheck
         run: npm run typecheck
       - name: Lint changed PRIMUS files
