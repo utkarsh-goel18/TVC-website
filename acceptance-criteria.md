@@ -1,56 +1,51 @@
-# TVC Website --- Acceptance Criteria & Launch Checklist
+# Quality Assurance and Launch Checklist
 
-## Brand and visual quality
+Use this as a living checklist. Mark an item complete only after testing the current implementation and recording any relevant limitation.
 
--   [ ] The site feels like one coherent TVC identity across every
-    route.
--   [ ] Supplied logo artwork is preserved accurately.
--   [ ] Typography, spacing, colour and image treatments are consistent.
--   [ ] Layout avoids generic template patterns and excessive card
-    decoration.
--   [ ] Event identities feel distinct while remaining part of TVC.
+## Public website
 
-## Homepage
-
--   [ ] Rocket appears as the opening focal point.
--   [ ] Scroll moves the rocket left and reveals the wordmark.
--   [ ] Sequence works in both scroll directions.
--   [ ] Sequence does not trap visitors or delay access to content.
--   [ ] Reduced-motion fallback is usable.
--   [ ] About, team preview and contact footer are present.
-
-## Events
-
--   [ ] Events index contains TVC x SAT and E-Summit.
--   [ ] Event panels respond to hover, focus and touch.
--   [ ] Clicking each panel opens the correct detail route.
--   [ ] Each detail page has approved event information.
--   [ ] Registration CTA points to a verified destination.
--   [ ] No placeholder URL is presented as a live registration link.
-
-## Speakers and Team
-
--   [ ] Only approved names, titles and affiliations are published.
--   [ ] Images have permission and appropriate alt text.
--   [ ] Layout remains usable with long names and titles.
--   [ ] Team content can be updated without redesigning the page.
+- [ ] Public routes load and internal navigation points to the intended pages.
+- [ ] Header, footer and event CTAs work on desktop and mobile.
+- [ ] Supplied TVC logo artwork is preserved accurately.
+- [ ] Approved event, team and speaker content is used; no placeholder is presented as fact.
+- [ ] All external registration links are verified and current.
+- [ ] Images have appropriate alt text and responsive dimensions.
+- [ ] No broken image/video paths or avoidable layout shifts.
 
 ## Responsive and accessibility
 
--   [ ] Tested at mobile, tablet and desktop widths.
--   [ ] Keyboard navigation works throughout.
--   [ ] Focus indicators are visible.
--   [ ] Hover is not required to access important information.
--   [ ] Reduced-motion mode is respected.
--   [ ] Contrast and text sizing are readable.
--   [ ] Navigation and registration links have clear labels.
+- [ ] Test representative mobile, tablet and desktop widths.
+- [ ] Keyboard navigation and visible focus work throughout.
+- [ ] Essential content is not hover-only.
+- [ ] Reduced-motion preferences are respected.
+- [ ] Contrast, text sizing and link labels are readable.
+- [ ] Browser back/forward navigation behaves normally.
 
-## Performance and launch
+## Performance and metadata
 
--   [ ] Images are optimised and correctly sized.
--   [ ] No avoidable layout shifts.
--   [ ] Animation performance is acceptable on mid-range mobile devices.
--   [ ] Metadata and social preview are configured.
--   [ ] Sitemap and robots configuration are correct.
--   [ ] All links and forms are tested.
--   [ ] Final content is proofread and approved by TVC.
+- [ ] Large images are served at appropriate responsive sizes; originals remain preserved.
+- [ ] Non-critical media is lazy-loaded where appropriate.
+- [ ] Animation remains smooth on representative mobile hardware.
+- [ ] Page titles, descriptions and social preview metadata are correct.
+- [ ] Sitemap and robots behaviour matches the intended public routes.
+
+## PRIMUS registration
+
+- [ ] Confirm the institutional email domain with TIET IT.
+- [ ] Test verified signup, email verification, login and sign-out.
+- [ ] Test team creation, joining, one-team-per-account enforcement and team-size limits.
+- [ ] Test leader-only submission and submitted-team locking.
+- [ ] Test rate limits, malformed/oversized bodies and invalid team codes.
+- [ ] Test admin UID allowlist, revoked-token rejection, filters, pagination and CSV export.
+- [ ] Confirm participant responses do not expose private member phone/hall fields.
+- [ ] Verify Firestore rules and indexes against the intended Firebase project.
+- [ ] Confirm admin access, privacy notice and operational ownership before opening registration.
+
+## Release sign-off
+
+- [ ] `npm run typecheck` passes.
+- [ ] Relevant lint checks pass; unrelated legacy findings are recorded.
+- [ ] `npm run build` passes.
+- [ ] UI has been inspected at desktop and mobile sizes.
+- [ ] Production environment variables, Auth domains/action URLs and Firebase configuration are verified.
+- [ ] Production deployment and a live smoke test are explicitly confirmed (do not infer them from local tests or CI).

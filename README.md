@@ -2,19 +2,24 @@
 
 The official website for Thapar Venture Club (TVC), Thapar Institute of Engineering & Technology.
 
-## Stack
+## What is in this repository
 
-- Next.js 15 App Router and React 19
-- TypeScript
+- Public TVC website: homepage, events, E-Summit, TVC x SAT / PRIMUS, speakers and team pages.
+- PRIMUS'26 Thapar-student registration flow and protected admin dashboard.
+- Firebase Authentication, Cloud Firestore and server-side Firebase Admin integration.
+
+## Technology
+
+- Next.js 15 App Router, React 19 and TypeScript
 - Tailwind CSS 4
-- GSAP and Lenis for motion and scroll experiences
-- Firebase Authentication and Cloud Firestore for PRIMUS registration
-- Firebase Admin SDK for trusted server-side registration and admin operations
-- Firebase App Hosting for deployment
+- GSAP and Lenis for motion and scrolling
+- Firebase Authentication and Cloud Firestore
+- Firebase Admin SDK for trusted server-side operations
+- Firebase App Hosting configuration
 
 ## Local development
 
-Requirements: Node.js compatible with the project and npm.
+Requirements: a Node.js version supported by the installed Next.js release and npm.
 
 ```bash
 npm ci
@@ -24,30 +29,22 @@ npm run dev
 
 Open http://localhost:3000.
 
-The public Firebase client configuration is defined in `src/lib/primus/firebase-client.ts`. Server-side Firebase Admin configuration is read from environment variables. For local development, set the values documented in `.env.example` in `.env.local`.
+Set the environment variables described in [`.env.example`](.env.example). The Firebase client configuration is in `src/lib/primus/firebase-client.ts`; server-side credentials are read by `src/lib/primus/firebase-admin.ts`. Never expose Admin SDK credentials through a `NEXT_PUBLIC_` variable or commit `.env.local`.
 
 ## PRIMUS registration
 
-The PRIMUS registration flow is available at `/events/tvc-x-sat/register`. It uses Firebase Authentication for verified Thapar student accounts and Firestore for team registration.
+- Participant registration: `/events/tvc-x-sat/register`
+- Admin dashboard: `/admin/primus` (not linked from public navigation)
 
-The admin dashboard is available at `/admin/primus`. Access is restricted by Firebase Auth UID using the server-side `PRIMUS_ADMIN_UIDS` environment variable. Use UIDs, not email addresses.
+The registration flow is restricted to verified institutional email accounts. Team creation, joining, submission and admin data access run through server-side API routes. See [`PRIMUS-REGISTRATION-BACKEND.md`](PRIMUS-REGISTRATION-BACKEND.md) for the data model, API contract, security controls and pre-launch checks.
 
-Firestore rules intentionally deny direct client reads and writes. Registration and admin data access is performed by the server through the Firebase Admin SDK. Required composite indexes are maintained in `firestore.indexes.json`.
-
-Deploy Firestore configuration deliberately:
+Firestore client access is denied by [`firestore.rules`](firestore.rules); the server uses Firebase Admin. Review the target project before deploying:
 
 ```bash
-firebase deploy --only firestore:indexes --project tvc-primus-2026
-firebase deploy --only firestore:rules --project tvc-primus-2026
+firebase deploy --only firestore:rules,firestore:indexes --project <firebase-project-id>
 ```
 
-Do not deploy rules or indexes to a different Firebase project without reviewing the target first.
-
-## Environment variables
-
-See `.env.example` for the required local/server configuration. Never commit `.env.local`, service-account private keys, admin credentials, participant exports, or production data.
-
-Firebase App Hosting uses Application Default Credentials for the Admin SDK when explicit service-account credentials are not supplied. Configure `PRIMUS_ADMIN_UIDS` in the production App Hosting environment before exposing the admin dashboard.
+Do not assume the checked-in Firebase project ID is the intended production target. Confirm it before every deployment.
 
 ## Quality checks
 
@@ -57,18 +54,16 @@ npm run lint
 npm run build
 ```
 
-The repository may contain documented lint findings in legacy files; review the command output rather than treating a successful build as proof that every lint rule passes.
+The full-repository lint command may report existing findings outside recently changed files. Do not treat a successful production build as proof that all lint rules pass; review each command's output.
 
-## Project documentation
+## Documentation map
 
-- `design.md` — visual system and design principles
-- `implementation-plan.md` — implementation phases and technical approach
-- `information-architecture.md` — routes and page structure
-- `motion-spec.md` — animation and interaction behaviour
-- `content-and-assets.md` — content and asset inventory
-- `acceptance-criteria.md` — quality and launch checklist
-- `PRIMUS-REGISTRATION-BACKEND.md` — registration backend and data model notes
+- [`AGENTS.md`](AGENTS.md) — repository-specific implementation and review rules
+- [`design.md`](design.md) — current visual direction, page experience and motion principles
+- [`content-and-assets.md`](content-and-assets.md) — content approval and media requirements
+- [`acceptance-criteria.md`](acceptance-criteria.md) — ongoing QA and launch checklist
+- [`PRIMUS-REGISTRATION-BACKEND.md`](PRIMUS-REGISTRATION-BACKEND.md) — registration architecture and operational checklist
 
 ## Content integrity
 
-Do not invent speaker names, team members, sponsors, event dates, statistics, achievements, venue details, or registration URLs. Confirm content with TVC before publishing.
+Publish only information approved by TVC. Do not invent speaker names, team members, sponsors, event dates, statistics, achievements, venue details or registration URLs.
