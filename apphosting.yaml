@@ -5,5 +5,7 @@ env:
     value: tvc-primus-2026
   - variable: THAPAR_EMAIL_DOMAIN
     value: thapar.edu
+  - variable: NEXT_PUBLIC_THAPAR_EMAIL_DOMAIN
+    value: thapar.edu
   - variable: NEXT_PUBLIC_SATURNALIA_REGISTRATION_URL
     value: https://www.saturnalia.in/events/business
