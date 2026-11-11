@@ -18,7 +18,12 @@ async function verifiedParticipant(req: NextRequest) {
   const header = req.headers.get("authorization") || "";
   const token = header.startsWith("Bearer ") ? header.slice(7) : "";
   if (!token) throw new Error("AUTH_REQUIRED");
-  const decoded = await getFirebaseAuth().verifyIdToken(token);
+  let decoded;
+  try {
+    decoded = await getFirebaseAuth().verifyIdToken(token, true);
+  } catch {
+    throw new Error("AUTH_REQUIRED");
+  }
   const email = normaliseEmail(decoded.email || "");
   if (!decoded.email_verified || !isThaparEmail(email)) throw new Error("THAPAR_EMAIL_REQUIRED");
   return { uid: decoded.uid, email };
@@ -27,7 +32,10 @@ async function verifiedParticipant(req: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     const participant = await verifiedParticipant(req);
-    const body = await req.json();
+    const body = await req.json().catch(() => null);
+    if (!body || typeof body !== "object" || Array.isArray(body)) {
+      return NextResponse.json({ error: "INVALID_INPUT", message: "Provide valid registration details." }, { status: 400 });
+    }
     const details = cleanParticipant(body);
     const teamName = typeof body.teamName === "string" ? body.teamName.trim() : "";
     const track = body.track;
@@ -87,7 +95,7 @@ export async function GET(req: NextRequest) {
     const participant = await verifiedParticipant(req);
     const db = getFirebaseFirestore();
     const index = await db.collection("primusParticipantIndex").doc(participant.uid).get();
-    if (!index.exists) return NextResponse.json({ team: null });
+    if (!index.exists) return NextResponse.json({ team: null }, { headers: { "Cache-Control": "no-store" } });
     const code = String(index.data()?.teamCode || "");
     const team = await teamReference(code).get();
     if (!team.exists) return NextResponse.json({ team: null }, { headers: { "Cache-Control": "no-store" } });
