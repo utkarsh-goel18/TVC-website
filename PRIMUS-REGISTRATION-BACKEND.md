@@ -95,6 +95,7 @@ The page uses Firebase Authentication for sign-in and relies on the server-side 
 - The participant registration form, Firebase email/password sign-in and verification flow, and leader team dashboard are implemented.
 - The protected admin dashboard is available at `/admin/primus`. It supports registration summaries, track/status filters, search across team/member fields, paginated browsing and filtered CSV export.
 - The admin API verifies revoked tokens, checks the server-side UID allowlist, returns non-cacheable responses and escapes spreadsheet formula values in CSV exports.
+- The npm lockfile pins patched `@grpc/grpc-js` and `postcss` versions to eliminate the high-severity advisories found during CI. The audit still reports moderate advisories in Firebase Admin / Google Cloud transitive dependencies and development tooling; do not force major downgrades as a quick fix. Review those separately before a wider production security sign-off.
 - Participant write routes reject revoked sessions and malformed JSON. Team-code join attempts are rate-limited transactionally to eight attempts per UID per 15-minute window.
 - Participant team lookups return only the shared roster fields; phone numbers and hall details remain in the admin view.
 - Firebase Admin credentials are server-only. Never prefix them with `NEXT_PUBLIC_`.
