@@ -1,26 +1,13 @@
 import { FieldValue, type Transaction } from "firebase-admin/firestore";
 import { randomBytes } from "crypto";
+import type { NextRequest } from "next/server";
 import { getFirebaseFirestore } from "./firebase-admin";
 
 export const PRIMUS_HOSTELS = [
-  "Agira Hall",
-  "Amritam Hall",
-  "Prithvi Hall",
-  "Neeram Hall",
-  "Vyan Hall",
-  "Tejas Hall",
-  "Ambaram Hall",
-  "Viyat Hall",
-  "Anantam Hall",
-  "Vyom Hall",
-  "FRF/G",
-  "Vasudha Hall",
-  "Ira Hall",
-  "Ananta Hall",
-  "Dhriti Hall",
-  "Vahni Hall",
-  "Pavani Hall",
-  "Day Scholar",
+  "Agira Hall", "Amritam Hall", "Prithvi Hall", "Neeram Hall", "Vyan Hall",
+  "Tejas Hall", "Ambaram Hall", "Viyat Hall", "Anantam Hall", "Vyom Hall",
+  "FRF/G", "Vasudha Hall", "Ira Hall", "Ananta Hall", "Dhriti Hall",
+  "Vahni Hall", "Pavani Hall", "Day Scholar",
 ] as const;
 
 export const PRIMUS_TRACKS = ["Product", "Consulting", "Finance"] as const;
@@ -52,7 +39,7 @@ export interface PrimusTeam {
 }
 
 export function cleanParticipant(body: unknown): ParticipantInput | null {
-  if (!body || typeof body !== "object") return null;
+  if (!body || typeof body !== "object" || Array.isArray(body)) return null;
   const value = body as Record<string, unknown>;
   const name = typeof value.name === "string" ? value.name.trim() : "";
   const phone = typeof value.phone === "string" ? value.phone.replace(/[\s-]/g, "") : "";
@@ -70,8 +57,14 @@ export function isThaparEmail(email: string): boolean {
   return email.toLowerCase().endsWith(`@${domain}`);
 }
 
+// New team codes have 64 bits of randomness. The API continues accepting
+// legacy 32-bit codes so teams created before this change remain usable.
 export function createTeamCode(): string {
-  return `PRM-${randomBytes(4).toString("hex").toUpperCase()}`;
+  return `PRM-${randomBytes(8).toString("hex").toUpperCase()}`;
+}
+
+export function isValidTeamCode(code: string): boolean {
+  return /^PRM-(?:[A-F0-9]{8}|[A-F0-9]{16})$/.test(code);
 }
 
 export function teamReference(code: string) {
@@ -95,12 +88,52 @@ export function timestamp() {
 }
 
 /**
- * Apply a UID-scoped Firestore rate limit to sensitive participant actions.
- * Firestore transactions make concurrent attempts share the same counter.
+ * Read a small JSON request body without buffering an unbounded payload.
+ * PRIMUS forms need only a few hundred bytes; 8 KiB leaves ample headroom.
+ */
+export async function parseJsonBody(req: NextRequest, maxBytes = 8 * 1024): Promise<unknown | null> {
+  const contentLength = Number(req.headers.get("content-length") || 0);
+  if (contentLength > maxBytes) return null;
+  if (!req.body) return null;
+
+  const reader = req.body.getReader();
+  const chunks: Uint8Array[] = [];
+  let total = 0;
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      total += value.byteLength;
+      if (total > maxBytes) {
+        await reader.cancel();
+        return null;
+      }
+      chunks.push(value);
+    }
+  } finally {
+    reader.releaseLock();
+  }
+
+  try {
+    const bytes = new Uint8Array(total);
+    let offset = 0;
+    for (const chunk of chunks) {
+      bytes.set(chunk, offset);
+      offset += chunk.byteLength;
+    }
+    return JSON.parse(new TextDecoder().decode(bytes)) as unknown;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Transactional per-UID limits protect join-code guessing and automated team
+ * creation. These are abuse controls, not a substitute for edge-level limits.
  */
 export async function enforceRateLimit(
   uid: string,
-  action: "join",
+  action: "join" | "create",
   maxAttempts: number,
   windowMs: number
 ) {

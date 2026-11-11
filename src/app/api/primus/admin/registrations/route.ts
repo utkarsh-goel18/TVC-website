@@ -9,6 +9,9 @@ const TRACKS = ["Product", "Consulting", "Finance"] as const;
 const STATUSES = ["OPEN", "SUBMITTED"] as const;
 const DEFAULT_PAGE_SIZE = 25;
 const MAX_PAGE_SIZE = 50;
+// Search and CSV are in-memory substring operations. Bound the number of
+// documents read so a broad admin query cannot scan an unbounded collection.
+const MAX_SCAN_TEAMS = 5000;
 
 type Cursor =
   | { mode: "ordered"; createdAt: string; code: string }
@@ -17,7 +20,7 @@ type Cursor =
 function jsonError(message: string, status: number) {
   return NextResponse.json(
     { error: status === 401 ? "AUTH_REQUIRED" : status === 403 ? "FORBIDDEN" : "INVALID_REQUEST", message },
-    { status, headers: { "Cache-Control": "no-store" } }
+    { status, headers: { "Cache-Control": "no-store, max-age=0" } }
   );
 }
 
@@ -26,7 +29,7 @@ function decodeCursor(value: string | null): Cursor | null {
   try {
     const parsed = JSON.parse(Buffer.from(value, "base64url").toString("utf8")) as Cursor;
     if (parsed.mode === "ordered" && typeof parsed.createdAt === "string" && typeof parsed.code === "string") return parsed;
-    if (parsed.mode === "search" && Number.isSafeInteger(parsed.offset) && parsed.offset >= 0) return parsed;
+    if (parsed.mode === "search" && Number.isSafeInteger(parsed.offset) && parsed.offset >= 0 && parsed.offset <= MAX_SCAN_TEAMS) return parsed;
   } catch {
     // Invalid cursors are rejected by the caller.
   }
@@ -40,11 +43,7 @@ function encodeCursor(cursor: Cursor) {
 function includesSearchTerm(team: Record<string, unknown>, term: string) {
   const members = Array.isArray(team.members) ? team.members : [];
   const searchable = [
-    team.code,
-    team.teamName,
-    team.track,
-    team.status,
-    team.leaderEmail,
+    team.code, team.teamName, team.track, team.status, team.leaderEmail,
     ...members.flatMap((member) => {
       if (!member || typeof member !== "object") return [];
       const value = member as Record<string, unknown>;
@@ -56,7 +55,6 @@ function includesSearchTerm(team: Record<string, unknown>, term: string) {
 
 function csvCell(value: unknown) {
   let text = value == null ? "" : String(value);
-  // Prevent spreadsheet formula execution when an exported value is opened in Excel/Sheets.
   if (/^[\s]*[=+\-@]/.test(text)) text = "'" + text;
   return `"${text.replace(/"/g, '""')}"`;
 }
@@ -89,17 +87,12 @@ export async function GET(req: NextRequest) {
     return jsonError("Your session is invalid or expired. Sign in again.", 401);
   }
 
-  const allowedAdmins = (process.env.PRIMUS_ADMIN_UIDS || "")
-    .split(",")
-    .map((value) => value.trim())
-    .filter(Boolean);
+  const allowedAdmins = (process.env.PRIMUS_ADMIN_UIDS || "").split(",").map((value) => value.trim()).filter(Boolean);
   if (!allowedAdmins.includes(uid)) return jsonError("This account is not authorised to view PRIMUS registrations.", 403);
 
   const params = req.nextUrl.searchParams;
   const rawLimit = Number(params.get("limit") || DEFAULT_PAGE_SIZE);
-  if (!Number.isInteger(rawLimit) || rawLimit < 1 || rawLimit > MAX_PAGE_SIZE) {
-    return jsonError(`Page size must be between 1 and ${MAX_PAGE_SIZE}.`, 400);
-  }
+  if (!Number.isInteger(rawLimit) || rawLimit < 1 || rawLimit > MAX_PAGE_SIZE) return jsonError(`Page size must be between 1 and ${MAX_PAGE_SIZE}.`, 400);
 
   const track = params.get("track") || "";
   const status = params.get("status") || "";
@@ -108,9 +101,7 @@ export async function GET(req: NextRequest) {
   const rawCursor = params.get("cursor");
   const cursor = decodeCursor(rawCursor);
   if (rawCursor && !cursor) return jsonError("The pagination cursor is invalid. Refresh the dashboard.", 400);
-  if (cursor && ((search && cursor.mode !== "search") || (!search && cursor.mode !== "ordered"))) {
-    return jsonError("The pagination cursor does not match the current filters. Refresh the dashboard.", 400);
-  }
+  if (cursor && ((search && cursor.mode !== "search") || (!search && cursor.mode !== "ordered"))) return jsonError("The pagination cursor does not match the current filters. Refresh the dashboard.", 400);
   if (search.length > 100) return jsonError("Search text must be 100 characters or fewer.", 400);
   if (track && !TRACKS.includes(track as (typeof TRACKS)[number])) return jsonError("Unknown track filter.", 400);
   if (status && !STATUSES.includes(status as (typeof STATUSES)[number])) return jsonError("Unknown status filter.", 400);
@@ -128,25 +119,16 @@ export async function GET(req: NextRequest) {
     };
 
     const [totalTeams, submittedTeams, openTeams, totalParticipants, productTeams, consultingTeams, financeTeams] = await Promise.all([
-      countQuery(),
-      countQuery("status", "SUBMITTED"),
-      countQuery("status", "OPEN"),
+      countQuery(), countQuery("status", "SUBMITTED"), countQuery("status", "OPEN"),
       db.collection("primusParticipantIndex").count().get().then((result) => result.data().count),
-      countQuery("track", "Product"),
-      countQuery("track", "Consulting"),
-      countQuery("track", "Finance"),
+      countQuery("track", "Product"), countQuery("track", "Consulting"), countQuery("track", "Finance"),
     ]);
 
-    const summary = {
-      totalTeams,
-      submittedTeams,
-      openTeams,
-      totalParticipants,
-      byTrack: { Product: productTeams, Consulting: consultingTeams, Finance: financeTeams },
-    };
+    const summary = { totalTeams, submittedTeams, openTeams, totalParticipants, byTrack: { Product: productTeams, Consulting: consultingTeams, Finance: financeTeams } };
 
     if (search || exportCsv) {
-      const snapshot = await query.orderBy("createdAt", "desc").orderBy(FieldPath.documentId(), "desc").get();
+      const snapshot = await query.orderBy("createdAt", "desc").orderBy(FieldPath.documentId(), "desc").limit(MAX_SCAN_TEAMS + 1).get();
+      if (snapshot.size > MAX_SCAN_TEAMS) return jsonError("This search or export exceeds the 5,000-team safety limit. Narrow the track or status filters before retrying.", 413);
       const matching = snapshot.docs
         .map((doc) => ({ ...doc.data(), code: doc.id }) as Record<string, unknown>)
         .filter((team) => !search || includesSearchTerm(team, search));
@@ -157,7 +139,7 @@ export async function GET(req: NextRequest) {
           headers: {
             "Content-Type": "text/csv; charset=utf-8",
             "Content-Disposition": 'attachment; filename="primus-registrations.csv"',
-            "Cache-Control": "no-store",
+            "Cache-Control": "no-store, max-age=0",
           },
         });
       }
@@ -166,15 +148,9 @@ export async function GET(req: NextRequest) {
       const page = matching.slice(offset, offset + rawLimit);
       const nextOffset = offset + page.length;
       return NextResponse.json({
-        teams: page,
-        summary,
-        pagination: {
-          pageSize: rawLimit,
-          totalFiltered: matching.length,
-          hasMore: nextOffset < matching.length,
-          nextCursor: nextOffset < matching.length ? encodeCursor({ mode: "search", offset: nextOffset }) : null,
-        },
-      }, { headers: { "Cache-Control": "no-store" } });
+        teams: page, summary,
+        pagination: { pageSize: rawLimit, totalFiltered: matching.length, hasMore: nextOffset < matching.length, nextCursor: nextOffset < matching.length ? encodeCursor({ mode: "search", offset: nextOffset }) : null },
+      }, { headers: { "Cache-Control": "no-store, max-age=0" } });
     }
 
     if (cursor && cursor.mode !== "ordered") return jsonError("The pagination cursor does not match the current filters.", 400);
@@ -186,17 +162,12 @@ export async function GET(req: NextRequest) {
     const teams = pageDocs.map((doc) => ({ ...doc.data(), code: doc.id }));
     const last = pageDocs[pageDocs.length - 1];
     return NextResponse.json({
-      teams,
-      summary,
+      teams, summary,
       pagination: {
-        pageSize: rawLimit,
-        totalFiltered: null,
-        hasMore,
-        nextCursor: hasMore && last
-          ? encodeCursor({ mode: "ordered", createdAt: String(last.data().createdAt), code: last.id })
-          : null,
+        pageSize: rawLimit, totalFiltered: null, hasMore,
+        nextCursor: hasMore && last ? encodeCursor({ mode: "ordered", createdAt: String(last.data().createdAt), code: last.id }) : null,
       },
-    }, { headers: { "Cache-Control": "no-store" } });
+    }, { headers: { "Cache-Control": "no-store, max-age=0" } });
   } catch (error) {
     console.error("[PRIMUS admin registrations]", error);
     return jsonError("Unable to load registrations. Please try again.", 500);
