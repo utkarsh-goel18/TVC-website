@@ -10,12 +10,20 @@ export async function POST(req: NextRequest, context: { params: Promise<{ teamCo
     const token = header.startsWith("Bearer ") ? header.slice(7) : "";
     if (!token) return NextResponse.json({ error: "AUTH_REQUIRED", message: "Authentication required." }, { status: 401 });
 
-    const decoded = await getFirebaseAuth().verifyIdToken(token);
+    let decoded;
+    try {
+      decoded = await getFirebaseAuth().verifyIdToken(token, true);
+    } catch {
+      return NextResponse.json({ error: "AUTH_REQUIRED", message: "Your session is invalid or expired. Sign in again." }, { status: 401 });
+    }
     const email = normaliseEmail(decoded.email || "");
     if (!decoded.email_verified || !isThaparEmail(email)) return NextResponse.json({ error: "THAPAR_EMAIL_REQUIRED", message: "A verified Thapar email is required." }, { status: 403 });
 
     const { teamCode } = await context.params;
-    const code = teamCode.toUpperCase();
+    const code = teamCode.trim().toUpperCase();
+    if (!/^PRM-[A-F0-9]{8}$/.test(code)) {
+      return NextResponse.json({ error: "INVALID_TEAM_CODE", message: "The team code is invalid." }, { status: 400 });
+    }
     const teamRef = teamReference(code);
 
     await getFirebaseFirestore().runTransaction(async (transaction) => {

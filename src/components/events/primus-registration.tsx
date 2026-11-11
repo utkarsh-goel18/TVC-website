@@ -18,8 +18,7 @@ type Team = {
   code: string;
   teamName: string;
   track: "Product" | "Consulting" | "Finance";
-  leaderUid: string;
-  members: { name: string; email: string; phone: string; hostel: string; role: string }[];
+  members: { name: string; email: string; role: string }[];
   status: "OPEN" | "SUBMITTED";
 };
 
@@ -92,7 +91,8 @@ export function PrimusRegistration() {
   async function handleAuth(event: FormEvent<HTMLFormElement>) {
     event.preventDefault(); setBusy(true); setError(""); setNotice("");
     try {
-      if (!email.trim().toLowerCase().endsWith("@thapar.edu")) throw new Error("Use your official @thapar.edu email address.");
+      const domain = (process.env.NEXT_PUBLIC_THAPAR_EMAIL_DOMAIN || "thapar.edu").trim().toLowerCase();
+      if (!email.trim().toLowerCase().endsWith(`@${domain}`)) throw new Error(`Use your official @${domain} email address.`);
       if (authMode === "signup") {
         const credential = await createUserWithEmailAndPassword(firebaseAuth, email.trim(), password);
         await sendEmailVerification(credential.user);
@@ -129,7 +129,7 @@ export function PrimusRegistration() {
   async function handleTeamAction(event: FormEvent<HTMLFormElement>, action: "create" | "join") {
     event.preventDefault(); setBusy(true); setError(""); setNotice("");
     try {
-      const payload = action === "create"
+      const payload: Record<string, string> = action === "create"
         ? { teamName, track, name, phone, hostel }
         : { teamCode, name, phone, hostel };
       const data = await request(action === "create" ? "/api/primus/teams" : "/api/primus/teams/join", payload);

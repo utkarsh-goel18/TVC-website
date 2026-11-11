@@ -1,0 +1,47 @@
+name: TVC website checks
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: primus-admin-ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Typecheck, lint and build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Report dependency advisories and fail on high severity
+        run: |
+          npm audit --json > audit-report.json || true
+          node -e 'const report = require("./audit-report.json"); const counts = report.metadata?.vulnerabilities || {}; console.log("Dependency advisories:", JSON.stringify(counts)); for (const [name, issue] of Object.entries(report.vulnerabilities || {})) { const via = (issue.via || []).map(item => typeof item === "string" ? item : [item.title, item.range, item.url].filter(Boolean).join(" | ")); console.log(name, issue.severity, "direct=" + issue.isDirect, "range=" + issue.range, "fixAvailable=" + JSON.stringify(issue.fixAvailable), "via=" + JSON.stringify(via)); } if ((counts.high || 0) + (counts.critical || 0) > 0) process.exit(1);'
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Lint changed PRIMUS files
+        run: |
+          npx eslint \
+            src/app/admin/primus/page.tsx \
+            src/app/admin/primus/layout.tsx \
+            src/app/api/primus/admin/registrations/route.ts \
+            src/app/api/primus/teams/route.ts \
+            src/app/api/primus/teams/join/route.ts \
+            'src/app/api/primus/teams/[teamCode]/submit/route.ts' \
+            src/components/events/primus-registration.tsx \
+            src/lib/primus/registration.ts
+      - name: Production build
+        run: npm run build

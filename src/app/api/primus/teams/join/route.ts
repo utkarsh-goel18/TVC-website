@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getFirebaseAuth, getFirebaseFirestore } from "@/lib/primus/firebase-admin";
-import { cleanParticipant, isThaparEmail, normaliseEmail, participantReference, teamReference, timestamp } from "@/lib/primus/registration";
+import { cleanParticipant, enforceRateLimit, isThaparEmail, normaliseEmail, participantReference, teamReference, timestamp } from "@/lib/primus/registration";
 
 export const runtime = "nodejs";
 
@@ -10,14 +10,24 @@ export async function POST(req: NextRequest) {
     const token = header.startsWith("Bearer ") ? header.slice(7) : "";
     if (!token) return NextResponse.json({ error: "AUTH_REQUIRED", message: "Sign in with your verified Thapar email first." }, { status: 401 });
 
-    const decoded = await getFirebaseAuth().verifyIdToken(token);
+    let decoded;
+    try {
+      decoded = await getFirebaseAuth().verifyIdToken(token, true);
+    } catch {
+      return NextResponse.json({ error: "AUTH_REQUIRED", message: "Your session is invalid or expired. Sign in again." }, { status: 401 });
+    }
     const email = normaliseEmail(decoded.email || "");
     if (!decoded.email_verified || !isThaparEmail(email)) return NextResponse.json({ error: "THAPAR_EMAIL_REQUIRED", message: "Only verified Thapar student email accounts can join a team." }, { status: 403 });
 
-    const body = await req.json();
+    const body = await req.json().catch(() => null);
+    if (!body || typeof body !== "object" || Array.isArray(body)) {
+      return NextResponse.json({ error: "INVALID_INPUT", message: "Provide a valid team code and participant details." }, { status: 400 });
+    }
     const code = typeof body.teamCode === "string" ? body.teamCode.trim().toUpperCase() : "";
     const details = cleanParticipant(body);
     if (!/^PRM-[A-F0-9]{8}$/.test(code) || !details) return NextResponse.json({ error: "INVALID_INPUT", message: "Enter a valid team code and complete participant details." }, { status: 400 });
+
+    await enforceRateLimit(decoded.uid, "join", 8, 15 * 60 * 1000);
 
     const teamRef = teamReference(code);
     const indexRef = participantReference(decoded.uid);
@@ -49,6 +59,7 @@ export async function POST(req: NextRequest) {
       ALREADY_REGISTERED: { status: 409, message: "This account is already part of a PRIMUS team." },
       TEAM_LOCKED: { status: 409, message: "This team has already submitted its registration." },
       TEAM_FULL: { status: 409, message: "This team already has four members." },
+      RATE_LIMITED: { status: 429, message: "Too many join attempts. Please wait 15 minutes before trying again." },
     };
     const known = errors[message];
     return NextResponse.json({ error: known ? message : "JOIN_FAILED", message: known?.message || "Unable to join this team. Please try again." }, { status: known?.status || 500 });
