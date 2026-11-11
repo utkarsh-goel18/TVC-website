@@ -1,39 +1,36 @@
-# PRIMUS'26 registration backend
+# PRIMUS'26 Registration Backend
 
-This backend supports Thapar-only team registration. External participants should continue to use the Saturnalia registration page.
+This backend supports team registration for verified Thapar participants. External participants should use the approved Saturnalia registration destination configured by the frontend.
 
 ## Registration rules
 
 - Teams contain 2–4 participants.
-- The team leader creates the team, selects one track, and enters their personal details.
-- A generated `PRM-XXXXXXXXXXXXXXXX` code (16 hexadecimal characters) lets other verified Thapar participants join. Previously issued 8-character codes remain valid.
-- Joining is allowed while the team is open and has fewer than four members.
-- Only the leader can submit, and only when the team has at least two members.
-- Submission locks the team.
+- The leader creates the team, selects one track (Product, Consulting or Finance) and enters their details.
+- New team codes use the format `PRM-` followed by 16 uppercase hexadecimal characters (64 bits of randomness).
+- Legacy 8-character hexadecimal team codes remain valid for teams created before the hardening change.
+- Participants can join an open team while it has fewer than four members.
+- Only the leader can submit; submission requires at least two members and locks the team.
 - Each Firebase Auth UID can belong to only one team.
-- The API verifies Firebase ID tokens and verified institutional email addresses.
+- Participant APIs verify Firebase ID tokens and verified institutional email addresses.
 
-## Hostel dropdown values
-
-Agira Hall, Amritam Hall, Prithvi Hall, Neeram Hall, Vyan Hall, Tejas Hall, Ambaram Hall, Viyat Hall, Anantam Hall, Vyom Hall, FRF/G, Vasudha Hall, Ira Hall, Ananta Hall, Dhriti Hall, Vahni Hall, Pavani Hall, Day Scholar.
-
-The duplicate-looking names Anantam Hall and Ananta Hall are intentionally separate. Vasudha is one option (not separate Block E/Block G options); Dhriti is shown as Dhriti Hall (not Hostel-PG).
-
-## Firestore collections
+## Firestore data model
 
 - `primusTeams/{TEAM_CODE}`: team metadata and member records.
 - `primusParticipantIndex/{FIREBASE_UID}`: enforces one team per participant.
-- `primusRegistrationMeta/counts`: aggregate team creation count.
-- `primusRateLimits/{ACTION_UID}`: transactional per-user attempt counters for team-code join protection and team creation.
+- `primusRegistrationMeta/counts`: aggregate team-creation metadata.
+- `primusRateLimits/{ACTION_UID}`: transactional per-UID attempt counters for team creation and joining.
 
-The participant index should be writable only by Admin SDK. Do not expose Firestore client writes for these collections.
+Client Firestore reads and writes are denied by `firestore.rules`. These collections are accessed by trusted server routes through Firebase Admin SDK. Do not add client-side writes or expose Admin credentials.
 
-## API
+## Participant API
 
-All participant endpoints require `Authorization: Bearer <Firebase ID token>` from Firebase Authentication. The token must be verified and its email must be verified.
+All participant endpoints require `Authorization: Bearer <Firebase ID token>`. The server verifies the token and checks the verified institutional email domain.
 
 ### Create team
+
 `POST /api/primus/teams`
+
+Example request:
 
 ```json
 {
@@ -45,90 +42,100 @@ All participant endpoints require `Authorization: Bearer <Firebase ID token>` fr
 }
 ```
 
+Limited to 3 attempts per UID per 15-minute window. Request bodies are streamed and capped at 8 KiB.
+
 ### Get current participant's team
+
 `GET /api/primus/teams`
 
-Returns only the team associated with the authenticated participant.
+Returns the authenticated participant's team with shared roster fields only. Member phone numbers and hall details are not exposed to participants.
 
 ### Join team
+
 `POST /api/primus/teams/join`
+
+Example request:
 
 ```json
 {
-  "teamCode": "PRM-A1B2C3D4",
+  "teamCode": "PRM-A1B2C3D4E5F60718",
   "name": "Participant Name",
   "phone": "9876543210",
   "hostel": "Day Scholar"
 }
 ```
 
+Limited to 8 attempts per UID per 15-minute window. The limit is per account, not a global or IP-based abuse control. Request bodies are capped at 8 KiB.
+
 ### Submit team
+
 `POST /api/primus/teams/{teamCode}/submit`
 
-Only the team leader can submit; server checks the team size transactionally.
+Only the leader can submit. Team size and status are checked transactionally.
 
-### Admin registrations
-`GET /api/primus/admin/registrations`
+## Admin API and dashboard
 
-Requires a non-revoked Firebase ID token whose UID is included in `PRIMUS_ADMIN_UIDS`. The default response is paginated (25 records; maximum 50) and includes global summary counts. Optional query parameters: `track=Product|Consulting|Finance`, `status=OPEN|SUBMITTED`, `q=<search text>`, `cursor=<opaque next-page cursor>`. Search matches team name/code and participant name/email/phone/hall. Add `format=csv` to export all matching records for the active filters. CSV values are escaped to reduce spreadsheet formula injection risk. This endpoint exposes personal data and must remain restricted to approved admins.
+- Dashboard: `/admin/primus` (not linked from public navigation).
+- API: `GET /api/primus/admin/registrations`.
+- Requires a valid, non-revoked Firebase ID token and a UID present in the server-only `PRIMUS_ADMIN_UIDS` environment variable. Use UIDs, not email addresses.
+- Default page size is 25; maximum is 50.
+- Supports `track=Product|Consulting|Finance`, `status=OPEN|SUBMITTED`, `q=<search text>`, and an opaque `cursor=<next-page cursor>`.
+- Search and CSV export scan at most 5,000 matching-filter team documents. If the filtered set exceeds this limit, the API returns HTTP 413 and asks the admin to narrow the filters.
+- `format=csv` exports all matching records within that scan limit. CSV cells are escaped and formula-like values are prefixed to reduce spreadsheet formula injection.
+- Admin responses use `Cache-Control: no-store`.
 
-### Admin dashboard
-`/admin/primus`
+The dashboard/export contains participant personal data. Restrict the admin UID allowlist to the smallest approved group and publish an appropriate privacy notice.
 
-The page uses Firebase Authentication for sign-in and relies on the server-side UID allowlist for authorisation. It is intentionally not linked from public site navigation.
+## Rate-limit and retention notes
 
-## Firebase setup before deployment
+The create/join limits are transactional per Firebase UID. They help deter repeated actions and team-code guessing but do not replace edge-level IP/device controls. The rate-limit documents include an `expiresAt` field; configure and verify Firestore TTL separately if automatic expiry is required. Do not assume the TTL policy is active merely because the field exists.
 
-1. Create/select the TVC Firebase project.
-2. Enable Firebase Authentication → Email/Password or an approved email-link sign-in method. The frontend must verify each email address before calling the API.
-3. Confirm the actual student email domain with TIET IT. Set `THAPAR_EMAIL_DOMAIN` to that domain; do not assume every institutional account uses the same domain.
-4. Create a Cloud Firestore database in production mode.
-5. From the repository root, select the intended Firebase project and deploy the checked-in Firestore rules and indexes with `firebase deploy --only firestore:rules,firestore:indexes`. The new admin filters require the composite indexes in `firestore.indexes.json`.
-6. Create a service account for the server and add its Project ID, client email and private key to the deployment environment, or use the hosting provider's Application Default Credentials. Never commit the private key.
-7. Add the Firebase Auth UIDs of approved TVC registration admins to the server-only `PRIMUS_ADMIN_UIDS` environment variable. Do not use admin email addresses in place of UIDs.
-8. Set both `THAPAR_EMAIL_DOMAIN` (server) and `NEXT_PUBLIC_THAPAR_EMAIL_DOMAIN` (client) to the confirmed institutional email domain. The defaults are `thapar.edu`.
-9. Install dependencies with `npm install` after pulling this change.
-10. Configure the environment variables in the hosting provider and redeploy.
+## Environment and Firebase setup
 
-## Important launch notes
+See `.env.example` for variable names. Before deployment:
 
-- The participant registration form, Firebase email/password sign-in and verification flow, and leader team dashboard are implemented.
-- The protected admin dashboard is available at `/admin/primus`. It supports registration summaries, track/status filters, search across team/member fields, paginated browsing and filtered CSV export.
-- The admin API verifies revoked tokens, checks the server-side UID allowlist, returns non-cacheable responses and escapes spreadsheet formula values in CSV exports.
-- The npm lockfile pins patched `@grpc/grpc-js` and `postcss` versions to eliminate the high-severity advisories found during CI. The audit still reports moderate advisories in Firebase Admin / Google Cloud transitive dependencies and development tooling; do not force major downgrades as a quick fix. Review those separately before a wider production security sign-off.
-- Participant write routes reject revoked sessions and malformed JSON. Team-code join attempts are rate-limited transactionally to eight attempts per UID per 15-minute window.
-- Participant team lookups return only the shared roster fields; phone numbers and hall details remain in the admin view.
-- Firebase Admin credentials are server-only. Never prefix them with `NEXT_PUBLIC_`.
-- The admin export includes names, email addresses and phone numbers. Limit access to the smallest possible set of admins and publish an appropriate event privacy notice.
-- Do a test registration with test accounts before opening registration publicly.
+1. Confirm the institutional email domain with TIET IT; configure `THAPAR_EMAIL_DOMAIN` and `NEXT_PUBLIC_THAPAR_EMAIL_DOMAIN` consistently.
+2. Enable the required Firebase Authentication sign-in method and verify authorised domains and email action URLs.
+3. Create/select the intended Cloud Firestore database.
+4. Review and deploy `firestore.rules` and `firestore.indexes.json` to the explicitly selected project.
+5. Configure server-side Firebase Admin credentials or the hosting identity's Application Default Credentials. Never commit a service-account private key.
+6. Set `PRIMUS_ADMIN_UIDS` to approved Firebase Auth UIDs in the server environment only.
+7. Configure the Saturnalia registration URL and verify the destination.
+8. Run the participant and admin checklists below against a non-production Firebase project before launch.
 
+Example deployment command (replace the project ID only after confirming the target):
 
-## Pre-launch verification checklist
+```bash
+firebase deploy --only firestore:rules,firestore:indexes --project <firebase-project-id>
+```
 
-Run these checks against a staging Firebase project with test accounts before opening the production form. Do not create test registrations in the live event database.
+## Pre-launch verification
 
 ### Participant flow
-- [ ] A verified account using the configured institutional domain can create a team and receives a unique `PRM-XXXXXXXX` code.
-- [ ] An unverified account, wrong-domain account, expired token and revoked token are rejected.
-- [ ] The same Firebase UID cannot create or join a second team.
-- [ ] A valid team code adds a participant; an invalid or unknown code returns a clear client error.
-- [ ] A team cannot exceed four members, including when two people attempt to take the final slot concurrently.
-- [ ] The ninth valid-format join attempt by the same UID inside 15 minutes is rate-limited; the fourth team-creation attempt in that window is rate-limited. These are per-account controls, not IP-wide abuse protection.
-- [ ] Only the leader can submit; a one-member team cannot submit; a submitted team cannot accept new members.
-- [ ] The participant team lookup contains only the shared roster fields and does not return phone numbers or hall details.
+
+- [ ] Verified account on the configured domain can create a team and receive a unique code.
+- [ ] Unverified, wrong-domain, expired and revoked sessions are rejected.
+- [ ] One UID cannot create or join a second team.
+- [ ] Valid code joins; malformed/unknown code returns a clear error.
+- [ ] Concurrent join attempts cannot exceed four team members.
+- [ ] Create attempt 4 and join attempt 9 in a 15-minute window are rate-limited for the same UID.
+- [ ] Only the leader can submit; a one-member team cannot submit; submitted teams cannot accept members.
+- [ ] Participant team response excludes phone and hall details.
 
 ### Admin flow
-- [ ] Missing/invalid/revoked token returns 401; a signed-in UID outside `PRIMUS_ADMIN_UIDS` returns 403.
-- [ ] An allowlisted admin can load global totals and all three track counts.
-- [ ] Track and status filters work together; search finds team code/name and member name/email/phone/hall across pages.
-- [ ] Next/previous pagination has no duplicate or skipped teams when multiple teams share the same creation timestamp.
-- [ ] CSV export respects active filters and spreadsheet-formula-like values are treated as text.
-- [ ] Admin responses are not cached by the browser or intermediary caches.
+
+- [ ] Missing/invalid/revoked token returns 401; non-allowlisted UID returns 403.
+- [ ] Approved admin can view global and per-track totals.
+- [ ] Track/status filters, search and cursor pagination behave correctly.
+- [ ] CSV respects active filters and formula-like values are treated as text.
+- [ ] Broad search/export above the 5,000-team cap returns 413.
+- [ ] Admin responses are not cached.
 
 ### Deployment
-- [ ] Firebase Auth Email/Password is enabled and authorised domains/action URLs are correct.
-- [ ] `THAPAR_EMAIL_DOMAIN` and `NEXT_PUBLIC_THAPAR_EMAIL_DOMAIN` match the domain confirmed by TIET IT.
-- [ ] Firestore rules and the composite indexes from `firestore.indexes.json` are deployed to the intended project.
-- [ ] The App Hosting service identity has the required Firebase Auth and Firestore permissions.
-- [ ] `PRIMUS_ADMIN_UIDS` contains only the approved admin UIDs.
-- [ ] A real admin login, one full test registration, CSV export and a mobile dashboard check have been completed before launch.
+
+- [ ] Auth domains/action URLs and institutional email domain are confirmed.
+- [ ] Firestore rules and indexes are deployed to the intended project.
+- [ ] Hosting identity has only required Firebase permissions.
+- [ ] Admin allowlist contains only approved UIDs.
+- [ ] TTL policy is configured if expiry is expected.
+- [ ] Real admin login, test registration, CSV export and mobile dashboard checks pass before public launch.

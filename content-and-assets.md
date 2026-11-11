@@ -1,77 +1,42 @@
-# TVC Website --- Content & Asset Inventory
+# Content and Asset Standards
 
-This document is the source of truth for content still required. Replace
-TBC only with information approved by TVC.
+This document records the content that must be confirmed before publication and the standards for using TVC media.
+
+## Approval requirements
+
+Confirm the following with the relevant TVC owner before publishing or changing it:
+- About TVC copy, mission, initiatives and achievements.
+- Event names, editions, dates, times, venues, tracks, eligibility and schedules.
+- Registration destinations, FAQs and event contact details.
+- Speaker, judge, mentor, sponsor and partner names, titles, affiliations and logos.
+- Current team roster, roles, portraits and public profile links.
+- Contact email and official social-media URLs.
+- Participation figures, impact metrics, awards and institutional endorsements.
+
+Use an explicit `TBC` or omit an unconfirmed item. Never infer approval from an old draft or placeholder.
 
 ## Brand assets
 
--   [x] Supplied TVC logo raster received
--   [ ] Original vector logo (SVG / AI / PDF), if available
--   [ ] Separate rocket and wordmark layers, if available
--   [ ] Official brand colour values
--   [ ] Approved font / brand guidelines, if any
--   [ ] Favicon and social preview artwork
+- Preserve the original TVC logo artwork and its proportions.
+- Prefer an approved vector/master asset when available.
+- Do not remove black pixels/backgrounds from logo crops if they are part of the supplied artwork.
+- Do not recolour or redraw the logo without approval.
+- Keep source/original artwork available when creating responsive derivatives.
 
-## Home
+See `public/brand/README.md` for the brand asset folder notes.
 
--   [ ] Official About TVC copy
--   [ ] Mission / purpose statement
--   [ ] Approved initiatives and achievements
--   [ ] Approved metrics, only if substantiated
--   [ ] Team preview portraits and names
--   [ ] Contact email
--   [ ] Instagram / LinkedIn / other official social URLs
+## Photography and video
 
-## TVC x SAT
+- Prefer original TVC event photography, approved team portraits and genuine event footage.
+- Confirm publication permission for portraits and identifiable people.
+- Use descriptive alt text for meaningful images; use empty alt text for purely decorative images.
+- Crop responsively without misleadingly changing the subject or context.
+- Preserve original image and video files. If optimising performance, create separately named derivatives and verify visual quality, dimensions and playback before use.
+- Do not use AI-generated faces as substitutes for real speakers or team members.
+- Do not remove existing media as part of general repository cleanup.
 
--   [ ] Official event name and edition
--   [ ] Approved event description
--   [ ] Theme and visual identity
--   [ ] Date, time and venue
--   [ ] Tracks / problem statements
--   [ ] Eligibility and participation rules
--   [ ] Registration URL
--   [ ] Schedule / important dates
--   [ ] Confirmed speakers, judges or mentors
--   [ ] Confirmed sponsors / partners
--   [ ] FAQs and event contact
+See `public/images/README.md` for image-folder notes.
 
-## E-Summit
+## Accuracy
 
--   [ ] Official event name and edition
--   [ ] Approved event description
--   [ ] Date, time and venue
--   [ ] Initiatives / competitions / sessions
--   [ ] Registration URL(s)
--   [ ] Confirmed speakers
--   [ ] Confirmed sponsors / partners
--   [ ] Event photography and recap material
-
-## Previous speakers
-
-For each entry: - Name - Approved designation - Organisation - Portrait
-with usage permission - Event / edition - Short approved biography
-(optional)
-
-## Current team
-
-For each entry: - Name - Approved role / vertical - Portrait with usage
-permission - Optional short bio - Optional public professional profile
-URL
-
-## Photography and media standards
-
--   Prefer original TVC event photographs over stock imagery.
--   Collect high-resolution originals and crop responsively.
--   Confirm permission to publish portraits and event photos.
--   Add descriptive alt text.
--   Keep a consistent treatment across each gallery.
--   Do not use AI-generated faces as substitutes for actual speakers or
-    team members.
-
-## Content integrity
-
-Never invent: - Event dates or venues - Registration links - Speaker or
-judge identities - Sponsor names or logos - Team member names or
-titles - Participation numbers or impact statistics - Awards,
-partnerships or institutional endorsements
+Never invent dates, venues, registration links, speaker/judge identities, sponsor names, team identities, participation numbers, achievements or endorsements. Reconfirm time-sensitive details before publishing.
