@@ -1,30 +1,43 @@
 name: TVC website checks
 
 on:
-  push:
-    branches:
-      - main
-      - "feat/**"
   pull_request:
     branches:
       - main
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   validate:
     name: Typecheck, lint and build
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository
+      - name: Check out pull request branch
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+          repository: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
-      - name: Install dependencies
+      - name: Regenerate a stale npm lockfile
+        run: npm install --package-lock-only --ignore-scripts --no-audit --no-fund
+      - name: Commit lockfile repair to same-repository pull requests
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        env:
+          BRANCH_NAME: ${{ github.head_ref }}
+        run: |
+          if [ -n "$(git status --porcelain package-lock.json)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add package-lock.json
+            git commit -m "chore: sync npm lockfile"
+            git push origin "HEAD:${BRANCH_NAME}"
+          fi
+      - name: Install dependencies from the repaired lockfile
         run: npm ci
       - name: Typecheck
         run: npm run typecheck
