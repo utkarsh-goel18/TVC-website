@@ -24,6 +24,7 @@ The duplicate-looking names Anantam Hall and Ananta Hall are intentionally separ
 - `primusTeams/{TEAM_CODE}`: team metadata and member records.
 - `primusParticipantIndex/{FIREBASE_UID}`: enforces one team per participant.
 - `primusRegistrationMeta/counts`: aggregate team creation count.
+- `primusRateLimits/{ACTION_UID}`: transactional per-user attempt counters for team-code join protection.
 
 The participant index should be writable only by Admin SDK. Do not expose Firestore client writes for these collections.
 
