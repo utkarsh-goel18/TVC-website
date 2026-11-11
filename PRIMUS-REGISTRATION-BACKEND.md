@@ -66,10 +66,15 @@ Returns only the team associated with the authenticated participant.
 
 Only the team leader can submit; server checks the team size transactionally.
 
-### Admin registrations export
+### Admin registrations
 `GET /api/primus/admin/registrations`
 
-Requires a Firebase ID token whose UID is included in `PRIMUS_ADMIN_UIDS`. Returns all teams and summary counts. Treat this endpoint as sensitive personal data.
+Requires a non-revoked Firebase ID token whose UID is included in `PRIMUS_ADMIN_UIDS`. The default response is paginated (25 records; maximum 50) and includes global summary counts. Optional query parameters: `track=Product|Consulting|Finance`, `status=OPEN|SUBMITTED`, `q=<search text>`, `cursor=<opaque next-page cursor>`. Search matches team name/code and participant name/email/phone/hall. Add `format=csv` to export all matching records for the active filters. CSV values are escaped to reduce spreadsheet formula injection risk. This endpoint exposes personal data and must remain restricted to approved admins.
+
+### Admin dashboard
+`/admin/primus`
+
+The page uses Firebase Authentication for sign-in and relies on the server-side UID allowlist for authorisation. It is intentionally not linked from public site navigation.
 
 ## Firebase setup before deployment
 
@@ -77,14 +82,19 @@ Requires a Firebase ID token whose UID is included in `PRIMUS_ADMIN_UIDS`. Retur
 2. Enable Firebase Authentication → Email/Password or an approved email-link sign-in method. The frontend must verify each email address before calling the API.
 3. Confirm the actual student email domain with TIET IT. Set `THAPAR_EMAIL_DOMAIN` to that domain; do not assume every institutional account uses the same domain.
 4. Create a Cloud Firestore database in production mode.
-5. Create a service account for the server and add its Project ID, client email and private key to the deployment environment. Never commit the private key.
-6. Add the Firebase Auth UIDs of approved TVC registration admins to `PRIMUS_ADMIN_UIDS`.
-7. Install dependencies with `npm install` after pulling this change (the Firebase Admin SDK is added to package.json).
-8. Configure environment variables in the hosting provider and redeploy.
+5. From the repository root, select the intended Firebase project and deploy the checked-in Firestore rules and indexes with `firebase deploy --only firestore:rules,firestore:indexes`. The new admin filters require the composite indexes in `firestore.indexes.json`.
+6. Create a service account for the server and add its Project ID, client email and private key to the deployment environment, or use the hosting provider's Application Default Credentials. Never commit the private key.
+7. Add the Firebase Auth UIDs of approved TVC registration admins to the server-only `PRIMUS_ADMIN_UIDS` environment variable. Do not use admin email addresses in place of UIDs.
+8. Set both `THAPAR_EMAIL_DOMAIN` (server) and `NEXT_PUBLIC_THAPAR_EMAIL_DOMAIN` (client) to the confirmed institutional email domain. The defaults are `thapar.edu`.
+9. Install dependencies with `npm install` after pulling this change.
+10. Configure the environment variables in the hosting provider and redeploy.
 
 ## Important launch notes
 
-- The API is the backend foundation; the registration form, Firebase client sign-in flow, leader team dashboard and admin UI still need to be connected to these endpoints.
+- The participant registration form, Firebase email/password sign-in and verification flow, and leader team dashboard are implemented.
+- The protected admin dashboard is available at `/admin/primus`. It supports registration summaries, track/status filters, search across team/member fields, paginated browsing and filtered CSV export.
+- The admin API verifies revoked tokens, checks the server-side UID allowlist, returns non-cacheable responses and escapes spreadsheet formula values in CSV exports.
+- Participant team lookups return only the shared roster fields; phone numbers and hall details remain in the admin view.
 - Firebase Admin credentials are server-only. Never prefix them with `NEXT_PUBLIC_`.
 - The admin export includes names, email addresses and phone numbers. Limit access to the smallest possible set of admins and publish an appropriate event privacy notice.
 - Do a test registration with test accounts before opening registration publicly.
