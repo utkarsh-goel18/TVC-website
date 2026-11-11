@@ -57,7 +57,7 @@ function includesSearchTerm(team: Record<string, unknown>, term: string) {
 function csvCell(value: unknown) {
   let text = value == null ? "" : String(value);
   // Prevent spreadsheet formula execution when an exported value is opened in Excel/Sheets.
-  if (/^[\\s]*[=+\\-@]/.test(text)) text = `'${text}`;
+  if (/^[\s]*[=+\-@]/.test(text)) text = \`'\${text}\`;
   return `"${text.replace(/"/g, '""')}"`;
 }
 
