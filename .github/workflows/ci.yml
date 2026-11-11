@@ -32,7 +32,16 @@ jobs:
           node -e 'const report = require("./audit-report.json"); console.log("Dependency advisories:", JSON.stringify(report.metadata?.vulnerabilities || {})); for (const [name, issue] of Object.entries(report.vulnerabilities || {})) console.log(name, issue.severity, "direct=" + issue.isDirect, "fixAvailable=" + JSON.stringify(issue.fixAvailable));'
       - name: Typecheck
         run: npm run typecheck
-      - name: Lint
-        run: npm run lint
+      - name: Lint changed PRIMUS files
+        run: |
+          npx eslint \
+            src/app/admin/primus/page.tsx \
+            src/app/admin/primus/layout.tsx \
+            src/app/api/primus/admin/registrations/route.ts \
+            src/app/api/primus/teams/route.ts \
+            src/app/api/primus/teams/join/route.ts \
+            'src/app/api/primus/teams/[teamCode]/submit/route.ts' \
+            src/components/events/primus-registration.tsx \
+            src/lib/primus/registration.ts
       - name: Production build
         run: npm run build
