@@ -40,9 +40,10 @@ export async function POST(req: NextRequest) {
     if (!body || typeof body !== "object" || Array.isArray(body)) {
       return NextResponse.json({ error: "INVALID_INPUT", message: "Provide valid registration details." }, { status: 400, headers: NO_STORE });
     }
-    const details = cleanParticipant(body);
-    const teamName = typeof body.teamName === "string" ? body.teamName.trim() : "";
-    const track = body.track;
+    const payload = body as Record<string, unknown>;
+    const details = cleanParticipant(payload);
+    const teamName = typeof payload.teamName === "string" ? payload.teamName.trim() : "";
+    const track = payload.track;
 
     if (!details || teamName.length < 2 || teamName.length > 60 || !PRIMUS_TRACKS.includes(track)) {
       return NextResponse.json({ error: "INVALID_INPUT", message: "Provide a valid team name, track and complete participant details." }, { status: 400, headers: NO_STORE });

@@ -24,8 +24,9 @@ export async function POST(req: NextRequest) {
     if (!body || typeof body !== "object" || Array.isArray(body)) {
       return NextResponse.json({ error: "INVALID_INPUT", message: "Provide a valid team code and participant details." }, { status: 400, headers: NO_STORE });
     }
-    const code = typeof body.teamCode === "string" ? body.teamCode.trim().toUpperCase() : "";
-    const details = cleanParticipant(body);
+    const payload = body as Record<string, unknown>;
+    const code = typeof payload.teamCode === "string" ? payload.teamCode.trim().toUpperCase() : "";
+    const details = cleanParticipant(payload);
     if (!isValidTeamCode(code) || !details) return NextResponse.json({ error: "INVALID_INPUT", message: "Enter a valid team code and complete participant details." }, { status: 400, headers: NO_STORE });
 
     await enforceRateLimit(decoded.uid, "join", 8, 15 * 60 * 1000);

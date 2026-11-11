@@ -6,7 +6,7 @@ This backend supports Thapar-only team registration. External participants shoul
 
 - Teams contain 2–4 participants.
 - The team leader creates the team, selects one track, and enters their personal details.
-- A generated `PRM-XXXXXXXX` code lets other verified Thapar participants join.
+- A generated `PRM-XXXXXXXXXXXXXXXX` code (16 hexadecimal characters) lets other verified Thapar participants join. Previously issued 8-character codes remain valid.
 - Joining is allowed while the team is open and has fewer than four members.
 - Only the leader can submit, and only when the team has at least two members.
 - Submission locks the team.
@@ -24,7 +24,7 @@ The duplicate-looking names Anantam Hall and Ananta Hall are intentionally separ
 - `primusTeams/{TEAM_CODE}`: team metadata and member records.
 - `primusParticipantIndex/{FIREBASE_UID}`: enforces one team per participant.
 - `primusRegistrationMeta/counts`: aggregate team creation count.
-- `primusRateLimits/{ACTION_UID}`: transactional per-user attempt counters for team-code join protection.
+- `primusRateLimits/{ACTION_UID}`: transactional per-user attempt counters for team-code join protection and team creation.
 
 The participant index should be writable only by Admin SDK. Do not expose Firestore client writes for these collections.
 
@@ -113,7 +113,7 @@ Run these checks against a staging Firebase project with test accounts before op
 - [ ] The same Firebase UID cannot create or join a second team.
 - [ ] A valid team code adds a participant; an invalid or unknown code returns a clear client error.
 - [ ] A team cannot exceed four members, including when two people attempt to take the final slot concurrently.
-- [ ] The ninth valid-format join attempt by the same UID inside 15 minutes is rate-limited.
+- [ ] The ninth valid-format join attempt by the same UID inside 15 minutes is rate-limited; the fourth team-creation attempt in that window is rate-limited. These are per-account controls, not IP-wide abuse protection.
 - [ ] Only the leader can submit; a one-member team cannot submit; a submitted team cannot accept new members.
 - [ ] The participant team lookup contains only the shared roster fields and does not return phone numbers or hall details.
 
