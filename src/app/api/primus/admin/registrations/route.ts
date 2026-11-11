@@ -55,7 +55,9 @@ function includesSearchTerm(team: Record<string, unknown>, term: string) {
 }
 
 function csvCell(value: unknown) {
-  const text = value == null ? "" : String(value);
+  let text = value == null ? "" : String(value);
+  // Prevent spreadsheet formula execution when an exported value is opened in Excel/Sheets.
+  if (/^[\\s]*[=+\\-@]/.test(text)) text = `'${text}`;
   return `"${text.replace(/"/g, '""')}"`;
 }
 
@@ -106,6 +108,9 @@ export async function GET(req: NextRequest) {
   const rawCursor = params.get("cursor");
   const cursor = decodeCursor(rawCursor);
   if (rawCursor && !cursor) return jsonError("The pagination cursor is invalid. Refresh the dashboard.", 400);
+  if (cursor && ((search && cursor.mode !== "search") || (!search && cursor.mode !== "ordered"))) {
+    return jsonError("The pagination cursor does not match the current filters. Refresh the dashboard.", 400);
+  }
   if (search.length > 100) return jsonError("Search text must be 100 characters or fewer.", 400);
   if (track && !TRACKS.includes(track as (typeof TRACKS)[number])) return jsonError("Unknown track filter.", 400);
   if (status && !STATUSES.includes(status as (typeof STATUSES)[number])) return jsonError("Unknown status filter.", 400);
