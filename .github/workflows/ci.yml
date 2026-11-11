@@ -39,6 +39,10 @@ jobs:
           fi
       - name: Install dependencies from the repaired lockfile
         run: npm ci
+      - name: Report dependency advisories
+        run: |
+          npm audit --json > audit-report.json || true
+          node -e 'const report = require("./audit-report.json"); console.log("Dependency advisories:", JSON.stringify(report.metadata?.vulnerabilities || {})); for (const [name, issue] of Object.entries(report.vulnerabilities || {})) console.log(name, issue.severity, "direct=" + issue.isDirect, "fixAvailable=" + JSON.stringify(issue.fixAvailable));'
       - name: Typecheck
         run: npm run typecheck
       - name: Lint
