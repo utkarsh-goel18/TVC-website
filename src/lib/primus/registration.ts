@@ -94,6 +94,38 @@ export function timestamp() {
   return new Date().toISOString();
 }
 
+/**
+ * Apply a UID-scoped Firestore rate limit to sensitive participant actions.
+ * Firestore transactions make concurrent attempts share the same counter.
+ */
+export async function enforceRateLimit(
+  uid: string,
+  action: "join",
+  maxAttempts: number,
+  windowMs: number
+) {
+  const db = getFirebaseFirestore();
+  const reference = db.collection("primusRateLimits").doc(`${action}_${uid}`);
+
+  await db.runTransaction(async (transaction) => {
+    const snapshot = await transaction.get(reference);
+    const now = Date.now();
+    const data = snapshot.data() || {};
+    const previousStart = typeof data.windowStartedAt === "number" ? data.windowStartedAt : 0;
+    const sameWindow = previousStart > 0 && now - previousStart < windowMs;
+    const attempts = sameWindow && Number.isInteger(data.attempts) ? data.attempts : 0;
+
+    if (attempts >= maxAttempts) throw new Error("RATE_LIMITED");
+
+    transaction.set(reference, {
+      windowStartedAt: sameWindow ? previousStart : now,
+      attempts: attempts + 1,
+      updatedAt: FieldValue.serverTimestamp(),
+      expiresAt: new Date(now + windowMs * 2),
+    });
+  });
+}
+
 export function setParticipantIndex(
   transaction: Transaction,
   uid: string,
