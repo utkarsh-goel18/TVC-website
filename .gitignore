@@ -10,3 +10,7 @@ dist/
 *.log
 coverage/
 *.tsbuildinfo
+
+# Local-only application data and generated exports
+.data/
+*.csv
