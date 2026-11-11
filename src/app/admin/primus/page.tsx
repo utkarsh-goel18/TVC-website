@@ -1,6 +1,7 @@
 "use client";
 
-import { FormEvent, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import type { FormEvent, ReactNode } from "react";
 import {
   AlertCircle,
   ArrowDownToLine,
@@ -94,7 +95,7 @@ function StatCard({
   label: string;
   value: number;
   detail: string;
-  icon: React.ReactNode;
+  icon: ReactNode;
 }) {
   return (
     <div className="border border-white/10 bg-white/[0.025] p-5 sm:p-6">
