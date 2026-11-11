@@ -129,7 +129,7 @@ export function PrimusRegistration() {
   async function handleTeamAction(event: FormEvent<HTMLFormElement>, action: "create" | "join") {
     event.preventDefault(); setBusy(true); setError(""); setNotice("");
     try {
-      const payload = action === "create"
+      const payload: Record<string, string> = action === "create"
         ? { teamName, track, name, phone, hostel }
         : { teamCode, name, phone, hostel };
       const data = await request(action === "create" ? "/api/primus/teams" : "/api/primus/teams/join", payload);
