@@ -18,8 +18,7 @@ type Team = {
   code: string;
   teamName: string;
   track: "Product" | "Consulting" | "Finance";
-  leaderUid: string;
-  members: { name: string; email: string; phone: string; hostel: string; role: string }[];
+  members: { name: string; email: string; role: string }[];
   status: "OPEN" | "SUBMITTED";
 };
 
