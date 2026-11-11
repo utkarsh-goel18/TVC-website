@@ -105,7 +105,8 @@ export async function enforceRateLimit(
   windowMs: number
 ) {
   const db = getFirebaseFirestore();
-  const reference = db.collection("primusRateLimits").doc(`${action}_${uid}`);
+  const safeUid = Buffer.from(uid, "utf8").toString("base64url");
+  const reference = db.collection("primusRateLimits").doc(`${action}_${safeUid}`);
 
   await db.runTransaction(async (transaction) => {
     const snapshot = await transaction.get(reference);
