@@ -50,17 +50,17 @@ export const previousSpeakers: Speaker[] = [
   { id: "aakash-anand", 
     name: "Aakash Anand", 
     field: "Entrepreneurship & Business",
-    image: "/images/speakers/aakash-anand.jpeg",},
+    image: "/images/speakers/aakash-anand.png",},
 
   { id: "anuv-jain", 
     name: "Anuv Jain", 
     field: "Music",
-    image: "/images/speakers/anuv-jain.png",},
+    image: "/images/speakers/anuv-jain.jpg",},
 
   { id: "anubhav-singh-bassi", 
     name: "Anubhav Singh Bassi", 
     field: "Comedy & Entertainment",
-    image: "/images/speakers/bassi.jpeg",},
+    image: "/images/speakers/bassi.jpg",},
 
   { id: "himeesh-madaan", 
     name: "Himeesh Madaan", 
