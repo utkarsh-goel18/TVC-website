@@ -6,9 +6,9 @@ import { ArrowLeft, ArrowRight, Camera } from "lucide-react";
 const slides = [
   "/images/about/TVC-01.png",
   "/images/about/TVC-02.jpeg",
-  "/images/about/TVC-03.jpeg",
+  "/images/about/TVC-03.JPG",
   "/images/about/TVC-04.jpeg",
-  "/images/about/TVC-05.JPG",
+  "/images/about/TVC-05.jpeg",
   "/images/about/TVC-06.jpeg",
   "/images/about/TVC-07.jpeg",
 ].map((src, index) => ({

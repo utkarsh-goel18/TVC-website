@@ -398,6 +398,7 @@ export function AboutSection() {
               <div className="lg:col-span-5 order-2 lg:order-1">
                 <EditorialPhotoFrame
                   label="PHOTO 05 // ENTRE HUB WORKSHOPS"
+                  imageSrc="/images/about/what-we-do-02.jpeg"
                   location="CAMPUS LECTURE HALL"
                   caption="Reserved for hands-on skill workshops: BMC modeling, resume critiques, and interactive peer working groups."
                   aspectRatio="aspect-[4/5] lg:aspect-[3/4]"
