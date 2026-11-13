@@ -37,8 +37,6 @@ export function HomeScrollExperience({ children }: HomeScrollExperienceProps) {
           {
             autoAlpha: 1,
             y: 0,
-            
-            clipPath: "inset(0 0 0% 0)",
             ease: "power1.out",
             scrollTrigger: {
               trigger: beat,
