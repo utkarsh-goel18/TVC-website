@@ -99,7 +99,7 @@ export function EventRadarSection() {
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-8 lg:px-12">
         <div
           data-tvc-glass-card
-          className="tvc-glass-panel relative overflow-hidden rounded-2xl border border-white/[0.15] bg-white/[0.035] backdrop-blur-2xl p-4 sm:p-8 lg:p-12 shadow-[0_32px_96px_rgba(0,0,0,0.8),inset_0_1px_1px_rgba(255,255,255,0.24)]"
+          className="tvc-glass-panel relative overflow-hidden rounded-2xl border border-white/[0.18] bg-[#10100d]/90 p-5 sm:p-8 lg:p-12 shadow-[0_32px_96px_rgba(0,0,0,0.8),inset_0_1px_1px_rgba(255,255,255,0.24)]"
         >
           <div
             aria-hidden="true"
@@ -145,12 +145,12 @@ export function EventRadarSection() {
               <h2 className="text-xl xs:text-2xl sm:text-4xl font-medium tracking-tight text-white leading-[1.12]">
                 {active.title}
               </h2>
-              <p className="mt-2 sm:mt-3 text-xs sm:text-base text-[#a5a49f] leading-relaxed">
+              <p className="mt-3 sm:mt-3 text-sm sm:text-base text-white/75 leading-relaxed">
                 {active.description}
               </p>
 
-              <div className="mt-4 sm:mt-6 flex flex-wrap items-center gap-2 sm:gap-3 text-xs font-mono text-white/75">
-                <span className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.03] backdrop-blur-md px-3 py-1 sm:px-3.5 sm:py-1.5 text-[11px] sm:text-xs">
+              <div className="mt-5 sm:mt-6 flex flex-col items-stretch gap-2.5 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3 text-sm font-mono text-white/90">
+                <span className="inline-flex min-h-11 items-center gap-3 rounded-xl border border-white/20 bg-black/55 px-3.5 py-2.5 text-xs sm:min-h-0 sm:rounded-full sm:py-1.5 sm:text-xs">
                   <Calendar className="h-3.5 w-3.5 text-[#f5ed00]" />
                   {active.dateLabel}
                 </span>
@@ -160,10 +160,10 @@ export function EventRadarSection() {
                 </span>
               </div>
 
-              <div className="mt-5 sm:mt-7 flex flex-wrap items-center gap-3 sm:gap-4">
+              <div className="mt-6 sm:mt-7 flex w-full max-w-sm flex-col items-stretch gap-3 sm:w-auto sm:max-w-none sm:flex-row sm:items-center sm:gap-4">
                 <Link
                   href={active.href}
-                  className="inline-flex items-center gap-2 rounded-sm bg-[#f5ed00] hover:bg-[#fff957] px-4 py-2 sm:px-5 sm:py-2.5 font-mono text-[11px] sm:text-xs font-semibold uppercase tracking-widest text-black transition-all shadow-[0_0_28px_rgba(245,237,0,0.3)] hover:scale-[1.02]"
+                  className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-sm bg-[#f5ed00] px-5 py-3 font-mono text-xs font-bold uppercase tracking-[0.12em] text-black shadow-[0_0_28px_rgba(245,237,0,0.24)] transition-colors hover:bg-[#fff957] sm:w-auto sm:min-h-11 sm:px-5 sm:py-2.5 sm:text-xs sm:tracking-widest"
                 >
                   <span>Explore Initiative</span>
                   <ArrowUpRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
@@ -171,7 +171,7 @@ export function EventRadarSection() {
                 <button
                   type="button"
                   onClick={downloadCalendarInvite}
-                  className="inline-flex items-center gap-2 rounded-sm border border-white/15 bg-white/[0.045] hover:bg-white/[0.1] backdrop-blur-xl px-3.5 py-2 sm:px-4 sm:py-2.5 font-mono text-[11px] sm:text-xs uppercase tracking-widest text-white/90 transition-all hover:border-[#f5ed00]/60 shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)]"
+                  className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-sm border border-white/30 bg-white/[0.09] px-5 py-3 font-mono text-xs font-semibold uppercase tracking-[0.12em] text-white transition-colors hover:border-[#f5ed00]/70 hover:bg-white/[0.14] sm:w-auto sm:min-h-11 sm:px-4 sm:py-2.5 sm:text-xs sm:tracking-widest"
                 >
                   <Download className="h-3.5 w-3.5 text-[#f5ed00]" />
                   <span>Add to Calendar</span>
@@ -212,7 +212,7 @@ export function EventRadarSection() {
                     >
                       {mounted ? String(unit.value).padStart(2, "0") : "--"}
                     </div>
-                    <div className="mt-1 font-mono text-[8px] xs:text-[9px] sm:text-[10px] uppercase tracking-[0.22em] text-white/60">
+                    <div className="mt-1 font-mono text-[9px] xs:text-[10px] sm:text-[10px] uppercase tracking-[0.18em] text-white/75">
                       {unit.label}
                     </div>
                   </div>
