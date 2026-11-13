@@ -1,5 +1,5 @@
 import { siteConfig } from "@/lib/site";
-import { ArrowUpRight, Mail, MapPin, Sparkles } from "lucide-react";
+import { ArrowUpRight, Mail, MapPin } from "lucide-react";
 
 export function ContactSection() {
   return (
