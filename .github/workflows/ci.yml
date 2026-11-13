@@ -35,16 +35,13 @@ jobs:
           node -e 'const report = require("./audit-report.json"); const counts = report.metadata?.vulnerabilities || {}; console.log("Dependency advisories:", JSON.stringify(counts)); for (const [name, issue] of Object.entries(report.vulnerabilities || {})) { const via = (issue.via || []).map(item => typeof item === "string" ? item : [item.title, item.range, item.url].filter(Boolean).join(" | ")); console.log(name, issue.severity, "direct=" + issue.isDirect, "range=" + issue.range, "fixAvailable=" + JSON.stringify(issue.fixAvailable), "via=" + JSON.stringify(via)); } if ((counts.high || 0) + (counts.critical || 0) > 0) process.exit(1);'
       - name: Typecheck
         run: npm run typecheck
-      - name: Lint changed PRIMUS files
+      - name: Lint active homepage components
         run: |
           npx eslint \
-            src/app/admin/primus/page.tsx \
-            src/app/admin/primus/layout.tsx \
-            src/app/api/primus/admin/registrations/route.ts \
-            src/app/api/primus/teams/route.ts \
-            src/app/api/primus/teams/join/route.ts \
-            'src/app/api/primus/teams/[teamCode]/submit/route.ts' \
-            src/components/events/primus-registration.tsx \
-            src/lib/primus/registration.ts
+            src/components/home/hero-liquid-canvas.tsx \
+            src/components/home/ambient-glow-cursor.tsx \
+            src/components/home/home-scroll-experience.tsx \
+            src/components/home/home-scroll-story.tsx \
+            src/components/home/hero-reveal.tsx
       - name: Production build
         run: npm run build
