@@ -28,23 +28,23 @@ export function HomeScrollExperience({ children }: HomeScrollExperienceProps) {
         gsap.fromTo(
           beat,
           {
-            autoAlpha: 0.18,
-            y: 64,
-            scale: 0.99,
-            clipPath: "inset(0 0 10% 0)",
+            autoAlpha: 0.35,
+            y: 28,
+            
+            
             immediateRender: false,
           },
           {
             autoAlpha: 1,
             y: 0,
-            scale: 1,
+            
             clipPath: "inset(0 0 0% 0)",
-            ease: "none",
+            ease: "power1.out",
             scrollTrigger: {
               trigger: beat,
               start: "top 88%",
               end: "top 48%",
-              scrub: 0.7,
+              scrub: 0.35,
               invalidateOnRefresh: true,
             },
           }
