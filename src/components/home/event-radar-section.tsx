@@ -22,8 +22,8 @@ const COUNTDOWN_EVENTS: CountdownEvent[] = [
     label: "PRIMUS'26",
     edition: "Annual Flagship Competition",
     title: "PRIMUS'26 — The Flagship Venture Arena",
-    dateLabel: "20 November 2026 · 09:00 AM IST",
-    targetIso: "2026-11-20T09:00:00+05:30",
+    dateLabel: "20 November 2026 · 10:00 PM IST",
+    targetIso: "2026-11-20T22:00:00+05:30",
     venue: "Thapar Institute of Engineering & Technology, Patiala",
     href: "/events/tvc-x-sat",
     description:
@@ -64,8 +64,8 @@ export function EventRadarSection() {
       `SUMMARY:${active.title}`,
       `DESCRIPTION:${active.description}`,
       `LOCATION:${active.venue}`,
-      "DTSTART:20261120T033000Z",
-      "DTEND:20261120T123000Z",
+      "DTSTART:20261120T163000Z",
+      "DTEND:20261121T023000Z",
       "END:VEVENT",
       "END:VCALENDAR",
     ].join("\r\n");
