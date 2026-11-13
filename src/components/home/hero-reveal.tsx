@@ -105,7 +105,7 @@ export function HeroReveal() {
           start: "top top",
           end: "+=100%",
           pin: true,
-          scrub: 0.8,
+          scrub: true,
           anticipatePin: 1,
           invalidateOnRefresh: true,
           onRefresh: () => {
@@ -170,7 +170,7 @@ export function HeroReveal() {
           start: "top top",
           end: "+=45%", // Compact scroll pin so user transitions quickly to content
           pin: true,
-          scrub: 0.5,
+          scrub: true,
           anticipatePin: 1,
           invalidateOnRefresh: true,
           onRefresh: () => {
