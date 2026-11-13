@@ -32,7 +32,7 @@ export function HeroLiquidCanvas() {
     };
 
     const resize = () => {
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       width = window.innerWidth;
       height = window.innerHeight;
       canvas.width = Math.floor(width * dpr);
@@ -80,7 +80,7 @@ export function HeroLiquidCanvas() {
     window.addEventListener("touchmove", onTouchMove, { passive: true });
 
     // 3D Depth Particles
-    const count = width < 768 ? 44 : 84;
+    const count = width < 768 ? 28 : 52;
     const nodes = Array.from({ length: count }, () => ({
       x: (Math.random() - 0.5) * width * 1.7,
       y: (Math.random() - 0.5) * height * 1.7,
@@ -92,13 +92,32 @@ export function HeroLiquidCanvas() {
     }));
 
     // 3D Tunnel Vortex Rings
-    const ringCount = width < 768 ? 6 : 10;
+    const ringCount = width < 768 ? 4 : 7;
     const vortexRings = Array.from({ length: ringCount }, (_, idx) => ({
       z: (idx / ringCount) * 1100 + 80,
       rot: idx * 0.4,
     }));
 
     let time = 0;
+    let lastFrameTime = 0;
+    let isInView = true;
+
+    const scheduleFrame = () => {
+      if (isInView && !document.hidden) rafId = requestAnimationFrame(render);
+    };
+
+    const visibilityObserver = new IntersectionObserver(([entry]) => {
+      isInView = entry.isIntersecting;
+      if (isInView) scheduleFrame();
+      else cancelAnimationFrame(rafId);
+    }, { threshold: 0 });
+    visibilityObserver.observe(canvas);
+
+    const onVisibilityChange = () => {
+      if (document.hidden) cancelAnimationFrame(rafId);
+      else scheduleFrame();
+    };
+    document.addEventListener("visibilitychange", onVisibilityChange);
 
     const project3D = (x3d: number, y3d: number, z3d: number, camX: number, camY: number) => {
       const fov = 540;
@@ -112,7 +131,14 @@ export function HeroLiquidCanvas() {
     };
 
     const render = (now: number) => {
-      time += 0.016;
+      if (!isInView || document.hidden) return;
+      if (now - lastFrameTime < 22) {
+        rafId = requestAnimationFrame(render);
+        return;
+      }
+      const delta = lastFrameTime ? Math.min((now - lastFrameTime) / 1000, 0.05) : 1 / 45;
+      lastFrameTime = now;
+      time += delta;
 
       pointer.x += (pointer.targetX - pointer.x) * 0.065;
       pointer.y += (pointer.targetY - pointer.y) * 0.065;
@@ -201,8 +227,8 @@ export function HeroLiquidCanvas() {
       }
 
       // 3. 3D Perspective Flowing Liquid Silk Wave Ribbons
-      const ribbonCount = width < 768 ? 6 : 9;
-      const cols = width < 768 ? 30 : 48;
+      const ribbonCount = width < 768 ? 4 : 6;
+      const cols = width < 768 ? 20 : 32;
       const spanX = width * 1.5;
 
       for (let r = 0; r < ribbonCount; r++) {
@@ -322,9 +348,9 @@ export function HeroLiquidCanvas() {
           const dx = a.x - b.x;
           const dy = a.y - b.y;
           const distSq = dx * dx + dy * dy;
-          if (distSq < 10500) {
+          if (distSq < 7200) {
             const linkAlpha =
-              (1 - Math.sqrt(distSq) / 102.5) * Math.min(a.alpha, b.alpha) * 0.42;
+              (1 - Math.sqrt(distSq) / 84.9) * Math.min(a.alpha, b.alpha) * 0.42;
             ctx.beginPath();
             ctx.moveTo(a.x, a.y);
             ctx.lineTo(b.x, b.y);
@@ -336,16 +362,18 @@ export function HeroLiquidCanvas() {
       }
 
       ctx.restore();
-      rafId = requestAnimationFrame(render);
+      scheduleFrame();
     };
 
-    rafId = requestAnimationFrame(render);
+    scheduleFrame();
 
     return () => {
       window.removeEventListener("resize", resize);
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("touchmove", onTouchMove);
       cancelAnimationFrame(rafId);
+      visibilityObserver.disconnect();
+      document.removeEventListener("visibilitychange", onVisibilityChange);
     };
   }, []);
 
