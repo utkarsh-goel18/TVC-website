@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
-import { ArrowDown, ArrowRight, ArrowUpRight, CalendarDays, Sparkles, Layers3, BriefcaseBusiness, ChartNoAxesCombined } from "lucide-react";
+import { ArrowDown, ArrowUpRight, CalendarDays, Sparkles, Layers3, BriefcaseBusiness, ChartNoAxesCombined } from "lucide-react";
 import { SiteHeader } from "@/components/shared/site-header";
 import { SiteFooter } from "@/components/shared/site-footer";
 
@@ -130,7 +130,7 @@ export function EventsPage() {
           </div>
 
           <div className="grid gap-8 lg:grid-cols-2 lg:gap-10">
-            {events.map((event, index) => {
+            {events.map((event) => {
               const isMatrix = event.theme === "matrix";
               const accent = isMatrix ? "#a3ff12" : "#f5ed00";
               return (
