@@ -3,6 +3,7 @@ import { SiteFooter } from "@/components/shared/site-footer";
 import { HeroReveal } from "@/components/home/hero-reveal";
 import { EventRadarSection } from "@/components/home/event-radar-section";
 import { AboutSection } from "@/components/home/about-section";
+import { HomeScrollStory } from "@/components/home/home-scroll-story";
 import { TeamPreview } from "@/components/home/team-preview";
 import { ContactSection } from "@/components/home/contact-section";
 import { HomeScrollExperience } from "@/components/home/home-scroll-experience";
@@ -21,6 +22,7 @@ export function HomePage() {
           <HeroReveal />
           <EventRadarSection />
           <AboutSection />
+          <HomeScrollStory />
           <InitiativesPreview />
           <TeamPreview />
           <ContactSection />
