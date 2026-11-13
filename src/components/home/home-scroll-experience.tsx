@@ -42,7 +42,7 @@ export function HomeScrollExperience({ children }: HomeScrollExperienceProps) {
               trigger: beat,
               start: "top 88%",
               end: "top 48%",
-              scrub: 0.35,
+              scrub: true,
               invalidateOnRefresh: true,
             },
           }
