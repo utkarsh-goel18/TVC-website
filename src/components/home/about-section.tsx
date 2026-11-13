@@ -482,7 +482,7 @@ export function AboutSection() {
                     <span className="text-white/60">Inter-Institutional</span>
                   </div>
                   <h4 className="text-2xl sm:text-4xl font-medium tracking-tight text-[#f4f3ef] mb-3 sm:mb-4">
-                    PRIMUS'26 &amp; High-Stakes Competitions
+                    PRIMUS&apos;26 &amp; High-Stakes Competitions
                   </h4>
                   <p className="text-xs sm:text-base text-[#a5a49f] leading-relaxed mb-3 sm:mb-4">
                     Organising landmark annual competitions and national-level collaborations,
