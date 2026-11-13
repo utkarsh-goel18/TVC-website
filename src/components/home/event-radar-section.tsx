@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { ArrowUpRight, Calendar, Clock, Download, MapPin, Radio, Sparkles } from "lucide-react";
+import { ArrowUpRight, Calendar, Clock, MapPin, Radio, Sparkles } from "lucide-react";
 
 interface CountdownEvent {
   id: string;
@@ -55,31 +55,17 @@ export function EventRadarSection() {
     return () => window.clearInterval(timer);
   }, [active.targetIso]);
 
-  const downloadCalendarInvite = () => {
-    const ics = [
-      "BEGIN:VCALENDAR",
-      "VERSION:2.0",
-      "PRODID:-//Thapar Venture Club//TVC//EN",
-      "BEGIN:VEVENT",
-      `SUMMARY:${active.title}`,
-      `DESCRIPTION:${active.description}`,
-      `LOCATION:${active.venue}`,
-      "DTSTART:20261120T163000Z",
-      "DTEND:20261121T023000Z",
-      "END:VEVENT",
-      "END:VCALENDAR",
-    ].join("\r\n");
-
-    const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `${active.id}.ics`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  };
+  const googleCalendarUrl = (() => {
+    const params = new URLSearchParams({
+      action: "TEMPLATE",
+      text: active.title,
+      dates: "20261120T163000Z/20261121T023000Z",
+      details: active.description,
+      location: active.venue,
+      ctz: "Asia/Kolkata",
+    });
+    return `https://calendar.google.com/calendar/render?${params.toString()}`;
+  })();
 
   return (
     <section
@@ -163,19 +149,20 @@ export function EventRadarSection() {
               <div className="mt-6 sm:mt-7 flex w-full max-w-sm flex-col items-stretch gap-3 sm:w-auto sm:max-w-none sm:flex-row sm:items-center sm:gap-4">
                 <Link
                   href={active.href}
-                  className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-sm bg-[#f5ed00] px-5 py-3 font-mono text-xs font-bold uppercase tracking-[0.12em] text-black shadow-[0_0_28px_rgba(245,237,0,0.24)] transition-colors hover:bg-[#fff957] sm:w-auto sm:min-h-11 sm:px-5 sm:py-2.5 sm:text-xs sm:tracking-widest"
+                  style={{ color: "#000000" }}\n                  className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-sm bg-[#f5ed00] px-5 py-3 font-mono text-xs font-bold uppercase tracking-[0.12em] shadow-[0_0_28px_rgba(245,237,0,0.24)] transition-colors hover:bg-[#fff957] sm:w-auto sm:min-h-11 sm:px-5 sm:py-2.5 sm:text-xs sm:tracking-widest"
                 >
-                  <span>Explore Initiative</span>
-                  <ArrowUpRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                  <span style={{ color: "#000000" }}>Explore Initiative</span>
+                  <ArrowUpRight style={{ color: "#000000", stroke: "#000000" }} className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                 </Link>
-                <button
-                  type="button"
-                  onClick={downloadCalendarInvite}
+                <a
+                  href={googleCalendarUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-sm border border-white/30 bg-white/[0.09] px-5 py-3 font-mono text-xs font-semibold uppercase tracking-[0.12em] text-white transition-colors hover:border-[#f5ed00]/70 hover:bg-white/[0.14] sm:w-auto sm:min-h-11 sm:px-4 sm:py-2.5 sm:text-xs sm:tracking-widest"
                 >
-                  <Download className="h-3.5 w-3.5 text-[#f5ed00]" />
-                  <span>Add to Calendar</span>
-                </button>
+                  <Calendar className="h-3.5 w-3.5 text-[#f5ed00]" />
+                  <span>Add to Google Calendar</span>
+                </a>
               </div>
             </div>
 
