@@ -92,8 +92,8 @@ export function EventRadarSection() {
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 overflow-hidden"
       >
-        <div className="tvc-liquid-blob-a absolute left-1/5 top-1/2 -translate-y-1/2 h-96 w-96 rounded-full bg-[#f5ed00]/[0.085] blur-[120px]" />
-        <div className="tvc-liquid-blob-b absolute right-1/5 top-1/3 h-80 w-80 rounded-full bg-white/[0.05] blur-[110px]" />
+        <div className="absolute left-1/5 top-1/2 -translate-y-1/2 h-96 w-96 rounded-full bg-[#f5ed00]/[0.055] blur-[72px]" />
+        <div className="absolute right-1/5 top-1/3 h-80 w-80 rounded-full bg-white/[0.035] blur-[64px]" />
       </div>
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-8 lg:px-12">
