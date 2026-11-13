@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ArrowDown, ArrowRight, ArrowUpRight, CalendarDays, MapPin } from "lucide-react";
+import { ArrowDown, ArrowUpRight, CalendarDays, MapPin } from "lucide-react";
 import { MatrixRain } from "@/components/events/matrix-rain";
 
 export function PrimusHero() {
@@ -62,15 +62,20 @@ export function PrimusHero() {
         </div>
 
         <div
-          className="mt-9 flex flex-wrap justify-center gap-3 transition-all delay-700 duration-700"
+          className="mt-9 flex flex-col items-center gap-3 transition-all delay-700 duration-700"
           style={{ opacity: revealed ? 1 : 0, transform: `translateY(${revealed ? 0 : 12}px)` }}
         >
-          <a href="/events/tvc-x-sat/register" className="group inline-flex items-center gap-3 bg-[#a3ff12] px-6 py-4 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-black transition-all hover:-translate-y-1 hover:bg-[#c2ff70]">
-            TIET student registration <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+          <a
+            href="https://www.saturnalia.in/events/business"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-3 bg-[#a3ff12] px-7 py-5 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-black transition-all hover:-translate-y-1 hover:bg-[#c2ff70] sm:px-9"
+          >
+            Register via Saturnalia <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
           </a>
-          <a href="https://www.saturnalia.in/events/business" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 border border-[#a3ff12]/55 bg-black/60 px-6 py-4 font-mono text-[10px] uppercase tracking-[0.16em] text-white/85 transition-colors hover:border-[#a3ff12] hover:text-[#a3ff12]">
-            External participant registration <ArrowRight className="h-4 w-4" />
-          </a>
+          <p className="max-w-md text-[10px] leading-relaxed text-white/45 sm:text-xs">
+            One registration link for everyone — TIET students and external participants alike.
+          </p>
         </div>
       </div>
 
