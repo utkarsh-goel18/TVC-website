@@ -65,7 +65,7 @@ export function ESummitPage() {
                 <span className="h-px w-8 bg-[#f5ed00]" /> Thapar Venture Club presents
               </p>
               <h1 className="text-[clamp(4.5rem,13vw,11rem)] font-semibold leading-[0.78] tracking-[-0.09em]">
-                E-SUMMIT<span className="text-[#f5ed00]">'26</span>
+                E-SUMMIT<span className="text-[#f5ed00]">&apos;26</span>
               </h1>
               <p className="mt-8 max-w-2xl text-lg leading-relaxed text-white/80 sm:text-2xl">
                 Five days of innovation, entrepreneurship and future technologies.
@@ -100,7 +100,7 @@ export function ESummitPage() {
             </div>
             <div className="flex flex-col justify-between gap-8">
               <p className="text-lg leading-relaxed text-white/65">
-                E-Summit'26 marked the 12th edition of Thapar Venture Club's flagship summit: a five-day celebration of innovation, entrepreneurship and future technologies, held from 18 to 22 February 2026.
+                E-Summit&apos;26 marked the 12th edition of Thapar Venture Club&apos;s flagship summit: a five-day celebration of innovation, entrepreneurship and future technologies, held from 18 to 22 February 2026.
               </p>
               <p className="border-l border-[#f5ed00]/60 pl-5 text-base leading-relaxed text-white/80">
                 A campus-wide platform to discover ideas, exchange perspectives and connect with the people shaping what comes next.
@@ -169,7 +169,7 @@ export function ESummitPage() {
                 <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.25em] text-[#f5ed00]">04 / The conversations</p>
                 <h2 className="text-4xl font-semibold tracking-[-0.05em] sm:text-5xl">Perspectives that stay with you.</h2>
               </div>
-              <p className="max-w-sm text-sm leading-relaxed text-white/45">A speaker-film edit from E-Summit'26.</p>
+              <p className="max-w-sm text-sm leading-relaxed text-white/45">A speaker-film edit from E-Summit&apos;26.</p>
             </div>
             {/* Upload speaker edit to public/videos/esummit-2026-speaker-collage.mp4.
                 Optional poster: public/events/esummit-2026-speakers-poster.jpg */}
