@@ -67,9 +67,6 @@ export function InitiativesPreview() {
               data-tvc-glass-card
               className="tvc-feature-card tvc-glass-interactive group relative isolate flex min-h-[360px] xs:min-h-[400px] sm:min-h-[540px] flex-col justify-between overflow-hidden rounded-2xl border border-white/[0.14] bg-white/[0.035] backdrop-blur-2xl p-4 xs:p-5 sm:p-8 lg:p-10 shadow-[0_28px_80px_rgba(0,0,0,0.75),inset_0_1px_1px_rgba(255,255,255,0.22)] hover:border-white/30 transition-all duration-300"
             >
-              {/* Animated Border Beam */}
-              <div className="tvc-border-beam" />
-
               <Image
                 src={initiativeImages[item.id]}
                 alt=""
@@ -78,12 +75,6 @@ export function InitiativesPreview() {
                 className="absolute inset-0 z-0 object-cover opacity-50 transition-transform duration-[1400ms] ease-out group-hover:scale-110"
               />
               <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/75 via-black/25 to-black/92 transition-opacity duration-500 group-hover:via-black/15" />
-
-              {/* Specular Sheen Sweep */}
-              <div
-                aria-hidden="true"
-                className="tvc-panel-sheen pointer-events-none absolute -inset-y-24 -left-1/2 w-1/3 rotate-12 bg-gradient-to-r from-transparent via-white/[0.045] to-transparent z-15"
-              />
 
               <div className="relative z-20 flex items-start justify-between gap-3 sm:gap-4">
                 <span className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-white/15 bg-black/50 backdrop-blur-xl px-2.5 py-0.5 sm:px-3.5 sm:py-1 font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.2em] sm:tracking-[0.22em] text-[#f5ed00] shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)]">
