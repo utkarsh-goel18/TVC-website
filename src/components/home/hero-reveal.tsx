@@ -4,7 +4,6 @@ import { useLayoutEffect, useRef } from "react";
 import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { HeroLiquidCanvas } from "@/components/home/hero-liquid-canvas";
 
 export function HeroReveal() {
   const containerRef = useRef<HTMLElement>(null);
@@ -228,32 +227,6 @@ export function HeroReveal() {
       aria-label="Thapar Venture Club Signature Brand Reveal"
       className="relative w-full h-[100dvh] min-h-[500px] max-h-[1080px] bg-[#000000] overflow-hidden flex flex-col items-center justify-center select-none"
     >
-      {/* SVG Gooey Filter for Liquid Morphing Aura */}
-      <svg aria-hidden="true" className="pointer-events-none absolute h-0 w-0">
-        <defs>
-          <filter id="tvc-liquid-filter">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="22" result="blur" />
-            <feColorMatrix
-              in="blur"
-              mode="matrix"
-              values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 24 -9"
-              result="goo"
-            />
-            <feBlend in="SourceGraphic" in2="goo" />
-          </filter>
-        </defs>
-      </svg>
-
-      {/* Interactive 3D Warp Vortex & Liquid Gold Wave Canvas */}
-      <HeroLiquidCanvas />
-
-      <div aria-hidden="true" className="tvc-hero-atmosphere pointer-events-none absolute inset-0">
-        <div className="tvc-hero-orbit tvc-hero-orbit-one" />
-        <div className="tvc-hero-orbit tvc-hero-orbit-two" />
-        <div className="tvc-hero-grid absolute inset-0" />
-        <div className="tvc-hero-glow absolute inset-0" />
-      </div>
-
       {/* Floating Frosted Glass Telemetry Pills (Left & Right) - Hidden on Mobile */}
       <div className="absolute top-1/2 left-6 hidden -translate-y-1/2 -rotate-90 origin-left xl:flex items-center gap-2.5 rounded-full border border-white/[0.14] bg-white/[0.035] backdrop-blur-xl px-4 py-1.5 font-mono text-[9px] tracking-[0.32em] text-white/65 uppercase shadow-[0_12px_36px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.22)] pointer-events-none z-10">
         <span className="h-1.5 w-1.5 rounded-full bg-[#f5ed00] shadow-[0_0_8px_#f5ed00] animate-ping" />
@@ -275,15 +248,12 @@ export function HeroReveal() {
             ref={rocketRef}
             className="relative flex-shrink-0 w-28 h-28 xs:w-32 xs:h-32 sm:w-44 sm:h-44 md:w-48 md:h-48 lg:w-56 lg:h-56 xl:w-60 xl:h-60"
           >
-            {/* Liquid Morphing Metaball Aura behind Rocket */}
+            {/* Lightweight static radial aura */}
             <div
               aria-hidden="true"
-              style={{ filter: "url(#tvc-liquid-filter)" }}
-              className="pointer-events-none absolute -inset-6 sm:-inset-8 opacity-85"
-            >
-              <div className="tvc-liquid-blob-a absolute inset-3 rounded-full bg-[#f5ed00]/25 blur-xl" />
-              <div className="tvc-liquid-blob-b absolute inset-5 rounded-full bg-white/15 blur-xl" />
-            </div>
+              className="pointer-events-none absolute -inset-6 rounded-full opacity-60"
+              style={{ background: "radial-gradient(circle, rgba(245,237,0,0.16) 0%, rgba(245,237,0,0.06) 42%, transparent 72%)" }}
+            />
 
             {/* 3D Gyroscopic Glass & Gold Rings with Orbiting Satellites */}
             <div
@@ -291,13 +261,13 @@ export function HeroReveal() {
               aria-hidden="true"
               className="pointer-events-none absolute -inset-4 sm:-inset-6 flex items-center justify-center"
             >
-              <div className="tvc-3d-ring tvc-3d-ring-one absolute inset-0 rounded-full border border-[#f5ed00]/35 shadow-[inset_0_0_28px_rgba(245,237,0,0.12)]">
+              <div className="tvc-3d-ring absolute inset-0 rounded-full border border-[#f5ed00]/35 shadow-[inset_0_0_28px_rgba(245,237,0,0.12)]">
                 <span className="absolute -top-1.5 left-1/2 -translate-x-1/2 h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full bg-[#f5ed00] shadow-[0_0_14px_#f5ed00]" />
               </div>
-              <div className="tvc-3d-ring tvc-3d-ring-two absolute inset-2 rounded-full border border-white/20">
+              <div className="tvc-3d-ring absolute inset-2 rounded-full border border-white/20">
                 <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 h-2 w-2 rounded-full bg-white shadow-[0_0_10px_#ffffff]" />
               </div>
-              <div className="tvc-3d-ring tvc-3d-ring-three absolute -inset-2 rounded-full border border-dashed border-[#f5ed00]/25" />
+              <div className="tvc-3d-ring absolute -inset-2 rounded-full border border-dashed border-[#f5ed00]/25" />
               {/* Frosted Glass Specular Halo */}
               <div className="tvc-glass-shimmer absolute inset-2.5 sm:inset-3 rounded-full bg-white/[0.03] backdrop-blur-md border border-white/15 shadow-[inset_0_1px_1px_rgba(255,255,255,0.28),0_16px_48px_rgba(0,0,0,0.75)]" />
             </div>
@@ -306,7 +276,7 @@ export function HeroReveal() {
             <div ref={rocket3DRef} className="relative h-full w-full will-change-transform">
               <div
                 aria-hidden="true"
-                className="tvc-thruster-flare pointer-events-none absolute bottom-1 left-1/2 -translate-x-1/2 h-14 w-8 sm:h-16 sm:w-10 rounded-full bg-gradient-to-b from-[#f5ed00]/45 via-[#f5ed00]/15 to-transparent blur-md"
+                className="pointer-events-none absolute bottom-1 left-1/2 -translate-x-1/2 h-14 w-8 sm:h-16 sm:w-10 rounded-full bg-gradient-to-b from-[#f5ed00]/45 via-[#f5ed00]/15 to-transparent blur-md"
               />
               <Image
                 src="/brand/tvc-rocket-emblem.png"
