@@ -6,19 +6,33 @@ export function AmbientGlowCursor() {
   const glowRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Only activate on pointer devices with fine hover capability
     if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const glow = glowRef.current;
     if (!glow) return;
 
-    let targetX = window.innerWidth / 2;
-    let targetY = window.innerHeight / 2;
-    let currentX = targetX;
-    let currentY = targetY;
+    let targetX = 0;
+    let targetY = 0;
+    let currentX = 0;
+    let currentY = 0;
     let isVisible = false;
     let rafId = 0;
+
+    const animate = () => {
+      currentX += (targetX - currentX) * 0.18;
+      currentY += (targetY - currentY) * 0.18;
+      glow.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) translate(-50%, -50%)`;
+
+      if (Math.abs(targetX - currentX) > 0.5 || Math.abs(targetY - currentY) > 0.5) {
+        rafId = requestAnimationFrame(animate);
+      } else {
+        currentX = targetX;
+        currentY = targetY;
+        glow.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) translate(-50%, -50%)`;
+        rafId = 0;
+      }
+    };
 
     const onMouseMove = (e: MouseEvent) => {
       targetX = e.clientX;
@@ -26,25 +40,21 @@ export function AmbientGlowCursor() {
       if (!isVisible) {
         isVisible = true;
         glow.style.opacity = "1";
+        currentX = targetX;
+        currentY = targetY;
       }
+      if (!rafId) rafId = requestAnimationFrame(animate);
     };
 
     const onMouseLeave = () => {
       isVisible = false;
       glow.style.opacity = "0";
-    };
-
-    const animate = () => {
-      currentX += (targetX - currentX) * 0.08;
-      currentY += (targetY - currentY) * 0.08;
-
-      glow.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) translate(-50%, -50%)`;
-      rafId = requestAnimationFrame(animate);
+      cancelAnimationFrame(rafId);
+      rafId = 0;
     };
 
     window.addEventListener("mousemove", onMouseMove, { passive: true });
-    document.addEventListener("mouseleave", onMouseLeave, { passive: true });
-    rafId = requestAnimationFrame(animate);
+    document.addEventListener("mouseleave", onMouseLeave);
 
     return () => {
       window.removeEventListener("mousemove", onMouseMove);
@@ -62,4 +72,3 @@ export function AmbientGlowCursor() {
     />
   );
 }
-
