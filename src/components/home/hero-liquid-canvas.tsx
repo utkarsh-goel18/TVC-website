@@ -132,7 +132,7 @@ export function HeroLiquidCanvas() {
 
     const render = (now: number) => {
       if (!isInView || document.hidden) return;
-      if (now - lastFrameTime < 22) {
+      if (now - lastFrameTime < 16) {
         rafId = requestAnimationFrame(render);
         return;
       }
