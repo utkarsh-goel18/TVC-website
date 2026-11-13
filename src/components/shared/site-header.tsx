@@ -122,12 +122,12 @@ export function SiteHeader() {
             })}
           </nav>
 
-          <a
+          <Link
             href="/#contact"
             className="tvc-header-cta hidden flex-shrink-0 items-center gap-2 rounded-full border border-[#f5ed00]/50 bg-[#f5ed00]/10 hover:bg-[#f5ed00] hover:text-black backdrop-blur-md px-5 py-2 font-mono text-[10px] font-semibold tracking-[0.16em] text-[#f5ed00] transition-all duration-300 shadow-[0_0_16px_rgba(245,237,0,0.15)] hover:shadow-[0_0_24px_rgba(245,237,0,0.35)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white sm:text-xs md:inline-flex"
           >
-            LET'S CONNECT <ArrowUpRight className="h-3.5 w-3.5" />
-          </a>
+            LET&apos;S CONNECT <ArrowUpRight className="h-3.5 w-3.5" />
+          </Link>
 
           <button
             type="button"
@@ -211,13 +211,13 @@ export function SiteHeader() {
               })}
             </nav>
 
-            <a
+            <Link
               href="/#contact"
               onClick={() => setMobileMenuOpen(false)}
               className="inline-flex w-fit items-center gap-3 rounded-full border border-[#f5ed00] bg-[#f5ed00] px-6 py-3.5 font-mono text-xs font-semibold tracking-[0.14em] text-black transition-all shadow-[0_0_20px_rgba(245,237,0,0.3)] hover:bg-[#ded700] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
             >
-              LET'S CONNECT <ArrowUpRight className="h-4 w-4" />
-            </a>
+              LET&apos;S CONNECT <ArrowUpRight className="h-4 w-4" />
+            </Link>
           </div>
 
           <div className="flex flex-col gap-2 pt-5 font-mono text-xs text-[#6b6a66]">
