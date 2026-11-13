@@ -2,6 +2,7 @@
 
 import { useLayoutEffect, useRef } from "react";
 import Image from "next/image";
+import { HeroLiquidCanvas } from "@/components/home/hero-liquid-canvas";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -227,6 +228,7 @@ export function HeroReveal() {
       aria-label="Thapar Venture Club Signature Brand Reveal"
       className="relative w-full h-[100dvh] min-h-[500px] max-h-[1080px] bg-[#000000] overflow-hidden flex flex-col items-center justify-center select-none"
     >
+      <HeroLiquidCanvas />
       {/* Floating Frosted Glass Telemetry Pills (Left & Right) - Hidden on Mobile */}
       <div className="absolute top-1/2 left-6 hidden -translate-y-1/2 -rotate-90 origin-left xl:flex items-center gap-2.5 rounded-full border border-white/[0.14] bg-white/[0.035] backdrop-blur-xl px-4 py-1.5 font-mono text-[9px] tracking-[0.32em] text-white/65 uppercase shadow-[0_12px_36px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.22)] pointer-events-none z-10">
         <span className="h-1.5 w-1.5 rounded-full bg-[#f5ed00] shadow-[0_0_8px_#f5ed00] animate-ping" />
