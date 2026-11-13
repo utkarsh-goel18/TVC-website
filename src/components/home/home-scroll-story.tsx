@@ -55,13 +55,14 @@ export function HomeScrollStory() {
       const mm = gsap.matchMedia();
       mm.add("(min-width: 900px)", () => {
         const distance = () => Math.max(0, track.scrollWidth - window.innerWidth);
+        gsap.set(track, { force3D: true });
         const timeline = gsap.timeline({
           scrollTrigger: {
             trigger: section,
             start: "top top",
             end: () => "+=" + distance(),
             pin: true,
-            scrub: true,
+            scrub: 0.2,
             anticipatePin: 1,
             invalidateOnRefresh: true,
             onUpdate: (self) => {
@@ -107,11 +108,11 @@ export function HomeScrollStory() {
           if (image)
             gsap.fromTo(
               image,
-              { scale: 0.94, clipPath: "inset(8% 5% 8% 5%)" },
+              { y: 14, autoAlpha: 0.82 },
               {
-                scale: 1,
-                clipPath: "inset(0% 0% 0% 0%)",
-                duration: 1.1,
+                y: 0,
+                autoAlpha: 1,
+                duration: 0.65,
                 ease: "power2.out",
                 scrollTrigger: { trigger: panel, start: "top 75%", once: true },
               }
@@ -126,13 +127,14 @@ export function HomeScrollStory() {
 
   return (
     <section ref={sectionRef} id="story" className="relative overflow-hidden bg-[#060605] text-[#f4f3ef]">
-      {/* Ambient Glow */}
+      {/* Static radial glow: avoids a large composited blur layer. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[36rem] w-[36rem] rounded-full bg-[#f5ed00]/[0.035] blur-[150px]"
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[34rem] w-[34rem] -translate-x-1/2 -translate-y-1/2"
+        style={{ background: "radial-gradient(circle, rgba(245,237,0,0.045) 0%, rgba(245,237,0,0.018) 38%, transparent 72%)" }}
       />
 
-      <div className="relative z-20 flex min-h-[120px] flex-col items-start justify-center gap-3 sm:gap-5 border-y border-white/10 bg-[#080808]/90 backdrop-blur-xl px-4 py-5 sm:min-h-[180px] sm:px-10 sm:py-8 lg:min-h-[230px] lg:flex-row lg:items-end lg:justify-between lg:gap-10 lg:px-16 lg:py-11">
+      <div className="relative z-20 flex min-h-[120px] flex-col items-start justify-center gap-3 sm:gap-5 border-y border-white/10 bg-[#080808] px-4 py-5 sm:min-h-[180px] sm:px-10 sm:py-8 lg:min-h-[230px] lg:flex-row lg:items-end lg:justify-between lg:gap-10 lg:px-16 lg:py-11">
         <div className="max-w-5xl">
           <p className="mb-2 sm:mb-4 inline-flex items-center gap-2 font-mono text-[9px] sm:text-xs font-semibold uppercase tracking-[0.24em] sm:tracking-[0.28em] text-[#f5ed00]">
             <Sparkles className="w-3 h-3 text-[#f5ed00]" />
@@ -142,8 +144,8 @@ export function HomeScrollStory() {
             The journey from idea to impact<span className="text-[#f5ed00]">.</span>
           </h2>
         </div>
-        <div className="flex shrink-0 items-center gap-2.5 sm:gap-3 rounded-full border border-white/14 bg-white/[0.04] backdrop-blur-md px-3.5 py-1.5 sm:px-4 sm:py-2 font-mono text-[9px] sm:text-[11px] font-semibold uppercase tracking-[0.16em] sm:tracking-[0.18em] text-white/75 lg:mb-1 shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)]">
-          <ArrowDown className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-[#f5ed00] animate-bounce" /> Scroll to move through
+        <div className="flex shrink-0 items-center gap-2.5 sm:gap-3 rounded-full border border-white/14 bg-[#111110] px-3.5 py-1.5 sm:px-4 sm:py-2 font-mono text-[9px] sm:text-[11px] font-semibold uppercase tracking-[0.16em] sm:tracking-[0.18em] text-white/75 lg:mb-1 shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)]">
+          <ArrowDown className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-[#f5ed00]" /> Scroll to move through
         </div>
       </div>
 
@@ -186,7 +188,7 @@ export function HomeScrollStory() {
               )}
             </div>
 
-            <div className="tvc-story-media relative order-1 h-[20vh] xs:h-[24vh] min-h-[150px] xs:min-h-[180px] max-h-[360px] w-full max-w-5xl shrink-0 overflow-hidden rounded-2xl border border-white/[0.14] bg-[#141413] shadow-[0_30px_100px_rgba(0,0,0,0.7),inset_0_1px_1px_rgba(255,255,255,0.2)] lg:order-1 lg:h-[min(58vh,520px)] lg:min-h-[300px] lg:max-h-[520px] lg:w-[56%] lg:max-w-none">
+            <div className="tvc-story-media relative order-1 h-[20vh] xs:h-[24vh] min-h-[150px] xs:min-h-[180px] max-h-[360px] w-full max-w-5xl shrink-0 overflow-hidden rounded-2xl border border-white/[0.14] bg-[#141413] shadow-[0_18px_48px_rgba(0,0,0,0.55)] lg:order-1 lg:h-[min(58vh,520px)] lg:min-h-[300px] lg:max-h-[520px] lg:w-[56%] lg:max-w-none">
               <Image
                 src={chapter.image}
                 alt={chapter.imageAlt}
@@ -196,10 +198,10 @@ export function HomeScrollStory() {
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/15" />
-              <span className="absolute bottom-3 left-3 sm:bottom-5 sm:left-5 rounded-full border border-white/20 bg-black/60 backdrop-blur-md px-2.5 py-0.5 sm:px-3.5 sm:py-1 font-mono text-[8px] sm:text-[9px] uppercase tracking-[0.2em] sm:tracking-[0.22em] text-white/85 shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)]">
+              <span className="absolute bottom-3 left-3 sm:bottom-5 sm:left-5 rounded-full border border-white/20 bg-black/85 px-2.5 py-0.5 sm:px-3.5 sm:py-1 font-mono text-[8px] sm:text-[9px] uppercase tracking-[0.2em] sm:tracking-[0.22em] text-white/85 shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)]">
                 TVC / {chapter.note}
               </span>
-              <span className="absolute right-3 top-3 sm:right-5 sm:top-5 rounded-full border border-white/15 bg-black/50 backdrop-blur-md px-2 py-0.5 font-mono text-[9px] sm:text-[10px] text-white/70">
+              <span className="absolute right-3 top-3 sm:right-5 sm:top-5 rounded-full border border-white/15 bg-black/85 px-2 py-0.5 font-mono text-[9px] sm:text-[10px] text-white/70">
                 {chapter.number}
               </span>
             </div>
@@ -207,7 +209,7 @@ export function HomeScrollStory() {
         ))}
       </div>
 
-      <div className="relative z-20 flex items-center justify-between border-t border-white/10 bg-[#080808]/80 backdrop-blur-xl px-4 py-3 sm:px-10 sm:py-4 lg:px-16">
+      <div className="relative z-20 flex items-center justify-between border-t border-white/10 bg-[#080808] px-4 py-3 sm:px-10 sm:py-4 lg:px-16">
         <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/35">
           Ideate · Ascend · Lead
         </span>
