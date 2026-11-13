@@ -42,8 +42,8 @@ export function HomeScrollExperience({ children }: HomeScrollExperienceProps) {
               trigger: beat,
               start: "top 88%",
               end: "top 48%",
-              scrub: true,
-              invalidateOnRefresh: true,
+              toggleActions: "play none none reverse",
+              once: true,
             },
           }
         );
