@@ -115,7 +115,7 @@ export function TeamPreview() {
         {/* Bottom CTA Banner with Frosted Glass */}
         <div
           data-tvc-glass-card
-          className="p-5 sm:p-8 lg:p-12 rounded-2xl border border-white/[0.14] bg-white/[0.035] backdrop-blur-2xl shadow-[0_28px_80px_rgba(0,0,0,0.75),inset_0_1px_1px_rgba(255,255,255,0.2)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6 relative overflow-hidden"
+          className="p-5 sm:p-8 lg:p-12 rounded-2xl border border-white/[0.16] bg-[#11110e] shadow-[0_28px_80px_rgba(0,0,0,0.75),inset_0_1px_1px_rgba(255,255,255,0.12)] flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-5 sm:gap-6 relative overflow-hidden"
         >
           <div
             aria-hidden="true"
@@ -129,16 +129,16 @@ export function TeamPreview() {
             <h3 className="text-lg sm:text-2xl font-medium tracking-tight text-[#f4f3ef] mb-1 sm:mb-1.5">
               Interested in shaping the next venture cohort?
             </h3>
-            <p className="text-xs sm:text-sm text-[#a5a49f] max-w-xl">
+            <p className="text-sm sm:text-sm text-white/75 leading-relaxed max-w-xl">
               Recruitment cycles for student leads, operations managers, and technical fellows open
               each academic term.
             </p>
           </div>
           <Link
             href="/team"
-            className="flex-shrink-0 inline-flex items-center gap-2 bg-[#f5ed00] hover:bg-[#fff957] text-black font-semibold text-xs font-mono uppercase tracking-widest px-5 py-3 sm:px-6 sm:py-3.5 rounded-full transition-all shadow-[0_0_24px_rgba(245,237,0,0.25)] hover:scale-[1.02]"
+            className="flex-shrink-0 inline-flex w-full sm:w-auto min-h-12 items-center justify-center gap-2 bg-[#f5ed00] hover:bg-[#fff957] !text-black font-bold text-xs font-mono uppercase tracking-[0.12em] sm:tracking-widest px-5 py-3.5 sm:px-6 sm:py-3.5 rounded-full transition-colors shadow-[0_0_24px_rgba(245,237,0,0.25)] sm:hover:scale-[1.02]"
           >
-            <span>Meet All 17 Board Members</span>
+            <span className="!text-black">Meet All 17 Board Members</span>
             <ArrowUpRight className="w-4 h-4" />
           </Link>
         </div>
