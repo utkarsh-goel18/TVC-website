@@ -27,7 +27,7 @@ export function ESummitTeamGallery() {
               event.currentTarget.style.display = "none";
             }}
           />
-          <span className="absolute bottom-3 left-3 font-mono text-[9px] uppercase tracking-[0.16em] text-white/65">E-Summit '26 / {number}</span>
+          <span className="absolute bottom-3 left-3 font-mono text-[9px] uppercase tracking-[0.16em] text-white/65">E-Summit &apos;26 / {number}</span>
         </div>
       ))}
     </div>
