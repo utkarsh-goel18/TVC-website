@@ -22,7 +22,7 @@ export function HeroLiquidCanvas() {
     let lastFrame = 0;
     let visible = true;
     let disposed = false;
-    let pointer = { x: -1000, y: -1000, active: false };
+    const pointer = { x: -1000, y: -1000, active: false };
     const dpr = Math.min(window.devicePixelRatio || 1, 1);
 
     const resize = () => {
