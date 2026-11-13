@@ -1,12 +1,6 @@
 import Link from "next/link";
 import { ArrowUpRight, BriefcaseBusiness, CalendarDays, ChartNoAxesCombined, Layers3, Sparkles } from "lucide-react";
 
-const highlights = [
-  { value: "12TH", label: "E-Summit edition", note: "A flagship entrepreneurship summit" },
-  { value: "03", label: "PRIMUS tracks", note: "Product · Consulting · Finance" },
-  { value: "17", label: "Executive Board members", note: "One team building the ecosystem" },
-];
-
 const events = [
   {
     id: "01",
