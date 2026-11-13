@@ -50,7 +50,6 @@ export function HomeScrollStory() {
     gsap.registerPlugin(ScrollTrigger);
     const context = gsap.context(() => {
       const panels = gsap.utils.toArray<HTMLElement>(".tvc-story-panel", track);
-      const media = gsap.utils.toArray<HTMLElement>(".tvc-story-media", track);
       const copy = gsap.utils.toArray<HTMLElement>(".tvc-story-copy", track);
 
       const mm = gsap.matchMedia();
