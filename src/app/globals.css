@@ -141,7 +141,7 @@ a {
 .tvc-hero-atmosphere { overflow: hidden; }
 .tvc-hero-glow {
   background: radial-gradient(ellipse 42% 38% at 50% 50%, rgba(245,237,0,.075), transparent 75%);
-  animation: tvc-glow-breathe 8s ease-in-out infinite alternate;
+  animation: none;
 }
 .tvc-hero-orbit {
   position: absolute;
@@ -167,7 +167,7 @@ a {
   width: min(92vw, 1080px);
   border-color: rgba(255,255,255,.035);
   transform: translate(-50%,-50%) rotate(18deg) scaleY(.24);
-  animation: tvc-orbit-drift 36s linear infinite reverse;
+  animation: none;
 }
 .tvc-header-cta { position: relative; overflow: hidden; }
 .tvc-header-cta::before {
