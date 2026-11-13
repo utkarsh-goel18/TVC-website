@@ -171,8 +171,7 @@ export function ESummitPage() {
               </div>
               <p className="max-w-sm text-sm leading-relaxed text-white/45">A speaker-film edit from E-Summit&apos;26.</p>
             </div>
-            {/* Upload speaker edit to public/videos/esummit-2026-speaker-collage.mp4.
-                Optional poster: public/events/esummit-2026-speakers-poster.jpg */}
+            {/* Speaker film is served from public/videos/esummit-2026-speaker-collage.mp4. */}
             <div className="relative aspect-video overflow-hidden border border-white/10 bg-black">
               <PlayVideoOnView
                 src="/videos/esummit-2026-speaker-collage.mp4"
@@ -181,7 +180,7 @@ export function ESummitPage() {
               />
               <div className="pointer-events-none absolute bottom-4 left-4 flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.18em] text-white/65"><Play className="h-3.5 w-3.5" /> E-Summit 2026 · Speaker edit</div>
             </div>
-            <p className="mt-4 font-mono text-[9px] uppercase tracking-[0.16em] text-white/35">Video plays muted when it enters the viewport.</p>
+            <p className="mt-4 font-mono text-[9px] uppercase tracking-[0.16em] text-white/35">Video starts muted on entry. Use the sound control to hear the original audio.</p>
           </div>
         </section>
 
