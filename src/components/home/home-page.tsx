@@ -13,7 +13,7 @@ import { AmbientGlowCursor } from "@/components/home/ambient-glow-cursor";
 
 export function HomePage() {
   return (
-    <div className="min-h-screen bg-[#000000] text-[#f4f3ef] flex flex-col selection:bg-[#f5ed00] selection:text-black relative">
+    <div className="tvc-textured-page min-h-screen text-[#f4f3ef] flex flex-col selection:bg-[#f5ed00] selection:text-black relative">
       <AmbientGlowCursor />
       <HomeIntro />
       <SiteHeader />
