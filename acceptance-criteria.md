@@ -31,15 +31,10 @@ Use this as a living checklist. Mark an item complete only after testing the cur
 
 ## PRIMUS registration
 
-- [ ] Confirm the institutional email domain with TIET IT.
-- [ ] Test verified signup, email verification, login and sign-out.
-- [ ] Test team creation, joining, one-team-per-account enforcement and team-size limits.
-- [ ] Test leader-only submission and submitted-team locking.
-- [ ] Test rate limits, malformed/oversized bodies and invalid team codes.
-- [ ] Test admin UID allowlist, revoked-token rejection, filters, pagination and CSV export.
-- [ ] Confirm participant responses do not expose private member phone/hall fields.
-- [ ] Verify Firestore rules and indexes against the intended Firebase project.
-- [ ] Confirm admin access, privacy notice and operational ownership before opening registration.
+- [ ] Confirm the PRIMUS registration CTA points to the approved Saturnalia event registration page.
+- [ ] Confirm there is no separate TVC registration form, login, team creation or submission flow.
+- [ ] Confirm the same Saturnalia registration destination is presented to TIET and external participants.
+- [ ] Verify no public navigation or event CTA links to the retired TVC registration route.
 
 ## Release sign-off
 
