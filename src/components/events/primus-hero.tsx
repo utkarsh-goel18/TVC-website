@@ -74,7 +74,7 @@ export function PrimusHero() {
             Register via Saturnalia <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
           </a>
           <p className="max-w-md text-[10px] leading-relaxed text-white/45 sm:text-xs">
-            One registration link for everyone — TIET students and external participants alike.
+            For TIET students and participants from all colleges.
           </p>
         </div>
       </div>
