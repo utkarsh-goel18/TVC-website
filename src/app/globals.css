@@ -644,3 +644,26 @@ a {
 .tvc-textured-page main > div > div:first-child {
   background-color: rgba(0, 0, 0, 0.62) !important;
 }
+
+
+/* Keep every solid TVC-yellow action readable, regardless of nested text utilities. */
+:is(a, button)[class~="bg-[#f5ed00]"],
+:is(a, button)[class~="bg-[#fff957]"] {
+  color: #000 !important;
+  -webkit-text-fill-color: #000 !important;
+}
+:is(a, button)[class~="bg-[#f5ed00]"] *,
+:is(a, button)[class~="bg-[#fff957]"] * {
+  color: #000 !important;
+  -webkit-text-fill-color: #000 !important;
+}
+:is(a, button)[class~="hover:bg-[#f5ed00]"]:hover,
+:is(a, button)[class~="hover:bg-[#fff957]"]:hover {
+  color: #000 !important;
+  -webkit-text-fill-color: #000 !important;
+}
+:is(a, button)[class~="hover:bg-[#f5ed00]"]:hover *,
+:is(a, button)[class~="hover:bg-[#fff957]"]:hover * {
+  color: #000 !important;
+  -webkit-text-fill-color: #000 !important;
+}
