@@ -29,18 +29,7 @@ const COUNTDOWN_EVENTS: CountdownEvent[] = [
     description:
       "High-stakes case battles, business planning challenges and venture creation sprints bringing together ambitious founders and industry leaders.",
   },
-  {
-    id: "e-summit",
-    label: "E-SUMMIT",
-    edition: "Flagship Entrepreneurship Festival",
-    title: "Flagship E-Summit — Ideas Into Impact",
-    dateLabel: "12 February 2027 · 09:30 AM IST",
-    targetIso: "2027-02-12T09:30:00+05:30",
-    venue: "Main Auditorium Complex, TIET Patiala",
-    href: "/events/e-summit",
-    description:
-      "TIET's signature entrepreneurship festival featuring keynote speaker sessions, interactive founder dialogues, workshops and networking arenas.",
-  },
+
 ];
 
 export function EventRadarSection() {
