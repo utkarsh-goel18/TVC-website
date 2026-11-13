@@ -73,10 +73,7 @@ export function HomeScrollStory() {
 
         const storyDuration = panels.length;
         timeline.to(track, { x: () => -distance(), duration: storyDuration, ease: "none" }, 0);
-        media.forEach((item, index) => {
-          const image = item.querySelector("img");
-          if (image) timeline.fromTo(image, { scale: 1.12 }, { scale: 1, duration: 1, ease: "none" }, index);
-        });
+        // Keep image scale fixed while the horizontal track moves.
         copy.forEach((item) => {
           gsap.set(item, { y: 0, autoAlpha: 1 });
         });
