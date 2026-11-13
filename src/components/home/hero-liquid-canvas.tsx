@@ -32,7 +32,7 @@ export function HeroLiquidCanvas() {
     };
 
     const resize = () => {
-      dpr = Math.min(window.devicePixelRatio || 1, 1.25);
+      dpr = Math.min(window.devicePixelRatio || 1, 1);
       width = window.innerWidth;
       height = window.innerHeight;
       canvas.width = Math.floor(width * dpr);
@@ -80,7 +80,7 @@ export function HeroLiquidCanvas() {
     window.addEventListener("touchmove", onTouchMove, { passive: true });
 
     // 3D Depth Particles
-    const count = width < 768 ? 28 : 52;
+    const count = width < 768 ? 20 : 36;
     const nodes = Array.from({ length: count }, () => ({
       x: (Math.random() - 0.5) * width * 1.7,
       y: (Math.random() - 0.5) * height * 1.7,
@@ -92,7 +92,7 @@ export function HeroLiquidCanvas() {
     }));
 
     // 3D Tunnel Vortex Rings
-    const ringCount = width < 768 ? 4 : 7;
+    const ringCount = width < 768 ? 3 : 5;
     const vortexRings = Array.from({ length: ringCount }, (_, idx) => ({
       z: (idx / ringCount) * 1100 + 80,
       rot: idx * 0.4,
@@ -132,11 +132,11 @@ export function HeroLiquidCanvas() {
 
     const render = (now: number) => {
       if (!isInView || document.hidden) return;
-      if (now - lastFrameTime < 33) {
+      if (now - lastFrameTime < 16) {
         rafId = requestAnimationFrame(render);
         return;
       }
-      const delta = lastFrameTime ? Math.min((now - lastFrameTime) / 1000, 0.06) : 1 / 30;
+      const delta = lastFrameTime ? Math.min((now - lastFrameTime) / 1000, 0.05) : 1 / 60;
       lastFrameTime = now;
       time += delta;
 
@@ -146,7 +146,7 @@ export function HeroLiquidCanvas() {
       pointer.normY = (pointer.y / Math.max(1, height) - 0.5) * 2;
 
       const speed = Math.hypot(pointer.targetX - pointer.x, pointer.targetY - pointer.y);
-      if (speed > 14 && now - lastRippleTime > 130 && ripples.length < 9) {
+      if (speed > 14 && now - lastRippleTime > 130 && ripples.length < 5) {
         ripples.push({
           x: pointer.x,
           y: pointer.y,
@@ -227,8 +227,8 @@ export function HeroLiquidCanvas() {
       }
 
       // 3. 3D Perspective Flowing Liquid Silk Wave Ribbons
-      const ribbonCount = width < 768 ? 4 : 6;
-      const cols = width < 768 ? 20 : 32;
+      const ribbonCount = width < 768 ? 3 : 4;
+      const cols = width < 768 ? 16 : 24;
       const spanX = width * 1.5;
 
       for (let r = 0; r < ribbonCount; r++) {
