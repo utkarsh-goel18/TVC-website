@@ -26,7 +26,7 @@ export function PrimusHero() {
           className="mb-8 font-mono text-[9px] uppercase tracking-[0.42em] text-[#a3ff12] transition-all duration-1000 sm:text-[10px]"
           style={{ opacity: revealed ? 1 : 0, transform: `translateY(${revealed ? 0 : 16}px)` }}
         >
-          TVC × SAT <span className="mx-2 text-white/25">//</span> THE MATRIX CHALLENGE
+          TVC × SAT <span className="mx-2 text-white/25">{"//"}</span> THE MATRIX CHALLENGE
         </p>
 
         <h1
