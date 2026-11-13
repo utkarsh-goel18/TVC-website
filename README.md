@@ -20,17 +20,16 @@ Requirements: a Node.js version supported by the installed Next.js release and n
 
 ```bash
 npm ci
-cp .env.example .env.local
 npm run dev
 ```
 
 Open http://localhost:3000.
 
-Set the environment variables described in [`.env.example`](.env.example). The Firebase client configuration is in `src/lib/primus/firebase-client.ts`; server-side credentials are read by `src/lib/primus/firebase-admin.ts`. Never expose Admin SDK credentials through a `NEXT_PUBLIC_` variable or commit `.env.local`.
-
 ## PRIMUS registration
 
-All PRIMUS’26 participants, including TIET students, must register through the official Saturnalia website: [Saturnalia business events](https://www.saturnalia.in/events/business). The TVC website provides event information and links to that single registration destination; it does not collect or store participant registrations.
+All PRIMUS’26 participants, including TIET students and external participants, must register through the same official Saturnalia website: [Saturnalia business events](https://www.saturnalia.in/events/business). The TVC website provides event information and a link to that single registration destination. It does not host a registration form, create participant/team records, or collect/store registration data.
+
+The former TVC-hosted PRIMUS registration system has been retired. Its Firestore registration records must be deleted separately from the Firebase console; removing the application code does not delete data already stored in Firestore.
 
 ## Quality checks
 
