@@ -5,16 +5,13 @@ The official website for Thapar Venture Club (TVC), Thapar Institute of Engineer
 ## What is in this repository
 
 - Public TVC website: homepage, events, E-Summit, TVC x SAT / PRIMUS, speakers and team pages.
-- PRIMUS'26 Thapar-student registration flow and protected admin dashboard.
-- Firebase Authentication, Cloud Firestore and server-side Firebase Admin integration.
+- Public PRIMUS’26 event information with registration directed to the official Saturnalia website.
 
 ## Technology
 
 - Next.js 15 App Router, React 19 and TypeScript
 - Tailwind CSS 4
 - GSAP and Lenis for motion and scrolling
-- Firebase Authentication and Cloud Firestore
-- Firebase Admin SDK for trusted server-side operations
 - Firebase App Hosting configuration
 
 ## Local development
@@ -33,18 +30,7 @@ Set the environment variables described in [`.env.example`](.env.example). The F
 
 ## PRIMUS registration
 
-- Participant registration: `/events/tvc-x-sat/register`
-- Admin dashboard: `/admin/primus` (not linked from public navigation)
-
-The registration flow is restricted to verified institutional email accounts. Team creation, joining, submission and admin data access run through server-side API routes. See [`PRIMUS-REGISTRATION-BACKEND.md`](PRIMUS-REGISTRATION-BACKEND.md) for the data model, API contract, security controls and pre-launch checks.
-
-Firestore client access is denied by [`firestore.rules`](firestore.rules); the server uses Firebase Admin. Review the target project before deploying:
-
-```bash
-firebase deploy --only firestore:rules,firestore:indexes --project <firebase-project-id>
-```
-
-Do not assume the checked-in Firebase project ID is the intended production target. Confirm it before every deployment.
+All PRIMUS’26 participants, including TIET students, must register through the official Saturnalia website: [Saturnalia business events](https://www.saturnalia.in/events/business). The TVC website provides event information and links to that single registration destination; it does not collect or store participant registrations.
 
 ## Quality checks
 
@@ -62,7 +48,6 @@ The full-repository lint command may report existing findings outside recently c
 - [`design.md`](design.md) — current visual direction, page experience and motion principles
 - [`content-and-assets.md`](content-and-assets.md) — content approval and media requirements
 - [`acceptance-criteria.md`](acceptance-criteria.md) — ongoing QA and launch checklist
-- [`PRIMUS-REGISTRATION-BACKEND.md`](PRIMUS-REGISTRATION-BACKEND.md) — registration architecture and operational checklist
 
 ## Content integrity
 
