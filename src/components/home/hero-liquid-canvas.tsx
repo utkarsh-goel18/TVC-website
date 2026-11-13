@@ -31,6 +31,9 @@ export function HeroLiquidCanvas() {
       normY: 0,
     };
 
+    let auroraGradient: CanvasGradient | null = null;
+    let secondaryGradient: CanvasGradient | null = null;
+
     const resize = () => {
       dpr = Math.min(window.devicePixelRatio || 1, 1);
       width = window.innerWidth;
@@ -60,8 +63,6 @@ export function HeroLiquidCanvas() {
     // Expanding 3D shockwave rings
     const ripples: Array<{ x: number; y: number; r: number; maxR: number; alpha: number }> = [];
     let lastRippleTime = 0;
-    let auroraGradient: CanvasGradient | null = null;
-    let secondaryGradient: CanvasGradient | null = null;
 
     const onMouseMove = (e: MouseEvent) => {
       pointer.targetX = e.clientX;
