@@ -8,12 +8,10 @@ import { TeamPreview } from "@/components/home/team-preview";
 import { ContactSection } from "@/components/home/contact-section";
 import { HomeScrollExperience } from "@/components/home/home-scroll-experience";
 import { InitiativesPreview } from "@/components/home/initiatives-preview";
-import { AmbientGlowCursor } from "@/components/home/ambient-glow-cursor";
 
 export function HomePage() {
   return (
     <div className="tvc-textured-page min-h-screen text-[#f4f3ef] flex flex-col selection:bg-[#f5ed00] selection:text-black relative">
-      <AmbientGlowCursor />
       <SiteHeader />
       <main id="main-content" className="flex-grow">
         <HomeScrollExperience>
