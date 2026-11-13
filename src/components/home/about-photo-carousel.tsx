@@ -67,6 +67,7 @@ export function AboutPhotoCarousel() {
       {/* Full-bleed photo stage */}
       <div className="relative flex aspect-[16/9] sm:aspect-[21/9] min-h-[170px] xs:min-h-[190px] sm:min-h-[320px] w-full items-center justify-center overflow-hidden bg-[#090909]">
         {slides.map((slide, index) =>
+          (index === activeIndex || index === (activeIndex + 1) % slides.length) &&
           !failedImages.includes(slide.src) ? (
             <img
               key={slide.src}
