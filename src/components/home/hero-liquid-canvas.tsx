@@ -38,6 +38,15 @@ export function HeroLiquidCanvas() {
       canvas.width = Math.floor(width * dpr);
       canvas.height = Math.floor(height * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const gradientRadius = Math.max(width, height);
+      auroraGradient = ctx.createRadialGradient(width * 0.5, height * 0.5, 0, width * 0.5, height * 0.5, gradientRadius * 0.42);
+      auroraGradient.addColorStop(0, "rgba(245, 237, 0, 0.11)");
+      auroraGradient.addColorStop(0.45, "rgba(245, 237, 0, 0.032)");
+      auroraGradient.addColorStop(1, "rgba(0, 0, 0, 0)");
+      secondaryGradient = ctx.createRadialGradient(width * 0.5, height * 0.5, 0, width * 0.5, height * 0.5, gradientRadius * 0.32);
+      secondaryGradient.addColorStop(0, "rgba(255, 255, 255, 0.06)");
+      secondaryGradient.addColorStop(0.5, "rgba(245, 237, 0, 0.024)");
+      secondaryGradient.addColorStop(1, "rgba(0, 0, 0, 0)");
       if (pointer.x === 0 && pointer.y === 0) {
         pointer.x = pointer.targetX = width / 2;
         pointer.y = pointer.targetY = height / 2;
@@ -51,6 +60,8 @@ export function HeroLiquidCanvas() {
     // Expanding 3D shockwave rings
     const ripples: Array<{ x: number; y: number; r: number; maxR: number; alpha: number }> = [];
     let lastRippleTime = 0;
+    let auroraGradient: CanvasGradient | null = null;
+    let secondaryGradient: CanvasGradient | null = null;
 
     const onMouseMove = (e: MouseEvent) => {
       pointer.targetX = e.clientX;
@@ -132,11 +143,11 @@ export function HeroLiquidCanvas() {
 
     const render = (now: number) => {
       if (!isInView || document.hidden) return;
-      if (now - lastFrameTime < 16) {
+      if (now - lastFrameTime < 33) {
         rafId = requestAnimationFrame(render);
         return;
       }
-      const delta = lastFrameTime ? Math.min((now - lastFrameTime) / 1000, 0.05) : 1 / 60;
+      const delta = lastFrameTime ? Math.min((now - lastFrameTime) / 1000, 0.06) : 1 / 30;
       lastFrameTime = now;
       time += delta;
 
@@ -168,35 +179,23 @@ export function HeroLiquidCanvas() {
       // 1. Multi-Orb Liquid Plasma Aurora
       const blob1X = width * 0.5 + Math.sin(time * 0.75) * (width * 0.2) + pointer.normX * 55;
       const blob1Y = height * 0.5 + Math.cos(time * 0.6) * (height * 0.16) + pointer.normY * 45;
-      const grad1 = ctx.createRadialGradient(
-        blob1X,
-        blob1Y,
-        0,
-        blob1X,
-        blob1Y,
-        Math.max(width, height) * 0.42
-      );
-      grad1.addColorStop(0, "rgba(245, 237, 0, 0.11)");
-      grad1.addColorStop(0.45, "rgba(245, 237, 0, 0.032)");
-      grad1.addColorStop(1, "rgba(0, 0, 0, 0)");
-      ctx.fillStyle = grad1;
-      ctx.fillRect(0, 0, width, height);
+      if (auroraGradient) {
+        ctx.save();
+        ctx.translate(blob1X - width * 0.5, blob1Y - height * 0.5);
+        ctx.fillStyle = auroraGradient;
+        ctx.fillRect(-width, -height, width * 3, height * 3);
+        ctx.restore();
+      }
 
       const blob2X = width * 0.5 + Math.cos(time * 0.52) * (width * 0.24) - pointer.normX * 45;
       const blob2Y = height * 0.5 + Math.sin(time * 0.68) * (height * 0.2) - pointer.normY * 35;
-      const grad2 = ctx.createRadialGradient(
-        blob2X,
-        blob2Y,
-        0,
-        blob2X,
-        blob2Y,
-        Math.max(width, height) * 0.32
-      );
-      grad2.addColorStop(0, "rgba(255, 255, 255, 0.06)");
-      grad2.addColorStop(0.5, "rgba(245, 237, 0, 0.024)");
-      grad2.addColorStop(1, "rgba(0, 0, 0, 0)");
-      ctx.fillStyle = grad2;
-      ctx.fillRect(0, 0, width, height);
+      if (secondaryGradient) {
+        ctx.save();
+        ctx.translate(blob2X - width * 0.5, blob2Y - height * 0.5);
+        ctx.fillStyle = secondaryGradient;
+        ctx.fillRect(-width, -height, width * 3, height * 3);
+        ctx.restore();
+      }
 
       // 2. 3D Perspective Warp Vortex Rings
       for (let i = 0; i < vortexRings.length; i++) {
