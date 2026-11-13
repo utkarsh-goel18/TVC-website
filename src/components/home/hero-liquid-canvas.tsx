@@ -32,7 +32,7 @@ export function HeroLiquidCanvas() {
     };
 
     const resize = () => {
-      dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      dpr = Math.min(window.devicePixelRatio || 1, 1.25);
       width = window.innerWidth;
       height = window.innerHeight;
       canvas.width = Math.floor(width * dpr);
@@ -132,11 +132,11 @@ export function HeroLiquidCanvas() {
 
     const render = (now: number) => {
       if (!isInView || document.hidden) return;
-      if (now - lastFrameTime < 16) {
+      if (now - lastFrameTime < 33) {
         rafId = requestAnimationFrame(render);
         return;
       }
-      const delta = lastFrameTime ? Math.min((now - lastFrameTime) / 1000, 0.05) : 1 / 45;
+      const delta = lastFrameTime ? Math.min((now - lastFrameTime) / 1000, 0.06) : 1 / 30;
       lastFrameTime = now;
       time += delta;
 
