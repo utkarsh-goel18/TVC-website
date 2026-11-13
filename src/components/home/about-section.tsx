@@ -60,14 +60,6 @@ function EditorialPhotoFrame({
       <div className="tvc-crosshair absolute bottom-2.5 left-2.5 text-[11px] font-mono text-white/30 select-none z-10">+</div>
       <div className="tvc-crosshair absolute bottom-2.5 right-2.5 text-[11px] font-mono text-white/30 select-none z-10">+</div>
 
-      {/* Top Telemetry Header */}
-      <div className="relative z-10 flex items-center justify-between font-mono text-[9px] sm:text-[11px] text-[#a5a49f]">
-        <span className="tracking-wider uppercase font-semibold text-white/90">{label}</span>
-        <span className="rounded-full border border-white/10 bg-black/40 backdrop-blur-md px-2 py-0.5 sm:px-2.5 sm:py-0.5 text-white/60">
-          {location}
-        </span>
-      </div>
-
       {!imageSrc ? (
         <div className="relative z-10 my-auto text-center py-2 sm:py-4">
           <div className="w-8 h-8 sm:w-12 sm:h-12 mx-auto mb-2 sm:mb-3 rounded-full border border-white/15 bg-white/[0.04] backdrop-blur-md flex items-center justify-center text-[#f5ed00] shadow-[0_0_16px_rgba(245,237,0,0.2)]">
@@ -79,11 +71,6 @@ function EditorialPhotoFrame({
         </div>
       ) : null}
 
-      {/* Bottom Metadata Strip */}
-      <div className="relative z-10 pt-2 sm:pt-3 border-t border-white/[0.1] flex items-center justify-between text-[9px] sm:text-[11px] font-mono">
-        <span className="text-[#f4f3ef]/80">Official Documentation</span>
-        <span className="text-[#f5ed00] font-semibold">{imageSrc ? "TVC ARCHIVE" : "Archive Selection TBC"}</span>
-      </div>
     </div>
   );
 }
