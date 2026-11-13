@@ -180,7 +180,7 @@ export function PrimusPage() {
                   <a href="https://www.saturnalia.in/events/business" target="_blank" rel="noopener noreferrer" className="group inline-flex items-center gap-3 bg-[#a3ff12] px-6 py-4 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-black transition-all hover:-translate-y-1 hover:bg-[#c2ff70]">
                     Register via Saturnalia <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
                   </a>
-                  <p className="mt-3 text-xs text-white/40">All participants, including TIET students, must register through the official Saturnalia website.</p>
+                  <p className="mt-3 text-xs text-white/40">All participants — TIET students and external participants alike — must register through this same official Saturnalia website.</p>
                 </div>
               </div>
             </div>
